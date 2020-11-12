@@ -1,3 +1,3 @@
-# DB_Projcect
+# DB_Project
 ### 팀원
 조장(조창현), 팀원(백동우, 이상균)
