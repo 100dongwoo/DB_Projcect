@@ -8,13 +8,16 @@ DROP TABLE 시설물 CASCADE CONSTRAINTS;
 
 DROP TABLE 대여내역 CASCADE CONSTRAINTS;
 
+DROP SEQUENCE 대여번호;
+
 CREATE TABLE 동의인 (
-    동의인번호  NUMBER(10) NOT NULL PRIMARY KEY,
+    동의인번호  NUMBER(10) NOT NULL,
     비밀번호   VARCHAR2(20) NOT NULL,
     이름     VARCHAR2(10) NOT NULL,
     전화번호   VARCHAR2(20) NOT NULL,
     직책     VARCHAR2(10) NOT NULL,
-    소속     VARCHAR(20) NOT NULL
+    소속     VARCHAR(20) NOT NULL,
+    CONSTRAINT 동의인번호_pk PRIMARY KEY ( 동의인번호 )
 );
 
 CREATE TABLE 시설물 (
@@ -39,7 +42,7 @@ CREATE TABLE 대여내역 (
     사유    VARCHAR2(100),
     동의인   NUMBER(10) NOT NULL,
     건물    NUMBER(10) NOT NULL,
-    호실    NUMBER(10) NOT NULL,
+    호실    NUMBER(10),
     CONSTRAINT 대여번호_pk PRIMARY KEY ( 대여번호 ),
     CONSTRAINT 동의인_fk FOREIGN KEY ( 동의인 )
         REFERENCES 동의인 ( 동의인번호 ),
@@ -78,6 +81,15 @@ INSERT INTO 동의인 VALUES (
     '컴퓨터공학과'
 );
 
+INSERT INTO 동의인 VALUES (
+    1,
+    '1234',
+    '김진덕',
+    '010-7777-7777',
+    '총장',
+    '대학본부'
+);
+
 INSERT INTO 시설물 VALUES (
     1,
     '815',
@@ -102,12 +114,36 @@ INSERT INTO 시설물 VALUES (
     20153188
 );
 
+INSERT INTO 시설물 VALUES (
+    4,
+    0,
+    '야외음악당',
+    20163248,
+    1
+);
+
+INSERT INTO 시설물 VALUES (
+    5,
+    0,
+    '야구장',
+    20163248,
+    null
+);
+
+INSERT INTO 시설물 VALUES (
+    6,
+    0,
+    '축구장',
+    20163248,
+    null
+);
+
 INSERT INTO 대여내역 VALUES (
     대여번호.NEXTVAL,
-    sysdate,
     sysdate + 1,
+    sysdate + 2,
     10,
-    '강의',
+    '특별한 강의',
     20163248,
     3,
     815
