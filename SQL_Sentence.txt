@@ -2,6 +2,12 @@ CREATE USER deu_facility IDENTIFIED BY "1234";
 
 GRANT connect, resource, dba TO deu_facility;
 
+DROP TABLE 동의인;
+
+DROP TABLE 시설물;
+
+DROP TABLE 대여내역;
+
 CREATE TABLE 동의인 (
     동의인번호  NUMBER(10) NOT NULL PRIMARY KEY,
     비밀번호   VARCHAR2(20) NOT NULL,
@@ -14,7 +20,7 @@ CREATE TABLE 동의인 (
 CREATE TABLE 시설물 (
     건물번호  NUMBER(10) NOT NULL,
     호실번호  NUMBER(10) NOT NULL,
-    시설명   VARCHAR2(10) NOT NULL,
+    시설명   VARCHAR2(20) NOT NULL,
     관리자   NUMBER(10) NOT NULL,
     허가자   NUMBER(10),
     CONSTRAINT 건물_호실번호_pk PRIMARY KEY ( 건물번호,
@@ -49,9 +55,3 @@ INSERT INTO 동의인 VALUES(20141234,'1234','조창현','010','학생','컴퓨터공학과');
 INSERT INTO 시설물 VALUES(1,'815','국제관',20153188,20153188);
 INSERT INTO 시설물 VALUES(2,'815','정보공학관',20163248,20153188);
 INSERT INTO 시설물 VALUES(3,'815','자연대',20163248,20153188);
-
-DROP TABLE 동의인;
-
-DROP TABLE 시설물;
-
-DROP TABLE 대여내역;
