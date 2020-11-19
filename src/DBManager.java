@@ -9,8 +9,8 @@ public class DBManager extends DBConnecter {
 		super(id, password);
 	}
 
-	public boolean rentalInsert(Date 시작기간, Date 종료기간, int 인원, String 사유, int 동의인, int 건물, int 호실) {
-		String query = "insert into 대여내역  values(대여번호.NEXTVAL,?,?,?,?,?,?,?) ";
+	public boolean insertRental(Date 시작기간, Date 종료기간, int 인원, String 사유, int 동의인, int 건물, int 호실) {
+		String query = "insert into 대여내역  values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setDate(1, 시작기간);
@@ -21,14 +21,14 @@ public class DBManager extends DBConnecter {
 			pstmt.setInt(6, 건물);
 			pstmt.setInt(7, 호실);
 		} catch (SQLException e) {
-			System.out.println("대여내역 데이터 삽입 오류:" + e.getMessage());
+			System.out.println("Insert Rental Error: " + e.getMessage());
 			return false;
 		}
 		return true;
 	}
 
-	public boolean select(String table) {
-		String query = "SELECT * form " + table;
+	public boolean selectPerson() {
+		String query = "SELECT * form 동의인";
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -42,14 +42,14 @@ public class DBManager extends DBConnecter {
 			}
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println("데이터 검색 오류 : " + e.getMessage());
+			System.out.println("Select All Person Error: " + e.getMessage());
 			return false;
 		}
 		return true;
 	}
 
-	public boolean Login(String id, String password) {
-		String query = "SELECT * from 동의인 where 동의인번호=" + id + "and 비밀번호=" + password;
+	public boolean selectPerson(String id, String password) {
+		String query = "SELECT * from 동의인 where 동의인번호=" + id + " and 비밀번호=" + password;
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -63,6 +63,49 @@ public class DBManager extends DBConnecter {
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public boolean selectFacility() {
+		String query = "SELECT * form 시설물";
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				System.out.print("\t" + rs.getInt(1));
+				System.out.print("\t" + rs.getInt(2));
+				System.out.print("\t" + rs.getString(3));
+				System.out.print("\t" + rs.getInt(4));
+				System.out.print("\t" + rs.getInt(5));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println("Select All Facility Error: " + e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	public boolean selectRental() {
+		String query = "SELECT * form 대여내역";
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				System.out.print("\t" + rs.getInt(1));
+				System.out.print("\t" + rs.getDate(2));
+				System.out.print("\t" + rs.getDate(3));
+				System.out.print("\t" + rs.getInt(4));
+				System.out.print("\t" + rs.getString(5));
+				System.out.print("\t" + rs.getInt(6));
+				System.out.print("\t" + rs.getInt(7));
+				System.out.print("\t" + rs.getInt(8));
+			}
+			stmt.close();
+		} catch (SQLException e) {
+			System.out.println("Select All Rental Error: " + e.getMessage());
 			return false;
 		}
 		return true;
