@@ -36,13 +36,13 @@ public class DBConnecter {
 			while (rs.next()) {
 				ResultSetMetaData schema = rs.getMetaData();
 //				for (int i = 0; i <= )
-//				System.out.print(schema.getColumnCount());
-//				System.out.print("\t" + rs.getInt("동의인번호"));
-//				System.out.print("\t" + rs.getString("비밀번호"));
-//				System.out.print("\t" + rs.getString("이름"));
-//				System.out.print("\t" + rs.getString("전화번호"));
-//				System.out.print("\t" + rs.getString("직책"));
-//				System.out.print("\t" + rs.getString("소속") + "\n");
+				System.out.print(schema.getColumnCount());
+				System.out.print("\t" + rs.getInt("동의인번호"));
+				System.out.print("\t" + rs.getString("비밀번호"));
+				System.out.print("\t" + rs.getString("이름"));
+				System.out.print("\t" + rs.getString("전화번호"));
+				System.out.print("\t" + rs.getString("직책"));
+				System.out.print("\t" + rs.getString("소속") + "\n");
 			}
 			stmt.close();
 			rs.close();
