@@ -32,14 +32,14 @@ CREATE TABLE 시설물 (
 );
 
 CREATE TABLE 대여내역 (
-    대여번호   NUMBER(10) NOT NULL,
-    시작기간   DATE NOT NULL,
+    대여번호  NUMBER(10) NOT NULL,
+    시작기간  DATE NOT NULL,
     종료기간  DATE NOT NULL,
-    인원     NUMBER NOT NULL,
-    사유     VARCHAR2(100),
-    동의인    NUMBER(10) NOT NULL,
-    건물     NUMBER(10) NOT NULL,
-    호실     NUMBER(10) NOT NULL,
+    인원    NUMBER NOT NULL,
+    사유    VARCHAR2(100),
+    동의인   NUMBER(10) NOT NULL,
+    건물    NUMBER(10) NOT NULL,
+    호실    NUMBER(10) NOT NULL,
     CONSTRAINT 대여번호_pk PRIMARY KEY ( 대여번호 ),
     CONSTRAINT 동의인_fk FOREIGN KEY ( 동의인 )
         REFERENCES 동의인 ( 동의인번호 ),
@@ -48,6 +48,8 @@ CREATE TABLE 대여내역 (
         REFERENCES 시설물 ( 건물번호,
                          호실번호 )
 );
+
+CREATE SEQUENCE 대여번호 MAXVALUE 1000 CYCLE;
 
 INSERT INTO 동의인 VALUES (
     20153188,
@@ -100,4 +102,15 @@ INSERT INTO 시설물 VALUES (
     20153188
 );
 
-commit;
+INSERT INTO 대여내역 VALUES (
+    대여번호.NEXTVAL,
+    sysdate,
+    sysdate + 1,
+    10,
+    '강의',
+    20163248,
+    3,
+    815
+);
+
+COMMIT;
