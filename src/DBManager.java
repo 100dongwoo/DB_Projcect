@@ -9,7 +9,7 @@ public class DBManager extends DBConnecter {
 		super(id, password);
 	}
 
-	public void insert(Date 시작기간, Date 종료기간, int 인원, String 사유, int 동의인, int 건물, int 호실) {
+	public boolean rentalInsert(Date 시작기간, Date 종료기간, int 인원, String 사유, int 동의인, int 건물, int 호실) {
 		String query = "insert into 대여내역  values(대여번호.NEXTVAL,?,?,?,?,?,?,?) ";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -22,10 +22,12 @@ public class DBManager extends DBConnecter {
 			pstmt.setInt(7, 호실);
 		} catch (SQLException e) {
 			System.out.println("대여내역 데이터 삽입 오류:" + e.getMessage());
+			return false;
 		}
+		return true;
 	}
 
-	public void select(String table) {
+	public boolean select(String table) {
 		String query = "SELECT * form " + table;
 		try {
 			Statement stmt = con.createStatement();
@@ -41,10 +43,12 @@ public class DBManager extends DBConnecter {
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println("데이터 검색 오류 : " + e.getMessage());
+			return false;
 		}
+		return true;
 	}
 
-	public void Login(String id, String password) {
+	public boolean Login(String id, String password) {
 		String query = "SELECT * from 동의인 where 동의인번호=" + id + "and 비밀번호=" + password;
 		try {
 			Statement stmt = con.createStatement();
@@ -59,7 +63,9 @@ public class DBManager extends DBConnecter {
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
 
 	public static void main(String[] args) {
