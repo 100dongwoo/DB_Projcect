@@ -1,8 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DBConnecter {
 	Connection con = null;
@@ -22,30 +20,34 @@ public class DBConnecter {
 			System.out.println("Connection Fail");
 		}
 	}
-
-	private void selectPerson() {
-		String query = "SELECT * FROM 동의인";
-		try {
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-			while (rs.next()) {
-				System.out.print("\t" + rs.getInt("동의인번호"));
-				System.out.print("\t" + rs.getString("비밀번호"));
-				System.out.print("\t" + rs.getString("이름"));
-				System.out.print("\t" + rs.getString("전화번호"));
-				System.out.print("\t" + rs.getString("직책"));
-				System.out.print("\t" + rs.getString("소속") + "\n");
-			}
-			stmt.close();
-			rs.close();
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	
+	public Connection getConnection() {
+		return con;
 	}
 
-	public static void main(String arg[]) throws SQLException {
-		DBConnecter dbconquery = new DBConnecter();
-		dbconquery.selectPerson();
-	}
+//	private void selectPerson() {
+//		String query = "SELECT * FROM 동의인";
+//		try {
+//			Statement stmt = con.createStatement();
+//			ResultSet rs = stmt.executeQuery(query);
+//			while (rs.next()) {
+//				System.out.print("\t" + rs.getInt("동의인번호"));
+//				System.out.print("\t" + rs.getString("비밀번호"));
+//				System.out.print("\t" + rs.getString("이름"));
+//				System.out.print("\t" + rs.getString("전화번호"));
+//				System.out.print("\t" + rs.getString("직책"));
+//				System.out.print("\t" + rs.getString("소속") + "\n");
+//			}
+//			stmt.close();
+//			rs.close();
+//			con.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//	public static void main(String arg[]) throws SQLException {
+//		DBConnecter dbconquery = new DBConnecter();
+//		dbconquery.selectPerson();
+//	}
 }
