@@ -21,28 +21,31 @@ public class DBManager extends DBConnecter {
 			pstmt.setInt(6, 건물);
 			pstmt.setInt(7, 호실);
 		} catch (SQLException e) {
-			System.out.println("Insert Rental Error: " + e.getMessage());
+			System.out.println(e.getMessage());
 			return false;
 		}
 		return true;
 	}
 
 	public boolean selectPerson() {
-		String query = "SELECT * form 동의인";
+		String query = "SELECT * from 동의인";
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			System.out.println();
 			while (rs.next()) {
-				System.out.print("\t" + rs.getInt(1));
-				System.out.print("\t" + rs.getString(2));
-				System.out.print("\t" + rs.getString(3));
-				System.out.print("\t" + rs.getString(4));
-				System.out.print("\t" + rs.getString(5));
-				System.out.print("\t" + rs.getString(6));
+				System.out.print(rs.getInt(1) + "\t");
+				System.out.print(rs.getString(2) + "\t");
+				System.out.print(rs.getString(3) + "\t");
+				System.out.print(rs.getString(4) + "\t");
+				System.out.print(rs.getString(5) + "\t");
+				System.out.println(rs.getString(6));
 			}
+			System.out.println();
+			rs.close();
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println("Select All Person Error: " + e.getMessage());
+			System.out.println(e.getMessage());
 			return false;
 		}
 		return true;
@@ -58,60 +61,70 @@ public class DBManager extends DBConnecter {
 			} else {
 				System.out.println("회원이아닙니다.");
 			}
-			stmt.close();
 			rs.close();
-			con.close();
+			stmt.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return false;
 		}
 		return true;
 	}
 
 	public boolean selectFacility() {
-		String query = "SELECT * form 시설물";
+		String query = "SELECT * from 시설물";
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			System.out.println();
 			while (rs.next()) {
-				System.out.print("\t" + rs.getInt(1));
-				System.out.print("\t" + rs.getInt(2));
-				System.out.print("\t" + rs.getString(3));
-				System.out.print("\t" + rs.getInt(4));
-				System.out.print("\t" + rs.getInt(5));
+				System.out.print(rs.getInt(1) + "\t");
+				System.out.print(rs.getInt(2) + "\t");
+				System.out.print(rs.getString(3) + "\t");
+				System.out.print(rs.getInt(4) + "\t");
+				System.out.println(rs.getInt(5));
 			}
+			System.out.println();
+			rs.close();
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println("Select All Facility Error: " + e.getMessage());
+			System.out.println(e.getMessage());
 			return false;
 		}
 		return true;
 	}
 
 	public boolean selectRental() {
-		String query = "SELECT * form 대여내역";
+		String query = "SELECT * from 대여내역";
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
+			System.out.println();
 			while (rs.next()) {
-				System.out.print("\t" + rs.getInt(1));
-				System.out.print("\t" + rs.getDate(2));
-				System.out.print("\t" + rs.getDate(3));
-				System.out.print("\t" + rs.getInt(4));
-				System.out.print("\t" + rs.getString(5));
-				System.out.print("\t" + rs.getInt(6));
-				System.out.print("\t" + rs.getInt(7));
-				System.out.print("\t" + rs.getInt(8));
+				System.out.print(rs.getInt(1) + "\t");
+				System.out.print(rs.getDate(2) + "\t");
+				System.out.print(rs.getDate(3) + "\t");
+				System.out.print(rs.getInt(4) + "\t");
+				System.out.print(rs.getString(5) + "\t");
+				System.out.print(rs.getInt(6) + "\t");
+				System.out.print(rs.getInt(7) + "\t");
+				System.out.println(rs.getInt(8));
 			}
+			System.out.println();
+			rs.close();
 			stmt.close();
 		} catch (SQLException e) {
-			System.out.println("Select All Rental Error: " + e.getMessage());
+			System.out.println(e.getMessage());
 			return false;
 		}
 		return true;
 	}
 
 	public static void main(String[] args) {
-		// DBManager dbm = new DBManager("DEU_FACILITY", "1234");
+		DBManager dbm = new DBManager("DEU_FACILITY", "1234");
+		dbm.selectPerson();
+		dbm.selectPerson("20163248", "1234");
+		dbm.selectPerson("20163248", "1235");
+		dbm.selectFacility();
+		dbm.selectRental();
 	}
 }
