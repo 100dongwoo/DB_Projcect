@@ -25,12 +25,9 @@ CREATE TABLE 시설물 (
     호실번호  NUMBER(10) NOT NULL,
     시설명   VARCHAR2(20) NOT NULL,
     관리자   NUMBER(10) NOT NULL,
-    허가자   NUMBER(10),
     CONSTRAINT 건물_호실번호_pk PRIMARY KEY ( 건물번호,
                                         호실번호 ),
     CONSTRAINT 관리자_fk FOREIGN KEY ( 관리자 )
-        REFERENCES 동의인 ( 동의인번호 ),
-    CONSTRAINT 허가자_fk FOREIGN KEY ( 허가자 )
         REFERENCES 동의인 ( 동의인번호 )
 );
 
@@ -43,13 +40,16 @@ CREATE TABLE 대여내역 (
     동의인   NUMBER(10) NOT NULL,
     건물    NUMBER(10) NOT NULL,
     호실    NUMBER(10),
+    허가자   NUMBER(10),
     CONSTRAINT 대여번호_pk PRIMARY KEY ( 대여번호 ),
     CONSTRAINT 동의인_fk FOREIGN KEY ( 동의인 )
         REFERENCES 동의인 ( 동의인번호 ),
     CONSTRAINT 시설물_fk FOREIGN KEY ( 건물,
                                     호실 )
         REFERENCES 시설물 ( 건물번호,
-                         호실번호 )
+                         호실번호 ),
+    CONSTRAINT 허가자_fk FOREIGN KEY ( 허가자 )
+        REFERENCES 동의인 ( 동의인번호 )
 );
 
 CREATE SEQUENCE 대여번호 MAXVALUE 1000 CYCLE;
@@ -94,7 +94,6 @@ INSERT INTO 시설물 VALUES (
     1,
     '815',
     '국제관',
-    20153188,
     20153188
 );
 
@@ -102,40 +101,35 @@ INSERT INTO 시설물 VALUES (
     2,
     '815',
     '정보공학관',
-    20163248,
-    20153188
+    20163248
 );
 
 INSERT INTO 시설물 VALUES (
     3,
     '815',
     '자연대',
-    20163248,
-    20153188
+    20163248
 );
 
 INSERT INTO 시설물 VALUES (
     4,
     0,
     '야외음악당',
-    20163248,
-    1
+    20163248
 );
 
 INSERT INTO 시설물 VALUES (
     5,
     0,
     '야구장',
-    20163248,
-    null
+    20163248
 );
 
 INSERT INTO 시설물 VALUES (
     6,
     0,
     '축구장',
-    20163248,
-    null
+    20163248
 );
 
 INSERT INTO 대여내역 VALUES (
@@ -146,7 +140,37 @@ INSERT INTO 대여내역 VALUES (
     '특별한 강의',
     20163248,
     3,
-    815
+    815,
+    NULL
 );
 
 COMMIT;
+
+CREATE OR REPLACE TRIGGER verify_position AFTER
+    INSERT ON 대여내역
+    FOR EACH ROW
+BEGIN
+    IF :new.허가자 IS NULL THEN
+        raise_application_error(-20999, '총장의 허가가 필요합니다.');
+    END IF;
+
+    IF
+        :new.건물 = 4
+        AND :new.허가자 != 1
+    THEN
+        raise_application_error(-20999, '총장의 허가가 필요합니다.');
+    END IF;
+
+END;
+
+CREATE OR REPLACE TRIGGER verify_time BEFORE
+    INSERT ON 대여내역
+    FOR EACH ROW
+BEGIN
+    IF
+        ( to_char(:new.시작기간, 'HH24') BETWEEN 0 AND 6 OR to_char(:new.종료기간, 'HH24') BETWEEN 0 AND 6 )
+        AND ( :new.건물 = 4 OR :new.건물 = 5 OR :new.건물 = 6 )
+    THEN
+        raise_application_error(-20999, '새벽 시간에는 해당 시설물을 대여할 수 없습니다.');
+    END IF;
+END;
