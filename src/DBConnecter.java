@@ -13,9 +13,17 @@ public class DBConnecter {
 			con = DriverManager.getConnection(url, id, password);
 			System.out.println("DB 연결 성공");
 		} catch (ClassNotFoundException e) {
-			System.out.println("No Driver.");
+			System.out.println(e.getMessage());
 		} catch (SQLException e) {
-			System.out.println("Connection Fail");
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public void finalize() {
+		try {
+			con.close();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }
