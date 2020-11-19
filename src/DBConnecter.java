@@ -4,25 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-class DBConn {
-	public Connection connect(String id, String password) {
-		Connection con = null;
-		String url = "jdbc:oracle:thin:@localhost:1521:XE";
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con = DriverManager.getConnection(url, id, password);
-		} catch (ClassNotFoundException e) {
-
-		} catch (SQLException e) {
-
-		}
-		return con;
-	}
-}
-
 public class DBConnecter {
 	Connection con = null;
-
+	
 	public DBConnecter() {
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
 		String id = "DEU_FACILITY";
@@ -40,7 +24,7 @@ public class DBConnecter {
 	}
 
 	private void selectPerson() {
-		String query = "select * from 동의인";
+		String query = "SELECT * FROM 동의인";
 		try {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
