@@ -1,5 +1,6 @@
-CREATE USER DEU_FACILITY IDENTIFIED BY 1234;
-GRANT CONNECT, RESOURCE, DBA TO DEU_FACILITY;
+CREATE USER deu_facility IDENTIFIED BY "1234";
+
+GRANT connect, resource, dba TO deu_facility;
 
 CREATE TABLE 동의인 (
     동의인번호  NUMBER(10) NOT NULL PRIMARY KEY,
@@ -13,6 +14,7 @@ CREATE TABLE 동의인 (
 CREATE TABLE 시설물 (
     건물번호  NUMBER(10) NOT NULL,
     호실번호  NUMBER(10) NOT NULL,
+    시설명   VARCHAR2(10) NOT NULL,
     관리자   NUMBER(10) NOT NULL,
     허가자   NUMBER(10),
     CONSTRAINT 건물_호실번호_pk PRIMARY KEY ( 건물번호,
@@ -34,9 +36,15 @@ CREATE TABLE 대여내역 (
     호실     NUMBER(10) NOT NULL,
     CONSTRAINT 대여번호_pk PRIMARY KEY ( 대여번호 ),
     CONSTRAINT 동의인_fk FOREIGN KEY ( 동의인 )
-        REFERENCES deu_facility.동의인 ( 동의인번호 ),
+        REFERENCES 동의인 ( 동의인번호 ),
     CONSTRAINT 시설물_fk FOREIGN KEY ( 건물,
                                     호실 )
         REFERENCES 시설물 ( 건물번호,
                          호실번호 )
 );
+
+DROP TABLE 동의인;
+
+DROP TABLE 시설물;
+
+DROP TABLE 대여내역;
