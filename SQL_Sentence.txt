@@ -34,7 +34,7 @@ CREATE TABLE 시설물 (
 CREATE TABLE 대여내역 (
     대여번호   NUMBER(10) NOT NULL,
     시작기간   DATE NOT NULL,
-    끝나는기간  DATE NOT NULL,
+    종료기간  DATE NOT NULL,
     인원     NUMBER NOT NULL,
     사유     VARCHAR2(100),
     동의인    NUMBER(10) NOT NULL,
