@@ -1,23 +1,18 @@
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBManager {
-	Connection con = null;
-	Statement stmt = null;
-	PreparedStatement pstmt = null;
-
-	public DBManager(Connection con) {
-		this.con = con;
+public class DBManager extends DBConnecter {
+	public DBManager(String id, String password) {
+		super(id, password);
 	}
 
 	public void insert(Date 시작기간, Date 종료기간, int 인원, String 사유, int 동의인, int 건물, int 호실) {
 		String query = "insert into 대여내역  values(대여번호.NEXTVAL,?,?,?,?,?,?,?) ";
 		try {
-			pstmt = con.prepareStatement(query);
+			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setDate(1, 시작기간);
 			pstmt.setDate(2, 종료기간);
 			pstmt.setInt(3, 인원);
@@ -25,17 +20,15 @@ public class DBManager {
 			pstmt.setInt(5, 동의인);
 			pstmt.setInt(6, 건물);
 			pstmt.setInt(7, 호실);
+		} catch (SQLException e) {
+			System.out.println("대여내역 데이터 삽입 오류:" + e.getMessage());
 		}
-		catch(SQLException e) {
-			System.out.println("대여내역 데이터 삽입 오류:"+e.getMessage());
-		}
-		
 	}
 
 	public void select(String table) {
 		String query = "SELECT * form " + table;
 		try {
-			stmt = con.createStatement();
+			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				System.out.print("\t" + rs.getInt(1));
@@ -51,8 +44,25 @@ public class DBManager {
 		}
 	}
 
-	public static void main(String[] args) {
-
+	public void Login(String id, String password) {
+		String query = "SELECT * from 동의인 where 동의인번호=" + id + "and 비밀번호=" + password;
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			if (rs.next()) {
+				System.out.println("로그인 성공");
+			} else {
+				System.out.println("회원이아닙니다.");
+			}
+			stmt.close();
+			rs.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
+	public static void main(String[] args) {
+		// DBManager dbm = new DBManager("DEU_FACILITY", "1234");
+	}
 }

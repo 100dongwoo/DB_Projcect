@@ -4,11 +4,9 @@ import java.sql.SQLException;
 
 public class DBConnecter {
 	protected Connection con = null;
-	
-	public DBConnecter() {
+
+	public DBConnecter(String id, String password) {
 		String url = "jdbc:oracle:thin:@localhost:1521:XE";
-		String id = "DEU_FACILITY";
-		String password = "1234";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			System.out.println("드라이버 적재 성공");
@@ -19,9 +17,5 @@ public class DBConnecter {
 		} catch (SQLException e) {
 			System.out.println("Connection Fail");
 		}
-	}
-	
-	public Connection getConnection() {
-		return con;
 	}
 }
