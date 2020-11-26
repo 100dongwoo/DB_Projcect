@@ -1,12 +1,38 @@
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBManager extends DBConnecter {
-	public DBManager(String id, String password) {
-		super(id, password);
+public class DBManager {
+	Connection con = null;
+
+	public void finalize() {
+		if (con != null) {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+
+	public boolean connect(String id, String password) {
+		String url = "jdbc:oracle:thin:@localhost:1521:XE";
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("드라이버 적재 성공");
+			con = DriverManager.getConnection(url, id, password);
+			System.out.println("DB 연결 성공");
+			return true;
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
 	}
 
 	public boolean insertRental(Date 시작기간, Date 종료기간, int 인원, String 사유, int 동의인, int 건물, int 호실) {
@@ -20,11 +46,11 @@ public class DBManager extends DBConnecter {
 			pstmt.setInt(5, 동의인);
 			pstmt.setInt(6, 건물);
 			pstmt.setInt(7, 호실);
+			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			return false;
 		}
-		return true;
+		return false;
 	}
 
 	public boolean selectPerson() {
@@ -44,11 +70,11 @@ public class DBManager extends DBConnecter {
 			System.out.println();
 			rs.close();
 			stmt.close();
+			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			return false;
 		}
-		return true;
+		return false;
 	}
 
 	public boolean selectPerson(String id, String password) {
@@ -58,16 +84,17 @@ public class DBManager extends DBConnecter {
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs.next()) {
 				System.out.println("로그인 성공");
-			} else {
-				System.out.println("회원이아닙니다.");
+				rs.close();
+				stmt.close();
+				return true;
 			}
+			System.out.println("회원이아닙니다.");
 			rs.close();
 			stmt.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			return false;
 		}
-		return true;
+		return false;
 	}
 
 	public boolean selectFacility() {
@@ -119,12 +146,12 @@ public class DBManager extends DBConnecter {
 		return true;
 	}
 
-	public static void main(String[] args) {
-		DBManager dbm = new DBManager("DEU_FACILITY", "1234");
-		dbm.selectPerson();
-		dbm.selectPerson("20163248", "1234");
-		dbm.selectPerson("20163248", "1235");
-		dbm.selectFacility();
-		dbm.selectRental();
-	}
+//	public static void main(String[] args) {
+//		DBManager dbm = new DBManager("DEU_FACILITY", "1234");
+//		dbm.selectPerson();
+//		dbm.selectPerson("20163248", "1234");
+//		dbm.selectPerson("20163248", "1235");
+//		dbm.selectFacility();
+//		dbm.selectRental();
+//	}
 }
