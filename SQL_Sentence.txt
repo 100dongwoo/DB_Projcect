@@ -150,27 +150,58 @@ CREATE OR REPLACE TRIGGER verify_position AFTER
     INSERT ON 대여내역
     FOR EACH ROW
 BEGIN
-    IF :new.허가자 IS NULL THEN
-        raise_application_error(-20999, '총장의 허가가 필요합니다.');
-    END IF;
-
     IF
         :new.건물 = 4
-        AND :new.허가자 != 1
+        AND ( :new.허가자 IS NULL OR :new.허가자 != 1 )
     THEN
-        raise_application_error(-20999, '총장의 허가가 필요합니다.');
+        raise_application_error(-20000, '총장의 허가가 필요합니다.');
     END IF;
-
 END;
 
 CREATE OR REPLACE TRIGGER verify_time BEFORE
     INSERT ON 대여내역
     FOR EACH ROW
+DECLARE
+    facility    NUMBER(10);
+    room        NUMBER(10);
+    start_date  DATE;
+    end_date    DATE;
+    CURSOR reservation IS
+    SELECT
+        건물,
+        호실,
+        시작기간,
+        종료기간
+    FROM
+        대여내역;
+
 BEGIN
-    IF
+    IF :new.시작기간 < sysdate THEN
+        raise_application_error(-20001, '과거 날짜에 대여할 수 없습니다.');
+    ELSIF
         ( to_char(:new.시작기간, 'HH24') BETWEEN 0 AND 6 OR to_char(:new.종료기간, 'HH24') BETWEEN 0 AND 6 )
         AND ( :new.건물 = 4 OR :new.건물 = 5 OR :new.건물 = 6 )
     THEN
-        raise_application_error(-20999, '새벽 시간에는 해당 시설물을 대여할 수 없습니다.');
+        raise_application_error(-20002, '새벽 시간에는 해당 시설물을 대여할 수 없습니다.');
+    ELSE
+        OPEN reservation;
+        LOOP
+            FETCH reservation INTO
+                facility,
+                room,
+                start_date,
+                end_date;
+            EXIT WHEN reservation%notfound;
+            IF
+                :new.건물 = facility
+                AND :new.호실 = room
+                AND :new.시작기간 < end_date
+                AND :new.종료기간 > start_date
+            THEN
+                raise_application_error(-20003, '이미 예약된 날짜입니다.');
+            END IF;
+
+        END LOOP;
+
     END IF;
 END;
