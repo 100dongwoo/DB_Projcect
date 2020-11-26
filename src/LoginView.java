@@ -84,6 +84,8 @@ public class LoginView extends JFrame {
 		String id = userText.getText();
 		@SuppressWarnings("deprecation")
 		String password = passText.getText();
+		
+		
 		System.out.println(id);
 		System.out.println(password);
 		if (dbm.selectPerson(id, password)) {

@@ -52,6 +52,9 @@ public class DBManager {
 		}
 		return false;
 	}
+	
+	//시설물대여내역삭제  Statement
+	
 
 	public boolean selectPerson() {
 		String query = "SELECT * from 동의인";
@@ -77,20 +80,19 @@ public class DBManager {
 		return false;
 	}
 
-	public boolean selectPerson(String id, String password) {
-		String query = "SELECT * from 동의인 where 동의인번호=" + id + " and 비밀번호=" + password;
+	public boolean selectPerson(String id, String password) {//프리페어먼트
+		String query = "SELECT * from 동의인 where 동의인번호=? and 비밀번호=?";
 		try {
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				System.out.println("로그인 성공");
-				rs.close();
-				stmt.close();
 				return true;
 			}
 			System.out.println("회원이아닙니다.");
-			rs.close();
-			stmt.close();
+			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
