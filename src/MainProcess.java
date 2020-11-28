@@ -1,8 +1,7 @@
 public class MainProcess {
 	DBManager dbm;
     LoginView loginView;
-    TestFrm testFrm;
-    
+
     public static void main(String[] args) {
         // 메인클래스 실행
     	DBManager dbm = new DBManager();

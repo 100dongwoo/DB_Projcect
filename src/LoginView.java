@@ -14,8 +14,6 @@ public class LoginView extends JFrame {
 	DBManager dbm;
 
 	private MainProcess main;
-	private TestFrm testFrm;
-
 	private JButton btnLogin;
 	private JButton btnInit;
 	private JPasswordField passText;
