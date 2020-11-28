@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class LoginView extends JFrame {
 	DBManager dbm;
-
+	MainView Main;
 	private MainProcess main;
 	private JButton btnLogin;
 	private JButton btnInit;
@@ -88,6 +88,7 @@ public class LoginView extends JFrame {
 		System.out.println(password);
 		if (dbm.selectPerson(id, password)) {
 			JOptionPane.showMessageDialog(null, "동의인 환영합니다.");
+
 		} else {
 			JOptionPane.showMessageDialog(null, "다시입력해주세요.");
 		}
