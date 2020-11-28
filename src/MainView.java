@@ -47,12 +47,13 @@ public class MainView  extends  JFrame{
     public MainView(String user) {
         // setting
         User=user;
-        setTitle("login");
+        setTitle("MainPage");
         setSize(922, 684);
         setResizable(false);
         setLocation(100, 100);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); //화면중간
         // panel
         JPanel panel = new JPanel();
         initialize(panel);

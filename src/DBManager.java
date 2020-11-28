@@ -89,6 +89,7 @@ public class DBManager {
 			if (rs.next()) {
 				System.out.println("로그인 성공");
 				new MainView(id);
+
 				return true;
 
 //				Main = new MainView();
