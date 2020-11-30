@@ -25,7 +25,7 @@ public class MainView  extends  JFrame{
     private JTextField textField_12;
     private JTable table;
     private JButton btnNewButton_4;
-
+    private JButton allSearch;
     /**
      * Launch the application.
      */
@@ -129,9 +129,9 @@ public class MainView  extends  JFrame{
         lblNewLabel_1_2_3.setBounds(680, 337, 57, 15);
         frame.add(lblNewLabel_1_2_3);
 
-        JButton btnNewButton = new JButton("\uC804\uCCB4\uC870\uD68C");
-        btnNewButton.setBounds(29, 20, 639, 67);
-        frame.add(btnNewButton);
+        allSearch = new JButton("\uC804\uCCB4\uC870\uD68C"); //전체조회버튼
+        allSearch.setBounds(29, 20, 639, 67);
+        frame.add(allSearch);
 
         JLabel lblNewLabel_2 = new JLabel("\uC2DC\uC791\uAE30\uAC04");
         lblNewLabel_2.setBounds(36, 119, 48, 15);
@@ -151,19 +151,19 @@ public class MainView  extends  JFrame{
         textField_8.setBounds(357, 119, 177, 21);
         frame.add(textField_8);
 
-        btnNewButton_1 = new JButton("\uAE30\uAC04 \uC870\uD68C");
+        btnNewButton_1 = new JButton("\uAE30\uAC04 \uC870\uD68C"); //기간조회버튼
         btnNewButton_1.setBounds(559, 115, 97, 23);
         frame.add(btnNewButton_1);
 
-        btnNewButton_2 = new JButton("\uC2DC\uC124 \uC870\uD68C");
+        btnNewButton_2 = new JButton("\uC2DC\uC124 \uC870\uD68C");  //시설조회버튼
         btnNewButton_2.setBounds(559, 157, 97, 23);
         frame.add(btnNewButton_2);
 
-        btnNewButton_3 = new JButton("\uC0AC\uC720 \uC870\uD68C");
+        btnNewButton_3 = new JButton("\uC0AC\uC720 \uC870\uD68C");//사유조회버튼
         btnNewButton_3.setBounds(559, 200, 97, 23);
         frame.add(btnNewButton_3);
 
-        lblNewLabel_4 = new JLabel("\uC2DC\uC124\uBA85");
+        lblNewLabel_4 = new JLabel("\uC2DC\uC124\uBA85");//예약취소버튼
         lblNewLabel_4.setBounds(36, 159, 48, 15);
         frame.add(lblNewLabel_4);
 
@@ -185,7 +185,7 @@ public class MainView  extends  JFrame{
         table.setBounds(51, 255, 615, 261);
         frame.add(table);
 
-        btnNewButton_4 = new JButton("\uC608\uC57D \uCDE8\uC18C");
+        btnNewButton_4 = new JButton("\uC608\uC57D \uCDE8\uC18C");//예약취소버튼
         btnNewButton_4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             }
@@ -197,5 +197,9 @@ public class MainView  extends  JFrame{
         userName.setFont(new Font("굴림", Font.BOLD, 25));
         userName.setBounds(749, 20, 132, 34);
         frame.add(userName);
+
+        JButton btnNewButton_5 = new JButton("\uC2E0\uCCAD\uD558\uAE30"); //신청하기
+        btnNewButton_5.setBounds(747, 592, 147, 33);
+        frame.add(btnNewButton_5);
     }
 }
