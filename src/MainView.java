@@ -176,6 +176,7 @@ public class MainView extends JFrame implements ActionListener {
         inquiryFacilityButton = new JButton("\uC2DC\uC124 \uC870\uD68C");  //시설조회버튼
         inquiryFacilityButton.setBounds(559, 157, 97, 23);
         frame.add(inquiryFacilityButton);
+        inquiryFacilityButton.addActionListener(this);
 
         reasonInquiryButton = new JButton("\uC0AC\uC720 \uC870\uD68C");//사유조회버튼
         reasonInquiryButton.setBounds(559, 200, 97, 23);
@@ -244,6 +245,10 @@ public class MainView extends JFrame implements ActionListener {
             table.setBounds(51, 255, 615, 261);
             mainFrame.add(table);
             setVisible(true);
+        }
+        else if(e.getSource() == inquiryFacilityButton)
+        {
+            ArrayList<Rental> rentals = dbm.selectRental(facilityInquirytext.getText());
         }
     }
 }
