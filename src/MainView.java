@@ -143,22 +143,26 @@ public class MainView extends JFrame implements ActionListener {
         frame.add(allSearch);
         allSearch.addActionListener(this);
 
-        JLabel lblNewLabel_2 = new JLabel("\uC2DC\uC791\uAE30\uAC04");
+        JLabel lblNewLabel_2 = new JLabel("기간");
         lblNewLabel_2.setBounds(36, 119, 48, 15);
         frame.add(lblNewLabel_2);
 
         startDateInquirytext = new JTextField();
-        startDateInquirytext.setBounds(95, 116, 177, 21);
+        startDateInquirytext.setBounds(95, 116, 205, 21);
         frame.add(startDateInquirytext);
         startDateInquirytext.setColumns(10);
 
-        lblNewLabel_3 = new JLabel("\uC885\uB8CC\uAE30\uAC04");
-        lblNewLabel_3.setBounds(297, 119, 48, 15);
+
+
+         lblNewLabel_3 = new JLabel("~");
+        lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 22));
+        lblNewLabel_3.setBounds(312, 113, 41, 24);
         frame.add(lblNewLabel_3);
+
 
         endDateInquirytext = new JTextField();
         endDateInquirytext.setColumns(10);
-        endDateInquirytext.setBounds(357, 119, 177, 21);
+        endDateInquirytext.setBounds(337, 116, 197, 21);
         frame.add(endDateInquirytext);
 
         inquiryPeriodButton = new JButton("\uAE30\uAC04 \uC870\uD68C"); //기간조회버튼
