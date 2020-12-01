@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -7,6 +8,9 @@ import java.util.ArrayList;
 public class MainView extends JFrame implements ActionListener {
     String userId;
     DBManager dbm;
+    private String colName[];
+    public DefaultTableModel model;
+    private JPanel mainFrame;
     //button
     private JButton reasonInquiryButton;//사유조회
     private JButton allSearch; //전체조회
@@ -76,6 +80,7 @@ public class MainView extends JFrame implements ActionListener {
      * Initialize the contents of the frame.
      */
     private void initialize(JPanel frame) {
+        mainFrame=frame;
         frame.setLayout(null);
         applyFacilityText = new JTextField();
         applyFacilityText.setBounds(747, 64, 147, 33);
@@ -213,12 +218,32 @@ public class MainView extends JFrame implements ActionListener {
         frame.add(applyButton);
     }
 
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == allSearch) {
+
+            String colName[] ={"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
+            model = new DefaultTableModel(colName, 0);
+            String row[] = new String[9];
+            model.addRow(colName);
             ArrayList<Rental> rentals = dbm.selectRental();
             for (Rental rental : rentals) {
-                System.out.println(rental.getRentalNumber());
+                row[0] = String.valueOf(rental.getRentalNumber());
+                row[1] = String.valueOf(rental.getStartPeriod());
+                row[2] = String.valueOf(rental.getEndPeriod());
+                row[3] = String.valueOf(rental.getPersonnel());
+                row[4] = String.valueOf(rental.getReason());
+                row[5] = String.valueOf(rental.getDEUPerson());
+                row[6] = String.valueOf(rental.getFacility());
+                row[7] = String.valueOf(rental.getRoom());
+                row[8] = String.valueOf(rental.getLicenser());
+                model.addRow(row);
             }
+
+            table = new JTable(model);
+            table.setBounds(51, 255, 615, 261);
+            mainFrame.add(table);
+            setVisible(true);
         }
     }
 }

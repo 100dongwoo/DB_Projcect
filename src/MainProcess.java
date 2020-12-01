@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class MainProcess {
     LoginView loginView;
 
@@ -10,12 +8,5 @@ public class MainProcess {
     	
     	MainProcess main = new MainProcess();
         main.loginView = new LoginView(dbm); // 로그인창 보이기
-
-        dbm.selectPerson();
     }
-
-	public void showFrameTest() {
-		
-		
-	}
 }
