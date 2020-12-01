@@ -19,7 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="">
+    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="데이터 클래스 작성 완료.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,10 +65,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="Application.MainProcess" />
-      <item itemvalue="Application.MainView" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainProcess" />
@@ -84,6 +81,14 @@
       <option name="presentableId" value="Default" />
       <updated>1606566267067</updated>
     </task>
+    <task id="LOCAL-00001" summary="데이터 클래스 작성 완료.">
+      <created>1606804826167</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606804826167</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -98,37 +103,38 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="데이터 클래스 작성 완료." />
+    <option name="LAST_COMMIT_MESSAGE" value="데이터 클래스 작성 완료." />
+  </component>
   <component name="WindowStateProjectService">
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606566316778">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606566316778" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1606803806205">
+    <state width="1151" height="281" key="GridCell.Tab.0.bottom" timestamp="1606804844500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606803806205" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1606803806205">
+    <state width="1151" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
+    <state width="1151" height="281" key="GridCell.Tab.0.center" timestamp="1606804844500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606803806205" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1606803806205">
+    <state width="1151" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
+    <state width="1151" height="281" key="GridCell.Tab.0.left" timestamp="1606804844500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606803806205" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1606803806205">
+    <state width="1151" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
+    <state width="1151" height="281" key="GridCell.Tab.0.right" timestamp="1606804844500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606803806205" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1606805765742">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1151" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
+    <state x="190" y="256" key="Vcs.Push.Dialog.v2" timestamp="1606804831014">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1606805765742" />
+    <state x="190" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606804831014" />
     <state x="668" y="118" width="584" height="804" key="find.popup" timestamp="1606799694258">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="668" y="118" width="584" height="804" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1606799694258" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/DB_Project$MainProcess.ic" NAME="MainProcess Coverage Results" MODIFIED="1606802714054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
