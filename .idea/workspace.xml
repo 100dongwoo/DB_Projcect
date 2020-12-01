@@ -20,20 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="데이터 클래스 작성 완료.">
-      <change beforePath="$PROJECT_DIR$/bin/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/DBManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/LoginView$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/LoginView$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/LoginView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/MainProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainProcess.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/MainView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DEUPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DEUPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Facility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Facility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JTableExample.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Rental.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rental.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQL_Sentence.txt" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Sentence.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,6 +132,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="upupupup" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="586" y="198" key="#Inspections" timestamp="1606818027626">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="586" y="198" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1606818027626" />
     <state x="1245" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1606808746185">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -152,26 +144,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606566316778" />
-    <state width="914" height="223" key="GridCell.Tab.0.bottom" timestamp="1606817354315">
+    <state width="914" height="223" key="GridCell.Tab.0.bottom" timestamp="1606817893681">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="212" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606814192832" />
-    <state width="914" height="223" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606817354315" />
-    <state width="914" height="223" key="GridCell.Tab.0.center" timestamp="1606817354315">
+    <state width="914" height="223" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606817893681" />
+    <state width="914" height="223" key="GridCell.Tab.0.center" timestamp="1606817893681">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="212" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1606814192831" />
-    <state width="914" height="223" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606817354315" />
-    <state width="914" height="223" key="GridCell.Tab.0.left" timestamp="1606817354315">
+    <state width="914" height="223" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606817893681" />
+    <state width="914" height="223" key="GridCell.Tab.0.left" timestamp="1606817893681">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="212" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1606814192831" />
-    <state width="914" height="223" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606817354315" />
-    <state width="914" height="223" key="GridCell.Tab.0.right" timestamp="1606817354315">
+    <state width="914" height="223" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606817893681" />
+    <state width="914" height="223" key="GridCell.Tab.0.right" timestamp="1606817893681">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1493" height="212" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1606814192832" />
-    <state width="914" height="223" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606817354315" />
+    <state width="914" height="223" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606817893681" />
     <state width="916" height="351" key="GridCell.Tab.1.bottom" timestamp="1606810043877">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -188,14 +180,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="916" height="351" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606810043877" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1606817407695">
+    <state x="461" y="164" key="SettingsEditor" timestamp="1606817528623">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1606817407695" />
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1606817528623" />
     <state x="190" y="256" key="Vcs.Push.Dialog.v2" timestamp="1606805798710">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="190" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606805798710" />
+    <state x="391" y="0" width="746" height="762" key="dock-window-1" timestamp="1606818086739">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="391" y="0" width="746" height="762" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1606818086739" />
     <state x="668" y="118" width="584" height="804" key="find.popup" timestamp="1606799694258">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
