@@ -73,7 +73,7 @@ public class DBManager {
         return rentals;
     }
 
-    public ArrayList<Rental> selectRental(String facilityName) {
+    public ArrayList<Rental> selectRentalFacility(String facilityName) {
         ArrayList<Rental> rentals = new ArrayList<>();
         try {
             String sql = "{call inquiry_facility(?, ?)}";
