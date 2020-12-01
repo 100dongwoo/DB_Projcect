@@ -6,27 +6,34 @@ import java.awt.Font;
 public class MainView extends JFrame implements ActionListener {
     String userId;
     DBManager dbm;
+    //button
+    private JButton reasonInquiryButton;//사유조회
+    private JButton allSearch; //전체조회
+    private JButton inquiryPeriodButton; //기간조회
+    private JButton inquiryFacilityButton; //시설조회
+    private JButton cancleReservationButton;//취소버튼
+    private JButton applyButton;//신청버튼
 
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
-    private JTextField textField_3;
-    private JTextField textField_4;
-    private JTextField textField_5;
-    private JTextField textField_6;
-    private JTextField textField_7;
+    //InquiryText
+    private JTextField startDateInquirytext; //시작기간
+    private JTextField endDateInquirytext; //종료기간
+    private JTextField facilityInquirytext;//시설명
+    private JTextField reasonInquirytext;//사유
+
+    //applyText
+    private JTextField applyFacilityText;       //시설
+    private JTextField applyRoomText;     //호실
+    private JTextField applyLicenserText;     //허가자
+    private JTextField applyStartDate;     //시작기간
+    private JTextField applyFinishDate;     //종료기간
+    private JTextField applyPersonnelText;     //인원
+    private JTextArea applyReasonText;     //사유
+    private JTable table;       //출력 테이블
+
+
     private JLabel lblNewLabel_3;
-    private JTextField textField_8;
-    private JButton btnNewButton_1;
-    private JButton btnNewButton_2;
-    private JButton btnNewButton_3;
     private JLabel lblNewLabel_4;
-    private JTextField textField_10;
     private JLabel lblNewLabel_6;
-    private JTextField textField_12;
-    private JTable table;
-    private JButton btnNewButton_4;
-    private JButton allSearch;
     /**
      * Launch the application.
      */
@@ -69,40 +76,40 @@ public class MainView extends JFrame implements ActionListener {
      */
     private void initialize(JPanel frame) {
         frame.setLayout(null);
-        textField = new JTextField();
-        textField.setBounds(747, 64, 147, 33);
-        frame.add(textField);
-        textField.setColumns(10);
+        applyFacilityText = new JTextField();
+        applyFacilityText.setBounds(747, 64, 147, 33);
+        frame.add(applyFacilityText);
+        applyFacilityText.setColumns(10);
 
-        textField_1 = new JTextField();
-        textField_1.setColumns(10);
-        textField_1.setBounds(747, 104, 147, 33);
-        frame.add(textField_1);
+        applyRoomText = new JTextField();
+        applyRoomText.setColumns(10);
+        applyRoomText.setBounds(747, 104, 147, 33);
+        frame.add(applyRoomText);
 
-        textField_2 = new JTextField();
-        textField_2.setColumns(10);
-        textField_2.setBounds(747, 147, 147, 33);
-        frame.add(textField_2);
+        applyLicenserText = new JTextField();
+        applyLicenserText.setColumns(10);
+        applyLicenserText.setBounds(747, 147, 147, 33);
+        frame.add(applyLicenserText);
 
-        textField_3 = new JTextField();
-        textField_3.setColumns(10);
-        textField_3.setBounds(747, 190, 147, 33);
-        frame.add(textField_3);
+        applyStartDate = new JTextField();
+        applyStartDate.setColumns(10);
+        applyStartDate.setBounds(747, 190, 147, 33);
+        frame.add(applyStartDate);
 
-        textField_4 = new JTextField();
-        textField_4.setColumns(10);
-        textField_4.setBounds(747, 233, 147, 33);
-        frame.add(textField_4);
+        applyFinishDate = new JTextField();
+        applyFinishDate.setColumns(10);
+        applyFinishDate.setBounds(747, 233, 147, 33);
+        frame.add(applyFinishDate);
 
-        textField_5 = new JTextField();
-        textField_5.setColumns(10);
-        textField_5.setBounds(747, 276, 147, 33);
-        frame.add(textField_5);
+        applyPersonnelText = new JTextField();
+        applyPersonnelText.setColumns(10);
+        applyPersonnelText.setBounds(747, 276, 147, 33);
+        frame.add(applyPersonnelText);
 
-        textField_6 = new JTextField();
-        textField_6.setBounds(747, 330, 147, 252);
-        frame.add(textField_6);
-        textField_6.setColumns(10);
+        applyReasonText = new JTextArea();       //사유
+        applyReasonText.setBounds(749, 330, 145, 241);
+        frame.add(applyReasonText);
+
 
         JLabel lblNewLabel = new JLabel("\uC2DC\uC124");
         lblNewLabel.setBounds(680, 73, 57, 15);
@@ -141,70 +148,68 @@ public class MainView extends JFrame implements ActionListener {
         lblNewLabel_2.setBounds(36, 119, 48, 15);
         frame.add(lblNewLabel_2);
 
-        textField_7 = new JTextField();
-        textField_7.setBounds(95, 116, 177, 21);
-        frame.add(textField_7);
-        textField_7.setColumns(10);
+        startDateInquirytext = new JTextField();
+        startDateInquirytext.setBounds(95, 116, 177, 21);
+        frame.add(startDateInquirytext);
+        startDateInquirytext.setColumns(10);
 
         lblNewLabel_3 = new JLabel("\uC885\uB8CC\uAE30\uAC04");
         lblNewLabel_3.setBounds(297, 119, 48, 15);
         frame.add(lblNewLabel_3);
 
-        textField_8 = new JTextField();
-        textField_8.setColumns(10);
-        textField_8.setBounds(357, 119, 177, 21);
-        frame.add(textField_8);
+        endDateInquirytext = new JTextField();
+        endDateInquirytext.setColumns(10);
+        endDateInquirytext.setBounds(357, 119, 177, 21);
+        frame.add(endDateInquirytext);
 
-        btnNewButton_1 = new JButton("\uAE30\uAC04 \uC870\uD68C"); //기간조회버튼
-        btnNewButton_1.setBounds(559, 115, 97, 23);
-        frame.add(btnNewButton_1);
+        inquiryPeriodButton = new JButton("\uAE30\uAC04 \uC870\uD68C"); //기간조회버튼
+        inquiryPeriodButton.setBounds(559, 115, 97, 23);
+        frame.add(inquiryPeriodButton);
 
-        btnNewButton_2 = new JButton("\uC2DC\uC124 \uC870\uD68C");  //시설조회버튼
-        btnNewButton_2.setBounds(559, 157, 97, 23);
-        frame.add(btnNewButton_2);
 
-        btnNewButton_3 = new JButton("\uC0AC\uC720 \uC870\uD68C");//사유조회버튼
-        btnNewButton_3.setBounds(559, 200, 97, 23);
-        frame.add(btnNewButton_3);
+        inquiryFacilityButton = new JButton("\uC2DC\uC124 \uC870\uD68C");  //시설조회버튼
+        inquiryFacilityButton.setBounds(559, 157, 97, 23);
+        frame.add(inquiryFacilityButton);
 
-        lblNewLabel_4 = new JLabel("\uC2DC\uC124\uBA85");//예약취소버튼
+        reasonInquiryButton = new JButton("\uC0AC\uC720 \uC870\uD68C");//사유조회버튼
+        reasonInquiryButton.setBounds(559, 200, 97, 23);
+        frame.add(reasonInquiryButton);
+
+        lblNewLabel_4 = new JLabel("\uC2DC\uC124\uBA85");
         lblNewLabel_4.setBounds(36, 159, 48, 15);
         frame.add(lblNewLabel_4);
 
-        textField_10 = new JTextField();
-        textField_10.setColumns(10);
-        textField_10.setBounds(95, 153, 439, 21);
-        frame.add(textField_10);
+        facilityInquirytext = new JTextField();
+        facilityInquirytext.setColumns(10);
+        facilityInquirytext.setBounds(95, 153, 439, 21);
+        frame.add(facilityInquirytext);
 
         lblNewLabel_6 = new JLabel("\uC0AC\uC720");
         lblNewLabel_6.setBounds(36, 202, 48, 15);
         frame.add(lblNewLabel_6);
 
-        textField_12 = new JTextField();
-        textField_12.setColumns(10);
-        textField_12.setBounds(95, 185, 439, 43);
-        frame.add(textField_12);
+        reasonInquirytext = new JTextField();
+        reasonInquirytext.setColumns(10);
+        reasonInquirytext.setBounds(95, 185, 439, 43);
+        frame.add(reasonInquirytext);
 
         table = new JTable();
         table.setBounds(51, 255, 615, 261);
         frame.add(table);
 
-        btnNewButton_4 = new JButton("\uC608\uC57D \uCDE8\uC18C");//예약취소버튼
-        btnNewButton_4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-        btnNewButton_4.setBounds(40, 526, 639, 56);
-        frame.add(btnNewButton_4);
+
+        cancleReservationButton = new JButton("\uC608\uC57D \uCDE8\uC18C");//예약취소버튼
+        cancleReservationButton.setBounds(40, 526, 639, 56);
+        frame.add(cancleReservationButton);
 
         JLabel userName = new JLabel(userId);
         userName.setFont(new Font("굴림", Font.BOLD, 25));
         userName.setBounds(749, 20, 132, 34);
         frame.add(userName);
 
-        JButton btnNewButton_5 = new JButton("\uC2E0\uCCAD\uD558\uAE30"); //신청하기
-        btnNewButton_5.setBounds(747, 592, 147, 33);
-        frame.add(btnNewButton_5);
+        applyButton= new JButton("\uC2E0\uCCAD\uD558\uAE30"); //신청하기
+        applyButton.setBounds(747, 592, 147, 33);
+        frame.add(applyButton);
     }
 
     public void actionPerformed(ActionEvent e) {
