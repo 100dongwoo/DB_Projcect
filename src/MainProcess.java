@@ -1,5 +1,4 @@
 public class MainProcess {
-	DBManager dbm;
     LoginView loginView;
 
     public static void main(String[] args) {
@@ -9,7 +8,6 @@ public class MainProcess {
     	
     	MainProcess main = new MainProcess();
         main.loginView = new LoginView(dbm); // 로그인창 보이기
-        main.loginView.setMain(main); // 로그인창에게 메인 클래스보내기
         
         dbm.selectPerson();
     }

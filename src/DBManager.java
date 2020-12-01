@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 public class DBManager {
 	Connection con = null;
+
 	public void finalize() {
 		if (con != null) {
 			try {
@@ -88,11 +89,7 @@ public class DBManager {
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				System.out.println("로그인 성공");
-				new MainView(id);
-
 				return true;
-
-//				Main = new MainView();
 			}
 			System.out.println("회원이아닙니다.");
 			

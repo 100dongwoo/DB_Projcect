@@ -1,12 +1,12 @@
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-public class MainView  extends  JFrame implements ActionListener{
-    String User="";
+
+public class MainView extends JFrame implements ActionListener {
+    String userId;
     DBManager dbm;
+
     private JTextField textField;
     private JTextField textField_1;
     private JTextField textField_2;
@@ -45,9 +45,11 @@ public class MainView  extends  JFrame implements ActionListener{
     /**
      * Create the application.
      */
-    public MainView(String user) {
+    public MainView(DBManager dbm, String userId) {
         // setting
-        User=user;
+        this.dbm = dbm;
+        this.userId = userId;
+
         setTitle("MainPage");
         setSize(922, 684);
         setResizable(false);
@@ -195,7 +197,7 @@ public class MainView  extends  JFrame implements ActionListener{
         btnNewButton_4.setBounds(40, 526, 639, 56);
         frame.add(btnNewButton_4);
 
-        JLabel userName = new JLabel(User);
+        JLabel userName = new JLabel(userId);
         userName.setFont(new Font("굴림", Font.BOLD, 25));
         userName.setBounds(749, 20, 132, 34);
         frame.add(userName);
@@ -204,10 +206,10 @@ public class MainView  extends  JFrame implements ActionListener{
         btnNewButton_5.setBounds(747, 592, 147, 33);
         frame.add(btnNewButton_5);
     }
+
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == allSearch) {
-                dbm.selectRental();
+            dbm.selectRental();
         }
-
     }
 }

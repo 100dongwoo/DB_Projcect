@@ -11,9 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class LoginView extends JFrame {
-	DBManager dbm;
-	MainView Main;
-	private MainProcess main;
+	private DBManager dbm;
 	private JButton btnLogin;
 	private JButton btnInit;
 	private JPasswordField passText;
@@ -77,31 +75,25 @@ public class LoginView extends JFrame {
 		});
 	}
 
-	public void isLoginCheck()////////////// 로그인 체크부분
+	public boolean isLoginCheck()////////////// 로그인 체크부분
 	{
 		String id = userText.getText();
 		@SuppressWarnings("deprecation")
 		String password = passText.getText();
-		
-		
+
 		System.out.println(id);
 		System.out.println(password);
 		if (dbm.selectPerson(id, password)) {
 			JOptionPane.showMessageDialog(null, "동의인 환영합니다.");
+			MainView mainView = new MainView(dbm, id);
 			dispose();
-
-		} else {
-			JOptionPane.showMessageDialog(null, "다시입력해주세요.");
+			return true;
 		}
-	}
-
-	// mainProcess와 연동
-	public void setMain(MainProcess main) {
-		this.main = main;
+		JOptionPane.showMessageDialog(null, "다시입력해주세요.");
+		return false;
 	}
 
 	public boolean isLogin() {
 		return bLoginCheck;
 	}
-
 }
