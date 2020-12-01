@@ -20,20 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="데이터 클래스 작성 완료.">
-      <change beforePath="$PROJECT_DIR$/bin/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/DBManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/LoginView$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/LoginView$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/LoginView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/MainProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainProcess.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/MainView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020-12-01__5_38__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020-12-01__5_38__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020-12-01__5_38__Default_Changelist_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020-12-01__5_38__Default_Changelist_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020-12-01__5_59__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2020-12-01__5_59__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DEUPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DEUPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Facility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Facility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JTableExample.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Rental.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rental.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
