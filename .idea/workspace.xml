@@ -19,21 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="">
+    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="로그인 완료.">
+      <change afterPath="$PROJECT_DIR$/src/DEUPerson.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Facility.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Rental.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/DBConnecter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/DBManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/LoginView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/LoginView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/LoginView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/LoginView$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/LoginView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/MainProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainProcess.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/MainView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/MainView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DBConnecter.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LoginView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MainProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +43,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1kv1UK59NMZqFMwlubjlpF6iBQy" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -58,6 +53,10 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="project.propCompiler" />
   </component>
   <component name="RunManager" selected="Application.MainProcess">
     <configuration name="MainProcess" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -90,6 +89,14 @@
       <option name="presentableId" value="Default" />
       <updated>1606566267067</updated>
     </task>
+    <task id="LOCAL-00001" summary="로그인 완료.">
+      <created>1606800653044</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606800653044</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -104,27 +111,43 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="로그인 완료." />
+    <option name="LAST_COMMIT_MESSAGE" value="로그인 완료." />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="285" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1606803568332">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="285" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1606803568332" />
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606566316778">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606566316778" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1606799286491">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1606800793834">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606799286491" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1606799286491">
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606800793834" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1606800793834">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606799286491" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1606799286491">
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606800793834" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1606800793834">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606799286491" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1606799286491">
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606800793834" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1606800793834">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606799286491" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606800793834" />
+    <state x="630" y="94" key="SettingsEditor" timestamp="1606803382682">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="630" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1606803382682" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1606802887297">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606802887297" />
     <state x="668" y="118" width="584" height="804" key="find.popup" timestamp="1606799694258">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

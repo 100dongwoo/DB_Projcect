@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBManager {
-	Connection con = null;
+	private Connection con = null;
 
 	public void finalize() {
 		if (con != null) {
@@ -27,9 +27,7 @@ public class DBManager {
 			con = DriverManager.getConnection(url, id, password);
 			System.out.println("DB 연결 성공");
 			return true;
-		} catch (ClassNotFoundException e) {
-			System.out.println(e.getMessage());
-		} catch (SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		return false;
@@ -141,11 +139,11 @@ public class DBManager {
 			System.out.println();
 			rs.close();
 			stmt.close();
+			return true;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			return false;
 		}
-		return true;
+		return false;
 	}
 
 //	public static void main(String[] args) {
