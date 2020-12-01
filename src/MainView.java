@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-public class MainView  extends  JFrame{
+public class MainView  extends  JFrame implements ActionListener{
     String User="";
+    DBManager dbm;
     private JTextField textField;
     private JTextField textField_1;
     private JTextField textField_2;
@@ -132,6 +133,7 @@ public class MainView  extends  JFrame{
         allSearch = new JButton("\uC804\uCCB4\uC870\uD68C"); //전체조회버튼
         allSearch.setBounds(29, 20, 639, 67);
         frame.add(allSearch);
+        allSearch.addActionListener(this);
 
         JLabel lblNewLabel_2 = new JLabel("\uC2DC\uC791\uAE30\uAC04");
         lblNewLabel_2.setBounds(36, 119, 48, 15);
@@ -201,5 +203,11 @@ public class MainView  extends  JFrame{
         JButton btnNewButton_5 = new JButton("\uC2E0\uCCAD\uD558\uAE30"); //신청하기
         btnNewButton_5.setBounds(747, 592, 147, 33);
         frame.add(btnNewButton_5);
+    }
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == allSearch) {
+                dbm.selectRental();
+        }
+
     }
 }
