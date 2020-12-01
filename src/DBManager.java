@@ -137,19 +137,19 @@ public class DBManager {
         return rentals;
     }
 
-    public boolean insertRental(Rental rental) {
+    public boolean insertRental(Timestamp startPeriod, Timestamp endPeriod, Integer personnel, String reason, Integer deuPerson, Integer facility, Integer room, Integer licenser) {
         boolean result = false;
         try {
             String query = "insert into 대여내역 values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setTimestamp(1, rental.getStartPeriod());
-            pstmt.setTimestamp(2, rental.getEndPeriod());
-            pstmt.setInt(3, rental.getPersonnel());
-            pstmt.setString(4, rental.getReason());
-            pstmt.setInt(5, rental.getDEUPerson());
-            pstmt.setInt(6, rental.getFacility());
-            pstmt.setInt(7, rental.getRoom());
-            pstmt.setInt(8, rental.getLicenser());
+            pstmt.setTimestamp(1, startPeriod);
+            pstmt.setTimestamp(2, endPeriod);
+            pstmt.setInt(3, personnel);
+            pstmt.setString(4, reason);
+            pstmt.setInt(5, deuPerson);
+            pstmt.setInt(6, facility);
+            pstmt.setInt(7, room);
+            pstmt.setInt(8, licenser);
             pstmt.executeQuery();
             pstmt.close();
             result = true;
