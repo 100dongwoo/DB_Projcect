@@ -87,7 +87,7 @@ public class MainView extends JFrame implements ActionListener {
      * Initialize the contents of the frame.
      */
     private void initialize(JPanel frame) {
-        mainFrame=frame;
+        mainFrame = frame;
         frame.setLayout(null);
         applyFacilityText = new JTextField();
         applyFacilityText.setBounds(747, 64, 147, 33);
@@ -221,7 +221,7 @@ public class MainView extends JFrame implements ActionListener {
         userName.setBounds(749, 20, 132, 34);
         frame.add(userName);
 
-        applyButton= new JButton("\uC2E0\uCCAD\uD558\uAE30"); //�떊泥��븯湲�
+        applyButton = new JButton("\uC2E0\uCCAD\uD558\uAE30"); //�떊泥��븯湲�
         applyButton.setBounds(747, 592, 147, 33);
         frame.add(applyButton);
     }
@@ -230,7 +230,7 @@ public class MainView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == allSearch) {
 
-            String colName[] ={"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
+            String colName[] = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
             model = new DefaultTableModel(colName, 0);
             String row[] = new String[9];
             model.addRow(colName);
@@ -252,11 +252,9 @@ public class MainView extends JFrame implements ActionListener {
             table.setBounds(51, 255, 615, 261);
             mainFrame.add(table);
             setVisible(true);
-        }
-        else if(e.getSource() == inquiryFacilityButton)
-        {
+        } else if (e.getSource() == inquiryFacilityButton) {
 //            ArrayList<Rental> rentals = dbm.selectRental(facilityInquirytext.getText());
-            String colName[] ={"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
+            String colName[] = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
             model = new DefaultTableModel(colName, 0);
             String row[] = new String[9];
             model.addRow(colName);

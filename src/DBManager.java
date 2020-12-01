@@ -55,6 +55,7 @@ public class DBManager {
         }
         return result;
     }
+
     public ArrayList<Rental> selectRental(String facilityName) {//프리페어먼트
         ArrayList<Rental> rentals = new ArrayList<>();
         String query = "SELECT " +
@@ -90,13 +91,12 @@ public class DBManager {
             }
             rs.close();
             pstmt.close();
-            con.close();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return rentals;
     }
-
 
 
     public ArrayList<Rental> selectRental() {
@@ -120,6 +120,7 @@ public class DBManager {
             }
             rs.close();
             stmt.close();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
