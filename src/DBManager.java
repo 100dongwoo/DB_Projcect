@@ -105,7 +105,31 @@ public class DBManager {
         return rentals;
     }
 
-    public boolean addRental(Rental rental) {
+    public boolean insertRental(Rental rental) {
+        boolean result = false;
+        try {
+            String query = "insert into 대여내역 values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setTimestamp(1, rental.getStartPeriod());
+            pstmt.setTimestamp(2, rental.getEndPeriod());
+            pstmt.setInt(3, rental.getPersonnel());
+            pstmt.setString(4, rental.getReason());
+            pstmt.setInt(5, rental.getDEUPerson());
+            pstmt.setInt(6, rental.getFacility());
+            pstmt.setInt(7, rental.getRoom());
+            pstmt.setInt(8, rental.getLicenser());
+            pstmt.executeQuery();
+            pstmt.close();
+            result = true;
+            System.out.println("Facility reservation was successful.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Facility reservation failed.");
+        }
+        return result;
+    }
+
+    public boolean deleteRental(Rental rental) {
         boolean result = false;
         try {
             String query = "insert into 대여내역 values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
