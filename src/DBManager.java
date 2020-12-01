@@ -70,12 +70,12 @@ public class DBManager {
                 "from 대여내역, 시설물 " +
                 "where 대여내역.건물=시설물.건물번호 and 시설물.시설명=?";
 
-        System.out.println(query);
+
         try {
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, facilityName);
             ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 Rental rental = new Rental();
                 rental.setRentalNumber(rs.getInt(1));
                 rental.setStartPeriod(rs.getDate(2));
@@ -86,7 +86,6 @@ public class DBManager {
                 rental.setFacility(rs.getInt(7));
                 rental.setRoom(rs.getInt(8));
                 rental.setLicenser(rs.getInt(9));
-                System.out.println(rs.getInt(9));
                 rentals.add(rental);
             }
             rs.close();

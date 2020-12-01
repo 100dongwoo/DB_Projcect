@@ -1,9 +1,16 @@
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class MainView extends JFrame implements ActionListener {
     String userId;
@@ -12,28 +19,28 @@ public class MainView extends JFrame implements ActionListener {
     public DefaultTableModel model;
     private JPanel mainFrame;
     //button
-    private JButton reasonInquiryButton;//사유조회
-    private JButton allSearch; //전체조회
-    private JButton inquiryPeriodButton; //기간조회
-    private JButton inquiryFacilityButton; //시설조회
-    private JButton cancleReservationButton;//취소버튼
-    private JButton applyButton;//신청버튼
+    private JButton reasonInquiryButton;//�궗�쑀議고쉶
+    private JButton allSearch; //�쟾泥댁“�쉶
+    private JButton inquiryPeriodButton; //湲곌컙議고쉶
+    private JButton inquiryFacilityButton; //�떆�꽕議고쉶
+    private JButton cancleReservationButton;//痍⑥냼踰꾪듉
+    private JButton applyButton;//�떊泥�踰꾪듉
 
     //InquiryText
-    private JTextField startDateInquirytext; //시작기간
-    private JTextField endDateInquirytext; //종료기간
-    private JTextField facilityInquirytext;//시설명
-    private JTextField reasonInquirytext;//사유
+    private JTextField startDateInquirytext; //�떆�옉湲곌컙
+    private JTextField endDateInquirytext; //醫낅즺湲곌컙
+    private JTextField facilityInquirytext;//�떆�꽕紐�
+    private JTextField reasonInquirytext;//�궗�쑀
 
     //applyText
-    private JTextField applyFacilityText;       //시설
-    private JTextField applyRoomText;     //호실
-    private JTextField applyLicenserText;     //허가자
-    private JTextField applyStartDate;     //시작기간
-    private JTextField applyFinishDate;     //종료기간
-    private JTextField applyPersonnelText;     //인원
-    private JTextArea applyReasonText;     //사유
-    private JTable table;       //출력 테이블
+    private JTextField applyFacilityText;       //�떆�꽕
+    private JTextField applyRoomText;     //�샇�떎
+    private JTextField applyLicenserText;     //�뿀媛��옄
+    private JTextField applyStartDate;     //�떆�옉湲곌컙
+    private JTextField applyFinishDate;     //醫낅즺湲곌컙
+    private JTextField applyPersonnelText;     //�씤�썝
+    private JTextArea applyReasonText;     //�궗�쑀
+    private JTable table;       //異쒕젰 �뀒�씠釉�
 
 
     private JLabel lblNewLabel_3;
@@ -68,7 +75,7 @@ public class MainView extends JFrame implements ActionListener {
         setLocation(100, 100);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); //화면중간
+        setLocationRelativeTo(null); //�솕硫댁쨷媛�
         // panel
         JPanel panel = new JPanel();
         initialize(panel);
@@ -112,7 +119,7 @@ public class MainView extends JFrame implements ActionListener {
         applyPersonnelText.setBounds(747, 276, 147, 33);
         frame.add(applyPersonnelText);
 
-        applyReasonText = new JTextArea();       //사유
+        applyReasonText = new JTextArea();       //�궗�쑀
         applyReasonText.setBounds(749, 330, 145, 241);
         frame.add(applyReasonText);
 
@@ -145,7 +152,7 @@ public class MainView extends JFrame implements ActionListener {
         lblNewLabel_1_2_3.setBounds(680, 337, 57, 15);
         frame.add(lblNewLabel_1_2_3);
 
-        allSearch = new JButton("\uC804\uCCB4\uC870\uD68C"); //전체조회버튼
+        allSearch = new JButton("\uC804\uCCB4\uC870\uD68C"); //�쟾泥댁“�쉶踰꾪듉
         allSearch.setBounds(29, 20, 639, 67);
         frame.add(allSearch);
         allSearch.addActionListener(this);
@@ -168,17 +175,17 @@ public class MainView extends JFrame implements ActionListener {
         endDateInquirytext.setBounds(357, 119, 177, 21);
         frame.add(endDateInquirytext);
 
-        inquiryPeriodButton = new JButton("\uAE30\uAC04 \uC870\uD68C"); //기간조회버튼
+        inquiryPeriodButton = new JButton("\uAE30\uAC04 \uC870\uD68C"); //湲곌컙議고쉶踰꾪듉
         inquiryPeriodButton.setBounds(559, 115, 97, 23);
         frame.add(inquiryPeriodButton);
 
 
-        inquiryFacilityButton = new JButton("\uC2DC\uC124 \uC870\uD68C");  //시설조회버튼
+        inquiryFacilityButton = new JButton("\uC2DC\uC124 \uC870\uD68C");  //�떆�꽕議고쉶踰꾪듉
         inquiryFacilityButton.setBounds(559, 157, 97, 23);
         frame.add(inquiryFacilityButton);
         inquiryFacilityButton.addActionListener(this);
 
-        reasonInquiryButton = new JButton("\uC0AC\uC720 \uC870\uD68C");//사유조회버튼
+        reasonInquiryButton = new JButton("\uC0AC\uC720 \uC870\uD68C");//�궗�쑀議고쉶踰꾪듉
         reasonInquiryButton.setBounds(559, 200, 97, 23);
         frame.add(reasonInquiryButton);
 
@@ -205,16 +212,16 @@ public class MainView extends JFrame implements ActionListener {
         frame.add(table);
 
 
-        cancleReservationButton = new JButton("\uC608\uC57D \uCDE8\uC18C");//예약취소버튼
+        cancleReservationButton = new JButton("\uC608\uC57D \uCDE8\uC18C");//�삁�빟痍⑥냼踰꾪듉
         cancleReservationButton.setBounds(40, 526, 639, 56);
         frame.add(cancleReservationButton);
 
         JLabel userName = new JLabel(userId);
-        userName.setFont(new Font("굴림", Font.BOLD, 25));
+        userName.setFont(new Font("援대┝", Font.BOLD, 25));
         userName.setBounds(749, 20, 132, 34);
         frame.add(userName);
 
-        applyButton= new JButton("\uC2E0\uCCAD\uD558\uAE30"); //신청하기
+        applyButton= new JButton("\uC2E0\uCCAD\uD558\uAE30"); //�떊泥��븯湲�
         applyButton.setBounds(747, 592, 147, 33);
         frame.add(applyButton);
     }
@@ -248,7 +255,29 @@ public class MainView extends JFrame implements ActionListener {
         }
         else if(e.getSource() == inquiryFacilityButton)
         {
+//            ArrayList<Rental> rentals = dbm.selectRental(facilityInquirytext.getText());
+            String colName[] ={"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
+            model = new DefaultTableModel(colName, 0);
+            String row[] = new String[9];
+            model.addRow(colName);
             ArrayList<Rental> rentals = dbm.selectRental(facilityInquirytext.getText());
+            for (Rental rental : rentals) {
+                row[0] = String.valueOf(rental.getRentalNumber());
+                row[1] = String.valueOf(rental.getStartPeriod());
+                row[2] = String.valueOf(rental.getEndPeriod());
+                row[3] = String.valueOf(rental.getPersonnel());
+                row[4] = String.valueOf(rental.getReason());
+                row[5] = String.valueOf(rental.getDEUPerson());
+                row[6] = String.valueOf(rental.getFacility());
+                row[7] = String.valueOf(rental.getRoom());
+                row[8] = String.valueOf(rental.getLicenser());
+                model.addRow(row);
+            }
+
+            table = new JTable(model);
+            table.setBounds(51, 255, 615, 261);
+            mainFrame.add(table);
+            setVisible(true);
         }
     }
 }
