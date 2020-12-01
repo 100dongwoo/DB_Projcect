@@ -1,16 +1,16 @@
 public class DEUPerson {
-    private int deuPersonNumber;
+    private Integer deuPersonNumber;
     private String password;
     private String name;
     private String phone;
     private String position;
     private String belong;
 
-    public int getDeuPersonNumber() {
+    public Integer getDEUPersonNumber() {
         return deuPersonNumber;
     }
 
-    public void setDeuPersonNumber(int deuPersonNumber) {
+    public void setDEUPersonNumber(Integer deuPersonNumber) {
         this.deuPersonNumber = deuPersonNumber;
     }
 

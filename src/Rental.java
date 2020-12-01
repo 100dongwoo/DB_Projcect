@@ -1,45 +1,45 @@
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Rental {
-    private int rentalNumber;
-    private Date startPeriod;
-    private Date endPeriod;
-    private int personnel;
+    private Integer rentalNumber;
+    private Timestamp startPeriod;
+    private Timestamp endPeriod;
+    private Integer personnel;
     private String reason;
-    private int deuPerson;
-    private int facility;
-    private int room;
-    private int licenser;
+    private Integer deuPerson;
+    private Integer facility;
+    private Integer room;
+    private Integer licenser;
 
-    public int getRentalNumber() {
+    public Integer getRentalNumber() {
         return rentalNumber;
     }
 
-    public void setRentalNumber(int rentalNumber) {
+    public void setRentalNumber(Integer rentalNumber) {
         this.rentalNumber = rentalNumber;
     }
 
-    public Date getStartPeriod() {
+    public Timestamp getStartPeriod() {
         return startPeriod;
     }
 
-    public void setStartPeriod(Date startPeriod) {
+    public void setStartPeriod(Timestamp startPeriod) {
         this.startPeriod = startPeriod;
     }
 
-    public Date getEndPeriod() {
+    public Timestamp getEndPeriod() {
         return endPeriod;
     }
 
-    public void setEndPeriod(Date endPeriod) {
+    public void setEndPeriod(Timestamp endPeriod) {
         this.endPeriod = endPeriod;
     }
 
-    public int getPersonnel() {
+    public Integer getPersonnel() {
         return personnel;
     }
 
-    public void setPersonnel(int personnel) {
+    public void setPersonnel(Integer personnel) {
         this.personnel = personnel;
     }
 
@@ -51,35 +51,35 @@ public class Rental {
         this.reason = reason;
     }
 
-    public int getDEUPerson() {
+    public Integer getDEUPerson() {
         return deuPerson;
     }
 
-    public void setDEUPerson(int deuPerson) {
+    public void setDEUPerson(Integer deuPerson) {
         this.deuPerson = deuPerson;
     }
 
-    public int getFacility() {
+    public Integer getFacility() {
         return facility;
     }
 
-    public void setFacility(int facility) {
+    public void setFacility(Integer facility) {
         this.facility = facility;
     }
 
-    public int getRoom() {
+    public Integer getRoom() {
         return room;
     }
 
-    public void setRoom(int room) {
+    public void setRoom(Integer room) {
         this.room = room;
     }
 
-    public int getLicenser() {
+    public Integer getLicenser() {
         return licenser;
     }
 
-    public void setLicenser(int licenser) {
+    public void setLicenser(Integer licenser) {
         this.licenser = licenser;
     }
 }

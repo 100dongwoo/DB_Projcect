@@ -1,75 +1,61 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class DBManager {
     private Connection con = null;
-
-//    public void finalize() {
-//        if (con != null) {
-//            try {
-//                con.close();
-//            } catch (SQLException e) {
-//                System.out.println(e.getMessage());
-//            }
-//        }
-//    }
 
     public boolean connect(String id, String password) {
         boolean result = false;
         try {
             String url = "jdbc:oracle:thin:@localhost:1521:XE";
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            System.out.println("µå¶óÀÌ¹ö ÀûÀç ¼º°ø");
             con = DriverManager.getConnection(url, id, password);
-            System.out.println("DB ¿¬°á ¼º°ø");
+            System.out.println("Connected.");
             result = true;
         } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Not connected.");
             System.out.println(e.getMessage());
         }
         return result;
     }
 
-    public boolean selectPerson(String id, String password) { //ÇÁ¸®Æä¾î¸ÕÆ®
+    public boolean selectPerson(String id, String password) {
         boolean result = false;
         try {
-            String query = "SELECT * from µ¿ÀÇÀÎ where µ¿ÀÇÀÎ¹øÈ£=? and ºñ¹Ğ¹øÈ£=?";
+            String query = "SELECT * from ë™ì˜ì¸ where ë™ì˜ì¸ë²ˆí˜¸=? and ë¹„ë°€ë²ˆí˜¸=?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, id);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                System.out.println("·Î±×ÀÎ ¼º°ø");
+                System.out.println("Selected person.");
                 result = true;
             } else {
-                System.out.println("È¸¿øÀÌ¾Æ´Õ´Ï´Ù.");
+                System.out.println("Selected no person.");
             }
             rs.close();
             pstmt.close();
         } catch (SQLException e) {
+            System.out.println("Not selected person.");
             System.out.println(e.getMessage());
         }
         return result;
     }
 
-    public ArrayList<Rental> selectRental(String facilityName) {//ÇÁ¸®Æä¾î¸ÕÆ®
+    public ArrayList<Rental> selectRental(String facilityName) {//í”„ë¦¬í˜ì–´ë¨¼íŠ¸
         ArrayList<Rental> rentals = new ArrayList<>();
         String query = "SELECT " +
-                "´ë¿©³»¿ª.´ë¿©¹øÈ£, " +
-                "´ë¿©³»¿ª.½ÃÀÛ±â°£, " +
-                "´ë¿©³»¿ª.Á¾·á±â°£, " +
-                "´ë¿©³»¿ª.ÀÎ¿ø, " +
-                "´ë¿©³»¿ª.»çÀ¯, " +
-                "´ë¿©³»¿ª.µ¿ÀÇÀÎ, " +
-                "´ë¿©³»¿ª.°Ç¹°, " +
-                "´ë¿©³»¿ª.È£½Ç, " +
-                "´ë¿©³»¿ª.Çã°¡ÀÚ " +
-                "from ´ë¿©³»¿ª, ½Ã¼³¹° " +
-                "where ´ë¿©³»¿ª.°Ç¹°=½Ã¼³¹°.°Ç¹°¹øÈ£ and ½Ã¼³¹°.½Ã¼³¸í=?";
+                "ëŒ€ì—¬ë‚´ì—­.ëŒ€ì—¬ë²ˆí˜¸, " +
+                "ëŒ€ì—¬ë‚´ì—­.ì‹œì‘ê¸°ê°„, " +
+                "ëŒ€ì—¬ë‚´ì—­.ì¢…ë£Œê¸°ê°„, " +
+                "ëŒ€ì—¬ë‚´ì—­.ì¸ì›, " +
+                "ëŒ€ì—¬ë‚´ì—­.ì‚¬ìœ , " +
+                "ëŒ€ì—¬ë‚´ì—­.ë™ì˜ì¸, " +
+                "ëŒ€ì—¬ë‚´ì—­.ê±´ë¬¼, " +
+                "ëŒ€ì—¬ë‚´ì—­.í˜¸ì‹¤, " +
+                "ëŒ€ì—¬ë‚´ì—­.í—ˆê°€ì " +
+                "from ëŒ€ì—¬ë‚´ì—­, ì‹œì„¤ë¬¼ " +
+                "where ëŒ€ì—¬ë‚´ì—­.ê±´ë¬¼=ì‹œì„¤ë¬¼.ê±´ë¬¼ë²ˆí˜¸ and ì‹œì„¤ë¬¼.ì‹œì„¤ëª…=?";
 
 
         try {
@@ -79,8 +65,8 @@ public class DBManager {
             while (rs.next()) {
                 Rental rental = new Rental();
                 rental.setRentalNumber(rs.getInt(1));
-                rental.setStartPeriod(rs.getDate(2));
-                rental.setEndPeriod(rs.getDate(3));
+                rental.setStartPeriod(rs.getTimestamp(2));
+                rental.setEndPeriod(rs.getTimestamp(3));
                 rental.setPersonnel(rs.getInt(4));
                 rental.setReason(rs.getString(5));
                 rental.setDEUPerson(rs.getInt(6));
@@ -102,14 +88,14 @@ public class DBManager {
     public ArrayList<Rental> selectRental() {
         ArrayList<Rental> rentals = new ArrayList<>();
         try {
-            String query = "SELECT * from ´ë¿©³»¿ª";
+            String query = "SELECT * from ëŒ€ì—¬ë‚´ì—­";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 Rental rental = new Rental();
                 rental.setRentalNumber(rs.getInt(1));
-                rental.setStartPeriod(rs.getDate(2));
-                rental.setEndPeriod(rs.getDate(3));
+                rental.setStartPeriod(rs.getTimestamp(2));
+                rental.setEndPeriod(rs.getTimestamp(3));
                 rental.setPersonnel(rs.getInt(4));
                 rental.setReason(rs.getString(5));
                 rental.setDEUPerson(rs.getInt(6));
@@ -126,21 +112,20 @@ public class DBManager {
         }
         return rentals;
     }
-
     public boolean addRental(Rental rental) {
         boolean result = false;
         try {
-            String query = "insert into ´ë¿©³»¿ª values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "insert into ëŒ€ì—¬ë‚´ì—­ values(ëŒ€ì—¬ë²ˆí˜¸.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, "´ë¿©¹øÈ£.NEXTVAL");
-            pstmt.setDate(2, rental.getStartPeriod());
-            pstmt.setDate(3, rental.getEndPeriod());
-            pstmt.setInt(4, rental.getPersonnel());
-            pstmt.setString(5, rental.getReason());
-            pstmt.setInt(6, rental.getDEUPerson());
-            pstmt.setInt(7, rental.getFacility());
-            pstmt.setInt(8, rental.getRoom());
-            pstmt.setInt(9, rental.getLicenser());
+            pstmt.setTimestamp(1, rental.getStartPeriod());
+            pstmt.setTimestamp(2, rental.getEndPeriod());
+            pstmt.setInt(3, rental.getPersonnel());
+            pstmt.setString(4, rental.getReason());
+            pstmt.setInt(5, rental.getDEUPerson());
+            pstmt.setInt(6, rental.getFacility());
+            pstmt.setInt(7, rental.getRoom());
+            pstmt.setInt(8, rental.getLicenser());
+            pstmt.executeQuery();
             pstmt.close();
             result = true;
         } catch (SQLException e) {

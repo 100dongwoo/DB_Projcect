@@ -1,0 +1,392 @@
+Index: src/DBManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.sql.Connection;\r\nimport java.sql.Date;\r\nimport java.sql.DriverManager;\r\nimport java.sql.PreparedStatement;\r\nimport java.sql.ResultSet;\r\nimport java.sql.SQLException;\r\nimport java.sql.Statement;\r\nimport java.util.ArrayList;\r\n\r\npublic class DBManager {\r\n\tprivate Connection con = null;\r\n\r\n\tpublic void finalize() {\r\n\t\tif (con != null) {\r\n\t\t\ttry {\r\n\t\t\t\tcon.close();\r\n\t\t\t} catch (SQLException e) {\r\n\t\t\t\tSystem.out.println(e.getMessage());\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\tpublic boolean connect(String id, String password) {\r\n\t\tString url = \"jdbc:oracle:thin:@localhost:1521:XE\";\r\n\t\ttry {\r\n\t\t\tClass.forName(\"oracle.jdbc.driver.OracleDriver\");\r\n\t\t\tSystem.out.println(\"드라이버 적재 성공\");\r\n\t\t\tcon = DriverManager.getConnection(url, id, password);\r\n\t\t\tSystem.out.println(\"DB 연결 성공\");\r\n\t\t\treturn true;\r\n\t\t} catch (ClassNotFoundException | SQLException e) {\r\n\t\t\tSystem.out.println(e.getMessage());\r\n\t\t}\r\n\t\treturn false;\r\n\t}\r\n\r\n\tpublic boolean selectPerson(String id, String password) {//프리페어먼트\r\n\t\tString query = \"SELECT * from 동의인 where 동의인번호=? and 비밀번호=?\";\r\n\t\ttry {\r\n\t\t\tPreparedStatement pstmt = con.prepareStatement(query);\r\n\t\t\tpstmt.setString(1, id);\r\n\t\t\tpstmt.setString(2, password);\r\n\t\t\tResultSet rs = pstmt.executeQuery();\r\n\t\t\tif (rs.next()) {\r\n\t\t\t\tSystem.out.println(\"로그인 성공\");\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t\tSystem.out.println(\"회원이아닙니다.\");\r\n\t\t\t\r\n\t\t} catch (SQLException e) {\r\n\t\t\tSystem.out.println(e.getMessage());\r\n\t\t}\r\n\t\treturn false;\r\n\t}\r\n\r\n\tpublic ArrayList<Rental> selectRental() {\r\n\t\tString query = \"SELECT * from 대여내역\";\r\n\t\ttry {\r\n\t\t\tArrayList<Rental> rentals = new ArrayList<>();\r\n\t\t\tStatement stmt = con.createStatement();\r\n\t\t\tResultSet rs = stmt.executeQuery(query);\r\n\t\t\twhile (rs.next()) {\r\n\t\t\t\tRental rental = new Rental();\r\n\t\t\t\trental.setRentalNumber(rs.getInt(1));\r\n\t\t\t\trental.setStartPeriod(rs.getDate(2));\r\n\t\t\t\trental.setEndPeriod(rs.getDate(3));\r\n\t\t\t\trental.setPersonnel(rs.getInt(4));\r\n\t\t\t\trental.setReason(rs.getString(5));\r\n\t\t\t\trental.setDEUPerson(rs.getInt(6));\r\n\t\t\t\trental.setFacility(rs.getInt(7));\r\n\t\t\t\trental.setRoom(rs.getInt(8));\r\n\t\t\t\trental.setLicenser(rs.getInt(9));\r\n\t\t\t\trentals.add(rental);\r\n\t\t\t}\r\n\t\t\trs.close();\r\n\t\t\tstmt.close();\r\n\t\t\treturn rentals;\r\n\t\t} catch (SQLException e) {\r\n\t\t\tSystem.out.println(e.getMessage());\r\n\t\t}\r\n\t\treturn null;\r\n\t}\r\n\r\n\tpublic boolean addRental(Date 시작기간, Date 종료기간, int 인원, String 사유, int 동의인, int 건물, int 호실) {\r\n\t\tString query = \"insert into 대여내역  values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)\";\r\n\t\ttry {\r\n\t\t\tPreparedStatement pstmt = con.prepareStatement(query);\r\n\t\t\tpstmt.setDate(1, 시작기간);\r\n\t\t\tpstmt.setDate(2, 종료기간);\r\n\t\t\tpstmt.setInt(3, 인원);\r\n\t\t\tpstmt.setString(4, 사유);\r\n\t\t\tpstmt.setInt(5, 동의인);\r\n\t\t\tpstmt.setInt(6, 건물);\r\n\t\t\tpstmt.setInt(7, 호실);\r\n\t\t\treturn true;\r\n\t\t} catch (SQLException e) {\r\n\t\t\tSystem.out.println(e.getMessage());\r\n\t\t}\r\n\t\treturn false;\r\n\t}\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>x-windows-949
+===================================================================
+--- src/DBManager.java	(revision 0c994d38f04af76a1b05c40c848a4bfeab02a627)
++++ src/DBManager.java	(date 1606811610351)
+@@ -8,94 +8,140 @@
+ import java.util.ArrayList;
+ 
+ public class DBManager {
+-	private Connection con = null;
++    private Connection con = null;
+ 
+-	public void finalize() {
+-		if (con != null) {
+-			try {
+-				con.close();
+-			} catch (SQLException e) {
+-				System.out.println(e.getMessage());
+-			}
+-		}
+-	}
++    public void finalize() {
++        if (con != null) {
++            try {
++                con.close();
++            } catch (SQLException e) {
++                System.out.println(e.getMessage());
++            }
++        }
++    }
+ 
+-	public boolean connect(String id, String password) {
+-		String url = "jdbc:oracle:thin:@localhost:1521:XE";
+-		try {
+-			Class.forName("oracle.jdbc.driver.OracleDriver");
+-			System.out.println("드라이버 적재 성공");
+-			con = DriverManager.getConnection(url, id, password);
+-			System.out.println("DB 연결 성공");
+-			return true;
+-		} catch (ClassNotFoundException | SQLException e) {
+-			System.out.println(e.getMessage());
+-		}
+-		return false;
+-	}
++    public boolean connect(String id, String password) {
++        String url = "jdbc:oracle:thin:@localhost:1521:XE";
++        try {
++            Class.forName("oracle.jdbc.driver.OracleDriver");
++            System.out.println("드라이버 적재 성공");
++            con = DriverManager.getConnection(url, id, password);
++            System.out.println("DB 연결 성공");
++            return true;
++        } catch (ClassNotFoundException | SQLException e) {
++            System.out.println(e.getMessage());
++        }
++        return false;
++    }
+ 
+-	public boolean selectPerson(String id, String password) {//프리페어먼트
+-		String query = "SELECT * from 동의인 where 동의인번호=? and 비밀번호=?";
+-		try {
+-			PreparedStatement pstmt = con.prepareStatement(query);
+-			pstmt.setString(1, id);
+-			pstmt.setString(2, password);
+-			ResultSet rs = pstmt.executeQuery();
+-			if (rs.next()) {
+-				System.out.println("로그인 성공");
+-				return true;
+-			}
+-			System.out.println("회원이아닙니다.");
+-			
+-		} catch (SQLException e) {
+-			System.out.println(e.getMessage());
+-		}
+-		return false;
+-	}
++    public boolean selectPerson(String id, String password) {//프리페어먼트
++        String query = "SELECT * from 동의인 where 동의인번호=? and 비밀번호=?";
++        try {
++            PreparedStatement pstmt = con.prepareStatement(query);
++            pstmt.setString(1, id);
++            pstmt.setString(2, password);
++            ResultSet rs = pstmt.executeQuery();
++            if (rs.next()) {
++                System.out.println("로그인 성공");
++                return true;
++            }
++            System.out.println("회원이아닙니다.");
++
++        } catch (SQLException e) {
++            System.out.println(e.getMessage());
++        }
++        return false;
++    }
+ 
+-	public ArrayList<Rental> selectRental() {
+-		String query = "SELECT * from 대여내역";
+-		try {
+-			ArrayList<Rental> rentals = new ArrayList<>();
+-			Statement stmt = con.createStatement();
+-			ResultSet rs = stmt.executeQuery(query);
+-			while (rs.next()) {
+-				Rental rental = new Rental();
+-				rental.setRentalNumber(rs.getInt(1));
+-				rental.setStartPeriod(rs.getDate(2));
+-				rental.setEndPeriod(rs.getDate(3));
+-				rental.setPersonnel(rs.getInt(4));
+-				rental.setReason(rs.getString(5));
+-				rental.setDEUPerson(rs.getInt(6));
+-				rental.setFacility(rs.getInt(7));
+-				rental.setRoom(rs.getInt(8));
+-				rental.setLicenser(rs.getInt(9));
+-				rentals.add(rental);
+-			}
+-			rs.close();
+-			stmt.close();
+-			return rentals;
+-		} catch (SQLException e) {
+-			System.out.println(e.getMessage());
+-		}
+-		return null;
+-	}
++
++    public ArrayList<Rental> selectRental(String facilityName) {//프리페어먼트
++        ArrayList<Rental> rentals = new ArrayList<>();
++        String query = "SELECT " +
++                "대여내역.대여번호, " +
++                "대여내역.시작기간, " +
++                "대여내역.종료기간, " +
++                "대여내역.인원, " +
++                "대여내역.사유, " +
++                "대여내역.동의인, " +
++                "대여내역.건물, " +
++                "대여내역.호실, " +
++                "대여내역.허가자 " +
++                "from 대여내역, 시설물 " +
++                "where 대여내역.건물=시설물.건물번호 and 시설물.시설명=?";
++
++        System.out.println(query);
++        try {
++            PreparedStatement pstmt = con.prepareStatement(query);
++            pstmt.setString(1, facilityName);
++            ResultSet rs = pstmt.executeQuery(query);
++            pstmt.executeUpdate();
++            if (rs.next()) {
++                System.out.println("t시발 제일 위에 ");
++                Rental rental = new Rental();
++                rental.setRentalNumber(rs.getInt(1));
++                rental.setStartPeriod(rs.getDate(2));
++                rental.setEndPeriod(rs.getDate(3));
++                rental.setPersonnel(rs.getInt(4));
++                rental.setReason(rs.getString(5));
++                rental.setDEUPerson(rs.getInt(6));
++                rental.setFacility(rs.getInt(7));
++                rental.setRoom(rs.getInt(8));
++                rental.setLicenser(rs.getInt(9));
++                System.out.println(rs.getInt(9));
++                rentals.add(rental);
++            }
++            rs.close();
++            pstmt.close();
++            con.close();
++        } catch (SQLException e) {
++            System.out.println(e.getMessage());
++        }
++        return rentals;
++    }
++
++    public ArrayList<Rental> selectRental() {
++        String query = "SELECT * from 대여내역";
++        try {
++            ArrayList<Rental> rentals = new ArrayList<>();
++            Statement stmt = con.createStatement();
++            ResultSet rs = stmt.executeQuery(query);
++            while (rs.next()) {
++                Rental rental = new Rental();
++                rental.setRentalNumber(rs.getInt(1));
++                rental.setStartPeriod(rs.getDate(2));
++                rental.setEndPeriod(rs.getDate(3));
++                rental.setPersonnel(rs.getInt(4));
++                rental.setReason(rs.getString(5));
++                rental.setDEUPerson(rs.getInt(6));
++                rental.setFacility(rs.getInt(7));
++                rental.setRoom(rs.getInt(8));
++                rental.setLicenser(rs.getInt(9));
++                rentals.add(rental);
++            }
++            rs.close();
++            stmt.close();
++            return rentals;
++        } catch (SQLException e) {
++            System.out.println(e.getMessage());
++        }
++        return null;
++    }
+ 
+-	public boolean addRental(Date 시작기간, Date 종료기간, int 인원, String 사유, int 동의인, int 건물, int 호실) {
+-		String query = "insert into 대여내역  values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
+-		try {
+-			PreparedStatement pstmt = con.prepareStatement(query);
+-			pstmt.setDate(1, 시작기간);
+-			pstmt.setDate(2, 종료기간);
+-			pstmt.setInt(3, 인원);
+-			pstmt.setString(4, 사유);
+-			pstmt.setInt(5, 동의인);
+-			pstmt.setInt(6, 건물);
+-			pstmt.setInt(7, 호실);
+-			return true;
+-		} catch (SQLException e) {
+-			System.out.println(e.getMessage());
+-		}
+-		return false;
+-	}
++    public boolean addRental(Date 시작기간, Date 종료기간, int 인원, String 사유, int 동의인, int 건물, int 호실) {
++        String query = "insert into 대여내역  values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
++        try {
++            PreparedStatement pstmt = con.prepareStatement(query);
++            pstmt.setDate(1, 시작기간);
++            pstmt.setDate(2, 종료기간);
++            pstmt.setInt(3, 인원);
++            pstmt.setString(4, 사유);
++            pstmt.setInt(5, 동의인);
++            pstmt.setInt(6, 건물);
++            pstmt.setInt(7, 호실);
++            return true;
++        } catch (SQLException e) {
++            System.out.println(e.getMessage());
++        }
++        return false;
++    }
+ }
+\ No newline at end of file
+Index: src/MainView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javax.swing.*;\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.Font;\r\nimport java.util.ArrayList;\r\n\r\npublic class MainView extends JFrame implements ActionListener {\r\n    String userId;\r\n    DBManager dbm;\r\n    //button\r\n    private JButton reasonInquiryButton;//사유조회\r\n    private JButton allSearch; //전체조회\r\n    private JButton inquiryPeriodButton; //기간조회\r\n    private JButton inquiryFacilityButton; //시설조회\r\n    private JButton cancleReservationButton;//취소버튼\r\n    private JButton applyButton;//신청버튼\r\n\r\n    //InquiryText\r\n    private JTextField startDateInquirytext; //시작기간\r\n    private JTextField endDateInquirytext; //종료기간\r\n    private JTextField facilityInquirytext;//시설명\r\n    private JTextField reasonInquirytext;//사유\r\n\r\n    //applyText\r\n    private JTextField applyFacilityText;       //시설\r\n    private JTextField applyRoomText;     //호실\r\n    private JTextField applyLicenserText;     //허가자\r\n    private JTextField applyStartDate;     //시작기간\r\n    private JTextField applyFinishDate;     //종료기간\r\n    private JTextField applyPersonnelText;     //인원\r\n    private JTextArea applyReasonText;     //사유\r\n    private JTable table;       //출력 테이블\r\n\r\n\r\n    private JLabel lblNewLabel_3;\r\n    private JLabel lblNewLabel_4;\r\n    private JLabel lblNewLabel_6;\r\n    /**\r\n     * Launch the application.\r\n     */\r\n//    public static void main(String[] args) {\r\n//        EventQueue.invokeLater(new Runnable() {\r\n//            public void run() {\r\n//                try {\r\n//                    MainView window = new MainView();\r\n//                } catch (Exception e) {\r\n//                    e.printStackTrace();\r\n//                }\r\n//            }\r\n//        });\r\n//    }\r\n\r\n    /**\r\n     * Create the application.\r\n     */\r\n    public MainView(DBManager dbm, String userId) {\r\n        // setting\r\n        this.dbm = dbm;\r\n        this.userId = userId;\r\n\r\n        setTitle(\"MainPage\");\r\n        setSize(922, 684);\r\n        setResizable(false);\r\n        setLocation(100, 100);\r\n\r\n        setDefaultCloseOperation(EXIT_ON_CLOSE);\r\n        setLocationRelativeTo(null); //화면중간\r\n        // panel\r\n        JPanel panel = new JPanel();\r\n        initialize(panel);\r\n        add(panel);\r\n        setVisible(true);\r\n    }\r\n\r\n    /**\r\n     * Initialize the contents of the frame.\r\n     */\r\n    private void initialize(JPanel frame) {\r\n        frame.setLayout(null);\r\n        applyFacilityText = new JTextField();\r\n        applyFacilityText.setBounds(747, 64, 147, 33);\r\n        frame.add(applyFacilityText);\r\n        applyFacilityText.setColumns(10);\r\n\r\n        applyRoomText = new JTextField();\r\n        applyRoomText.setColumns(10);\r\n        applyRoomText.setBounds(747, 104, 147, 33);\r\n        frame.add(applyRoomText);\r\n\r\n        applyLicenserText = new JTextField();\r\n        applyLicenserText.setColumns(10);\r\n        applyLicenserText.setBounds(747, 147, 147, 33);\r\n        frame.add(applyLicenserText);\r\n\r\n        applyStartDate = new JTextField();\r\n        applyStartDate.setColumns(10);\r\n        applyStartDate.setBounds(747, 190, 147, 33);\r\n        frame.add(applyStartDate);\r\n\r\n        applyFinishDate = new JTextField();\r\n        applyFinishDate.setColumns(10);\r\n        applyFinishDate.setBounds(747, 233, 147, 33);\r\n        frame.add(applyFinishDate);\r\n\r\n        applyPersonnelText = new JTextField();\r\n        applyPersonnelText.setColumns(10);\r\n        applyPersonnelText.setBounds(747, 276, 147, 33);\r\n        frame.add(applyPersonnelText);\r\n\r\n        applyReasonText = new JTextArea();       //사유\r\n        applyReasonText.setBounds(749, 330, 145, 241);\r\n        frame.add(applyReasonText);\r\n\r\n\r\n        JLabel lblNewLabel = new JLabel(\"\\uC2DC\\uC124\");\r\n        lblNewLabel.setBounds(680, 73, 57, 15);\r\n        frame.add(lblNewLabel);\r\n\r\n        JLabel lblNewLabel_1 = new JLabel(\"\\uD638\\uC2E4\");\r\n        lblNewLabel_1.setBounds(680, 113, 57, 15);\r\n        frame.add(lblNewLabel_1);\r\n\r\n        JLabel lblNewLabel_1_1 = new JLabel(\"\\uD5C8\\uAC00\\uC790\");\r\n        lblNewLabel_1_1.setBounds(678, 156, 57, 15);\r\n        frame.add(lblNewLabel_1_1);\r\n\r\n        JLabel lblNewLabel_1_2 = new JLabel(\"\\uC2DC\\uC791\\uAE30\\uAC04\");\r\n        lblNewLabel_1_2.setBounds(678, 199, 57, 15);\r\n        frame.add(lblNewLabel_1_2);\r\n\r\n        JLabel lblNewLabel_1_2_1 = new JLabel(\"\\uC885\\uB8CC\\uAE30\\uAC04\");\r\n        lblNewLabel_1_2_1.setBounds(680, 242, 57, 15);\r\n        frame.add(lblNewLabel_1_2_1);\r\n\r\n        JLabel lblNewLabel_1_2_2 = new JLabel(\"\\uC778\\uC6D0\");\r\n        lblNewLabel_1_2_2.setBounds(678, 285, 57, 15);\r\n        frame.add(lblNewLabel_1_2_2);\r\n\r\n        JLabel lblNewLabel_1_2_3 = new JLabel(\"\\uC0AC\\uC720\");\r\n        lblNewLabel_1_2_3.setBounds(680, 337, 57, 15);\r\n        frame.add(lblNewLabel_1_2_3);\r\n\r\n        allSearch = new JButton(\"\\uC804\\uCCB4\\uC870\\uD68C\"); //전체조회버튼\r\n        allSearch.setBounds(29, 20, 639, 67);\r\n        frame.add(allSearch);\r\n        allSearch.addActionListener(this);\r\n\r\n        JLabel lblNewLabel_2 = new JLabel(\"\\uC2DC\\uC791\\uAE30\\uAC04\");\r\n        lblNewLabel_2.setBounds(36, 119, 48, 15);\r\n        frame.add(lblNewLabel_2);\r\n\r\n        startDateInquirytext = new JTextField();\r\n        startDateInquirytext.setBounds(95, 116, 177, 21);\r\n        frame.add(startDateInquirytext);\r\n        startDateInquirytext.setColumns(10);\r\n\r\n        lblNewLabel_3 = new JLabel(\"\\uC885\\uB8CC\\uAE30\\uAC04\");\r\n        lblNewLabel_3.setBounds(297, 119, 48, 15);\r\n        frame.add(lblNewLabel_3);\r\n\r\n        endDateInquirytext = new JTextField();\r\n        endDateInquirytext.setColumns(10);\r\n        endDateInquirytext.setBounds(357, 119, 177, 21);\r\n        frame.add(endDateInquirytext);\r\n\r\n        inquiryPeriodButton = new JButton(\"\\uAE30\\uAC04 \\uC870\\uD68C\"); //기간조회버튼\r\n        inquiryPeriodButton.setBounds(559, 115, 97, 23);\r\n        frame.add(inquiryPeriodButton);\r\n\r\n\r\n        inquiryFacilityButton = new JButton(\"\\uC2DC\\uC124 \\uC870\\uD68C\");  //시설조회버튼\r\n        inquiryFacilityButton.setBounds(559, 157, 97, 23);\r\n        frame.add(inquiryFacilityButton);\r\n\r\n        reasonInquiryButton = new JButton(\"\\uC0AC\\uC720 \\uC870\\uD68C\");//사유조회버튼\r\n        reasonInquiryButton.setBounds(559, 200, 97, 23);\r\n        frame.add(reasonInquiryButton);\r\n\r\n        lblNewLabel_4 = new JLabel(\"\\uC2DC\\uC124\\uBA85\");\r\n        lblNewLabel_4.setBounds(36, 159, 48, 15);\r\n        frame.add(lblNewLabel_4);\r\n\r\n        facilityInquirytext = new JTextField();\r\n        facilityInquirytext.setColumns(10);\r\n        facilityInquirytext.setBounds(95, 153, 439, 21);\r\n        frame.add(facilityInquirytext);\r\n\r\n        lblNewLabel_6 = new JLabel(\"\\uC0AC\\uC720\");\r\n        lblNewLabel_6.setBounds(36, 202, 48, 15);\r\n        frame.add(lblNewLabel_6);\r\n\r\n        reasonInquirytext = new JTextField();\r\n        reasonInquirytext.setColumns(10);\r\n        reasonInquirytext.setBounds(95, 185, 439, 43);\r\n        frame.add(reasonInquirytext);\r\n\r\n        table = new JTable();\r\n        table.setBounds(51, 255, 615, 261);\r\n        frame.add(table);\r\n\r\n\r\n        cancleReservationButton = new JButton(\"\\uC608\\uC57D \\uCDE8\\uC18C\");//예약취소버튼\r\n        cancleReservationButton.setBounds(40, 526, 639, 56);\r\n        frame.add(cancleReservationButton);\r\n\r\n        JLabel userName = new JLabel(userId);\r\n        userName.setFont(new Font(\"굴림\", Font.BOLD, 25));\r\n        userName.setBounds(749, 20, 132, 34);\r\n        frame.add(userName);\r\n\r\n        applyButton= new JButton(\"\\uC2E0\\uCCAD\\uD558\\uAE30\"); //신청하기\r\n        applyButton.setBounds(747, 592, 147, 33);\r\n        frame.add(applyButton);\r\n    }\r\n\r\n    public void actionPerformed(ActionEvent e) {\r\n        if (e.getSource() == allSearch) {\r\n            ArrayList<Rental> rentals = dbm.selectRental();\r\n            for (Rental rental : rentals) {\r\n                System.out.println(rental.getRentalNumber());\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/MainView.java	(revision 0c994d38f04af76a1b05c40c848a4bfeab02a627)
++++ src/MainView.java	(date 1606810094900)
+@@ -171,6 +171,9 @@
+         inquiryFacilityButton = new JButton("\uC2DC\uC124 \uC870\uD68C");  //시설조회버튼
+         inquiryFacilityButton.setBounds(559, 157, 97, 23);
+         frame.add(inquiryFacilityButton);
++        inquiryFacilityButton.addActionListener(this);
++
++
+ 
+         reasonInquiryButton = new JButton("\uC0AC\uC720 \uC870\uD68C");//사유조회버튼
+         reasonInquiryButton.setBounds(559, 200, 97, 23);
+@@ -218,7 +221,15 @@
+             ArrayList<Rental> rentals = dbm.selectRental();
+             for (Rental rental : rentals) {
+                 System.out.println(rental.getRentalNumber());
++
+             }
+         }
++        else if(e.getSource() == inquiryFacilityButton){
++            ArrayList<Rental> rentals = dbm.selectRental(facilityInquirytext.getText());
++            for (Rental rental : rentals) {
++                System.out.println("있다 씨발아");
++            }
++        }
++
+     }
+ }
+Index: src/MainProcess.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\r\n\r\npublic class MainProcess {\r\n    LoginView loginView;\r\n\r\n    public static void main(String[] args) {\r\n        // 메인클래스 실행\r\n    \tDBManager dbm = new DBManager();\r\n    \tdbm.connect(\"DEU_FACILITY\", \"1234\");\r\n    \t\r\n    \tMainProcess main = new MainProcess();\r\n        main.loginView = new LoginView(dbm); // 로그인창 보이기\r\n\r\n        dbm.selectPerson();\r\n    }\r\n\r\n\tpublic void showFrameTest() {\r\n\t\t\r\n\t\t\r\n\t}\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>x-windows-949
+===================================================================
+--- src/MainProcess.java	(revision 0c994d38f04af76a1b05c40c848a4bfeab02a627)
++++ src/MainProcess.java	(date 1606806440329)
+@@ -11,7 +11,6 @@
+     	MainProcess main = new MainProcess();
+         main.loginView = new LoginView(dbm); // 로그인창 보이기
+ 
+-        dbm.selectPerson();
+     }
+ 
+ 	public void showFrameTest() {
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"BranchesTreeState\">\r\n    <expand>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"LOCAL_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n      <path>\r\n        <item name=\"ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"REMOTE_ROOT\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n        <item name=\"GROUP_NODE:origin\" type=\"e8cecc67:BranchNodeDescriptor\" />\r\n      </path>\r\n    </expand>\r\n    <select />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"47ece5ac-2955-47c7-996f-b0910757e471\" name=\"Default Changelist\" comment=\"데이터 클래스 작성 완료.\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/DBManager.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/DBManager.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1kv1UK59NMZqFMwlubjlpF6iBQy\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.MainProcess\">\r\n    <configuration name=\"MainProcess\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MainProcess\" />\r\n      <module name=\"DB_Project\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"MainView\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"MainView\" />\r\n      <module name=\"DB_Project\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.MainProcess\" />\r\n        <item itemvalue=\"Application.MainView\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"47ece5ac-2955-47c7-996f-b0910757e471\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1606566267067</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1606566267067</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"데이터 클래스 작성 완료.\">\r\n      <created>1606804826167</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1606804826167</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"데이터 클래스 작성 완료.\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"데이터 클래스 작성 완료.\" />\r\n  </component>\r\n  <component name=\"WindowStateProjectService\">\r\n    <state x=\"690\" y=\"266\" key=\"#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog\" timestamp=\"1606566316778\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"690\" y=\"266\" key=\"#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1606566316778\" />\r\n    <state width=\"1151\" height=\"281\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1606804844500\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1151\" height=\"281\" key=\"GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1606804844500\" />\r\n    <state width=\"1151\" height=\"281\" key=\"GridCell.Tab.0.center\" timestamp=\"1606804844500\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1151\" height=\"281\" key=\"GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1606804844500\" />\r\n    <state width=\"1151\" height=\"281\" key=\"GridCell.Tab.0.left\" timestamp=\"1606804844500\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1151\" height=\"281\" key=\"GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1606804844500\" />\r\n    <state width=\"1151\" height=\"281\" key=\"GridCell.Tab.0.right\" timestamp=\"1606804844500\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1151\" height=\"281\" key=\"GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1606804844500\" />\r\n    <state x=\"190\" y=\"256\" key=\"Vcs.Push.Dialog.v2\" timestamp=\"1606804831014\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"190\" y=\"256\" key=\"Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1606804831014\" />\r\n    <state x=\"668\" y=\"118\" width=\"584\" height=\"804\" key=\"find.popup\" timestamp=\"1606799694258\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"668\" y=\"118\" width=\"584\" height=\"804\" key=\"find.popup/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1606799694258\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision 0c994d38f04af76a1b05c40c848a4bfeab02a627)
++++ .idea/workspace.xml	(date 1606811841644)
+@@ -19,9 +19,17 @@
+     <select />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="데이터 클래스 작성 완료.">
++    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="1">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/bin/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/DBManager.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/bin/LoginView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/LoginView$1.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/bin/LoginView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/LoginView$2.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/bin/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/LoginView.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/bin/MainProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainProcess.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/bin/MainView.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainView.class" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBManager.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/MainProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainProcess.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainView.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -65,6 +73,10 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
++    <list>
++      <item itemvalue="Application.MainProcess" />
++      <item itemvalue="Application.MainView" />
++    </list>
+     <recent_temporary>
+       <list>
+         <item itemvalue="Application.MainProcess" />
+@@ -112,22 +124,42 @@
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606566316778" />
+-    <state width="1151" height="281" key="GridCell.Tab.0.bottom" timestamp="1606804844500">
+-      <screen x="0" y="0" width="1920" height="1040" />
++    <state width="1493" height="212" key="GridCell.Tab.0.bottom" timestamp="1606811536476">
++      <screen x="0" y="0" width="1536" height="824" />
+     </state>
++    <state width="1493" height="212" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606811536476" />
+     <state width="1151" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
+-    <state width="1151" height="281" key="GridCell.Tab.0.center" timestamp="1606804844500">
+-      <screen x="0" y="0" width="1920" height="1040" />
++    <state width="1493" height="212" key="GridCell.Tab.0.center" timestamp="1606811536476">
++      <screen x="0" y="0" width="1536" height="824" />
+     </state>
++    <state width="1493" height="212" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1606811536476" />
+     <state width="1151" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
+-    <state width="1151" height="281" key="GridCell.Tab.0.left" timestamp="1606804844500">
+-      <screen x="0" y="0" width="1920" height="1040" />
++    <state width="1493" height="212" key="GridCell.Tab.0.left" timestamp="1606811536475">
++      <screen x="0" y="0" width="1536" height="824" />
+     </state>
++    <state width="1493" height="212" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1606811536475" />
+     <state width="1151" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
+-    <state width="1151" height="281" key="GridCell.Tab.0.right" timestamp="1606804844500">
+-      <screen x="0" y="0" width="1920" height="1040" />
++    <state width="1493" height="212" key="GridCell.Tab.0.right" timestamp="1606811536476">
++      <screen x="0" y="0" width="1536" height="824" />
+     </state>
++    <state width="1493" height="212" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1606811536476" />
+     <state width="1151" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
++    <state width="1493" height="261" key="GridCell.Tab.1.bottom" timestamp="1606811386807">
++      <screen x="0" y="0" width="1536" height="824" />
++    </state>
++    <state width="1493" height="261" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1606811386807" />
++    <state width="1493" height="261" key="GridCell.Tab.1.center" timestamp="1606811386806">
++      <screen x="0" y="0" width="1536" height="824" />
++    </state>
++    <state width="1493" height="261" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1606811386806" />
++    <state width="1493" height="261" key="GridCell.Tab.1.left" timestamp="1606811386806">
++      <screen x="0" y="0" width="1536" height="824" />
++    </state>
++    <state width="1493" height="261" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1606811386806" />
++    <state width="1493" height="261" key="GridCell.Tab.1.right" timestamp="1606811386807">
++      <screen x="0" y="0" width="1536" height="824" />
++    </state>
++    <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1606811386807" />
+     <state x="190" y="256" key="Vcs.Push.Dialog.v2" timestamp="1606804831014">
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+@@ -136,5 +168,12 @@
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+     <state x="668" y="118" width="584" height="804" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1606799694258" />
++    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1606809126692">
++      <screen x="0" y="0" width="1536" height="824" />
++    </state>
++    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1606809126692" />
++  </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/DB_Project$MainProcess.ic" NAME="MainProcess Coverage Results" MODIFIED="1606802714054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+   </component>
+ </project>
+\ No newline at end of file

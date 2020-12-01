@@ -37,11 +37,11 @@ public class LoginView extends JFrame {
 
 	public void placeLoginPanel(JPanel panel) {
 		panel.setLayout(null);
-		JLabel userLabel = new JLabel("µ¿ÀÇÀÎ¹øÈ£");
+		JLabel userLabel = new JLabel("ë™ì˜ì¸ë²ˆí˜¸");
 		userLabel.setBounds(10, 10, 80, 25);
 		panel.add(userLabel);
 
-		JLabel passLabel = new JLabel("ºñ¹Ğ¹øÈ£");
+		JLabel passLabel = new JLabel("ë¹„ë°€ë²ˆí˜¸");
 		passLabel.setBounds(10, 40, 80, 25);
 		panel.add(passLabel);
 
@@ -53,47 +53,30 @@ public class LoginView extends JFrame {
 		passText.setBounds(100, 40, 160, 25);
 		panel.add(passText);
 
-		btnInit = new JButton("´Ù½ÃÀÔ·Â");
+		btnInit = new JButton("ë‹¤ì‹œì…ë ¥");
 		btnInit.setBounds(10, 80, 100, 25);
 		panel.add(btnInit);
-		btnInit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				userText.setText("");
-				passText.setText("");
-			}
+		btnInit.addActionListener(e -> {
+			userText.setText("");
+			passText.setText("");
 		});
 
-		btnLogin = new JButton("·Î±×ÀÎ");
+		btnLogin = new JButton("ë¡œê·¸ì¸");
 		btnLogin.setBounds(160, 80, 100, 25);
 		panel.add(btnLogin);
-		btnLogin.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				isLoginCheck();
+		btnLogin.addActionListener(e -> {
+			String id = userText.getText();
+			String password = String.valueOf(passText.getPassword());
+
+			System.out.println(id);
+			System.out.println(password);
+			if (dbm.selectPerson(id, password)) {
+				JOptionPane.showMessageDialog(null, "ë™ì˜ì¸ í™˜ì˜í•©ë‹ˆë‹¤.");
+				MainView mainView = new MainView(dbm, id);
+				dispose();
+			} else {
+				JOptionPane.showMessageDialog(null, "ë‹¤ì‹œì…ë ¥í•´ì£¼ì„¸ìš”.");
 			}
 		});
-	}
-
-	public boolean isLoginCheck()////////////// ·Î±×ÀÎ Ã¼Å©ºÎºĞ
-	{
-		String id = userText.getText();
-		@SuppressWarnings("deprecation")
-		String password = passText.getText();
-
-		System.out.println(id);
-		System.out.println(password);
-		if (dbm.selectPerson(id, password)) {
-			JOptionPane.showMessageDialog(null, "µ¿ÀÇÀÎ È¯¿µÇÕ´Ï´Ù.");
-			MainView mainView = new MainView(dbm, id);
-			dispose();
-			return true;
-		}
-		JOptionPane.showMessageDialog(null, "´Ù½ÃÀÔ·ÂÇØÁÖ¼¼¿ä.");
-		return false;
-	}
-
-	public boolean isLogin() {
-		return bLoginCheck;
 	}
 }
