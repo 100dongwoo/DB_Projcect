@@ -14,9 +14,10 @@ import javax.swing.JTextField;
 public class MainView extends JFrame implements ActionListener {
     String userId;
     DBManager dbm;
-    private String colName[];
+    private String[] colName;
     public DefaultTableModel model;
     private JPanel mainFrame;
+
     //button
     private JButton reasonInquiryButton;//사유조회
     private JButton allSearch; //전체조회
@@ -208,12 +209,12 @@ public class MainView extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == allSearch) {
+        String[] colName = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
+        model = new DefaultTableModel(colName, 0);
+        String[] row = new String[9];
+        model.addRow(colName);
 
-            String colName[] = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
-            model = new DefaultTableModel(colName, 0);
-            String row[] = new String[9];
-            model.addRow(colName);
+        if (e.getSource() == allSearch) {
             ArrayList<Rental> rentals = dbm.selectRental();
             for (Rental rental : rentals) {
                 row[0] = String.valueOf(rental.getRentalNumber());
@@ -227,17 +228,7 @@ public class MainView extends JFrame implements ActionListener {
                 row[8] = String.valueOf(rental.getLicenser());
                 model.addRow(row);
             }
-
-            table = new JTable(model);
-            table.setBounds(51, 255, 615, 261);
-            mainFrame.add(table);
-            setVisible(true);
         } else if (e.getSource() == inquiryFacilityButton) {
-//            ArrayList<Rental> rentals = dbm.selectRental(facilityInquirytext.getText());
-            String colName[] = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
-            model = new DefaultTableModel(colName, 0);
-            String row[] = new String[9];
-            model.addRow(colName);
             ArrayList<Rental> rentals = dbm.selectRental(facilityInquirytext.getText());
             for (Rental rental : rentals) {
                 row[0] = String.valueOf(rental.getRentalNumber());
@@ -251,11 +242,11 @@ public class MainView extends JFrame implements ActionListener {
                 row[8] = String.valueOf(rental.getLicenser());
                 model.addRow(row);
             }
-
-            table = new JTable(model);
-            table.setBounds(51, 255, 615, 261);
-            mainFrame.add(table);
-            setVisible(true);
         }
+
+        table = new JTable(model);
+        table.setBounds(51, 255, 615, 261);
+        mainFrame.add(table);
+        setVisible(true);
     }
 }

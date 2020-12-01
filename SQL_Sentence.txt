@@ -205,7 +205,6 @@ BEGIN
 
     END IF;
 END;
-////////////////////////저장프로시저
 --[타입정의] - 튜플+테이블순
 -- 튜플타입정의
 
@@ -244,8 +243,11 @@ BEGIN
                           대여내역,
                           시설물
                       WHERE
-                          대여내역.건물 = 시설물."건물번호" and 시설물."시설명" = facility;
+                              대여내역.건물 = 시설물."건물번호"
+                          AND 시설물."시설명" = facility;
+
 END;
 
-variable mycursor REFCURSOR
-execute inquiry_facility('국제관', :mycursor);
+VARIABLE mycursor refcursor
+
+EXECUTE inquiry_facility('국제관', :mycursor);

@@ -1,3 +1,7 @@
+import oracle.jdbc.OracleTypes;
+import oracle.jdbc.oracore.OracleType;
+
+import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -10,10 +14,10 @@ public class DBManager {
             String url = "jdbc:oracle:thin:@localhost:1521:XE";
             Class.forName("oracle.jdbc.driver.OracleDriver");
             con = DriverManager.getConnection(url, id, password);
-            System.out.println("Connected.");
+            System.out.println("DB connection was successful.");
             result = true;
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Not connected.");
+            System.out.println("DB connection failed.");
             System.out.println(e.getMessage());
         }
         return result;
@@ -28,16 +32,16 @@ public class DBManager {
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                System.out.println("Selected person.");
                 result = true;
+                System.out.println("Login was successful.");
             } else {
-                System.out.println("Selected no person.");
+                System.out.println("No such information exists.");
             }
             rs.close();
             pstmt.close();
         } catch (SQLException e) {
-            System.out.println("Not selected person.");
             System.out.println(e.getMessage());
+            System.out.println("Login failed.");
         }
         return result;
     }
@@ -63,31 +67,64 @@ public class DBManager {
             }
             rs.close();
             stmt.close();
-
+            System.out.println("Have successfully searched the entire rental history.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            System.out.println("Full rental history inquiry failed.");
         }
         return rentals;
     }
 
-    public ArrayList<Rental> selectRental(String facilityName) {//프리페어먼트
+//    public ArrayList<Rental> selectRental(String facilityName) {//프리페어먼트
+//        ArrayList<Rental> rentals = new ArrayList<>();
+//        String query = "SELECT " +
+//                "대여내역.대여번호, " +
+//                "대여내역.시작기간, " +
+//                "대여내역.종료기간, " +
+//                "대여내역.인원, " +
+//                "대여내역.사유, " +
+//                "대여내역.동의인, " +
+//                "대여내역.건물, " +
+//                "대여내역.호실, " +
+//                "대여내역.허가자 " +
+//                "from 대여내역, 시설물 " +
+//                "where 대여내역.건물=시설물.건물번호 and 시설물.시설명=?";
+//        try {
+//            PreparedStatement pstmt = con.prepareStatement(query);
+//            pstmt.setString(1, facilityName);
+//            ResultSet rs = pstmt.executeQuery();
+//            while (rs.next()) {
+//                Rental rental = new Rental();
+//                rental.setRentalNumber(rs.getInt(1));
+//                rental.setStartPeriod(rs.getTimestamp(2));
+//                rental.setEndPeriod(rs.getTimestamp(3));
+//                rental.setPersonnel(rs.getInt(4));
+//                rental.setReason(rs.getString(5));
+//                rental.setDEUPerson(rs.getInt(6));
+//                rental.setFacility(rs.getInt(7));
+//                rental.setRoom(rs.getInt(8));
+//                rental.setLicenser(rs.getInt(9));
+//                rentals.add(rental);
+//            }
+//            rs.close();
+//            pstmt.close();
+//            System.out.println("Selected rental.");
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//            System.out.println("Not selected rental.");
+//        }
+//        return rentals;
+//    }
+
+    public ArrayList<Rental> selectRental(String facilityName) {
         ArrayList<Rental> rentals = new ArrayList<>();
-        String query = "SELECT " +
-                "대여내역.대여번호, " +
-                "대여내역.시작기간, " +
-                "대여내역.종료기간, " +
-                "대여내역.인원, " +
-                "대여내역.사유, " +
-                "대여내역.동의인, " +
-                "대여내역.건물, " +
-                "대여내역.호실, " +
-                "대여내역.허가자 " +
-                "from 대여내역, 시설물 " +
-                "where 대여내역.건물=시설물.건물번호 and 시설물.시설명=?";
         try {
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, facilityName);
-            ResultSet rs = pstmt.executeQuery();
+            String sql = "{call inquiry_facility(?, ?)}";
+            CallableStatement cs = con.prepareCall(sql);
+            cs.setString(1, facilityName);
+            cs.registerOutParameter(2, OracleTypes.CURSOR);
+            cs.execute();
+            ResultSet rs = (ResultSet) cs.getObject(2);
             while (rs.next()) {
                 Rental rental = new Rental();
                 rental.setRentalNumber(rs.getInt(1));
@@ -102,10 +139,11 @@ public class DBManager {
                 rentals.add(rental);
             }
             rs.close();
-            pstmt.close();
-
+            cs.close();
+            System.out.println("Have successfully searched the rental history of the facility name.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            System.out.println("Failed to search rental history of the facility name.");
         }
         return rentals;
     }
@@ -126,8 +164,10 @@ public class DBManager {
             pstmt.executeQuery();
             pstmt.close();
             result = true;
+            System.out.println("Facility reservation was successful.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            System.out.println("Facility reservation failed.");
         }
         return result;
     }
