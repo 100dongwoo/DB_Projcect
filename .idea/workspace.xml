@@ -19,9 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="데이터 클래스 작성 완료.">
+    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="필요 없는 함수 삭제.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/DBManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/MainProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/MainProcess.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Rental.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rental.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606804826167</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="필요 없는 함수 삭제.">
+      <created>1606805759196</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606805759196</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -105,33 +116,34 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="데이터 클래스 작성 완료." />
-    <option name="LAST_COMMIT_MESSAGE" value="데이터 클래스 작성 완료." />
+    <MESSAGE value="필요 없는 함수 삭제." />
+    <option name="LAST_COMMIT_MESSAGE" value="필요 없는 함수 삭제." />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606566316778">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1606566316778" />
-    <state width="1151" height="281" key="GridCell.Tab.0.bottom" timestamp="1606804844500">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1606806051034">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1151" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
-    <state width="1151" height="281" key="GridCell.Tab.0.center" timestamp="1606804844500">
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1606806051034" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1606806051034">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1151" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
-    <state width="1151" height="281" key="GridCell.Tab.0.left" timestamp="1606804844500">
+    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1606806051034" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1606806051034">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1151" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
-    <state width="1151" height="281" key="GridCell.Tab.0.right" timestamp="1606804844500">
+    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1606806051034" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1606806051034">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1151" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606804844500" />
-    <state x="190" y="256" key="Vcs.Push.Dialog.v2" timestamp="1606804831014">
+    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1606806051034" />
+    <state x="190" y="256" key="Vcs.Push.Dialog.v2" timestamp="1606805798710">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="190" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606804831014" />
+    <state x="190" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606805798710" />
     <state x="668" y="118" width="584" height="804" key="find.popup" timestamp="1606799694258">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
