@@ -10,6 +10,12 @@ DROP TABLE 대여내역 CASCADE CONSTRAINTS;
 
 DROP SEQUENCE 대여번호;
 
+DROP TYPE history_object;
+
+DROP TYPE history_table;
+
+DROP TYPE inquiry_facility;
+
 CREATE TABLE 동의인 (
     동의인번호  NUMBER(10) NOT NULL,
     비밀번호   VARCHAR2(20) NOT NULL,
@@ -53,6 +59,105 @@ CREATE TABLE 대여내역 (
 );
 
 CREATE SEQUENCE 대여번호 MAXVALUE 1000 CYCLE;
+
+CREATE OR REPLACE TRIGGER verify_position AFTER
+    INSERT ON 대여내역
+    FOR EACH ROW
+BEGIN
+    IF
+        :new.건물 = 4
+        AND ( :new.허가자 IS NULL OR :new.허가자 != 1 )
+    THEN
+        raise_application_error(-20000, '총장의 허가가 필요합니다.');
+    END IF;
+END;
+
+CREATE OR REPLACE TRIGGER verify_time BEFORE
+    INSERT ON 대여내역
+    FOR EACH ROW
+DECLARE
+    facility    NUMBER(10);
+    room        NUMBER(10);
+    start_date  DATE;
+    end_date    DATE;
+    CURSOR reservation IS
+    SELECT
+        건물,
+        호실,
+        시작기간,
+        종료기간
+    FROM
+        대여내역;
+
+BEGIN
+    IF :new.시작기간 < sysdate THEN
+        raise_application_error(-20001, '과거 날짜에 대여할 수 없습니다.');
+    ELSIF
+        ( to_char(:new.시작기간, 'HH24') BETWEEN 0 AND 6 OR to_char(:new.종료기간, 'HH24') BETWEEN 0 AND 6 )
+        AND ( :new.건물 = 4 OR :new.건물 = 5 OR :new.건물 = 6 )
+    THEN
+        raise_application_error(-20002, '새벽 시간에는 해당 시설물을 대여할 수 없습니다.');
+    ELSE
+        OPEN reservation;
+        LOOP
+            FETCH reservation INTO
+                facility,
+                room,
+                start_date,
+                end_date;
+            EXIT WHEN reservation%notfound;
+            IF
+                :new.건물 = facility
+                AND :new.호실 = room
+                AND :new.시작기간 < end_date
+                AND :new.종료기간 > start_date
+            THEN
+                raise_application_error(-20003, '이미 예약된 날짜입니다.');
+            END IF;
+
+        END LOOP;
+
+    END IF;
+END;
+
+CREATE OR REPLACE TYPE history_object AS OBJECT (
+    출력대여번호  NUMBER(10),
+    출력시작기간  TIMESTAMP,
+    출력종료기간  TIMESTAMP,
+    출력인원    NUMBER,
+    출력사유    VARCHAR2(100),
+    출력동의인   NUMBER(10),
+    출력건물    NUMBER(10),
+    출력호실    NUMBER(10),
+    출력허가자   NUMBER(10)
+);
+
+CREATE OR REPLACE TYPE history_table AS
+    TABLE OF history_object;
+
+CREATE OR REPLACE PROCEDURE inquiry_facility (
+    facility  IN   NCHAR,
+    mycursor  OUT  SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN mycursor FOR SELECT
+                          대여내역."대여번호"    "대여번호",
+                          대여내역."시작기간"    "시작기간",
+                          대여내역."종료기간"    "종료기간",
+                          대여내역."인원"      "인원",
+                          대여내역."사유"      "사유",
+                          대여내역."동의인"     "동의인",
+                          대여내역."건물"      "건물",
+                          대여내역."호실"      "호실",
+                          대여내역."허가자"     "허가자"
+                      FROM
+                          대여내역,
+                          시설물
+                      WHERE
+                              대여내역.건물 = 시설물."건물번호"
+                          AND 시설물."시설명" = facility;
+
+END;
 
 INSERT INTO 동의인 VALUES (
     20153188,
@@ -145,109 +250,3 @@ INSERT INTO 대여내역 VALUES (
 );
 
 COMMIT;
-
-CREATE OR REPLACE TRIGGER verify_position AFTER
-    INSERT ON 대여내역
-    FOR EACH ROW
-BEGIN
-    IF
-        :new.건물 = 4
-        AND ( :new.허가자 IS NULL OR :new.허가자 != 1 )
-    THEN
-        raise_application_error(-20000, '총장의 허가가 필요합니다.');
-    END IF;
-END;
-
-CREATE OR REPLACE TRIGGER verify_time BEFORE
-    INSERT ON 대여내역
-    FOR EACH ROW
-DECLARE
-    facility    NUMBER(10);
-    room        NUMBER(10);
-    start_date  DATE;
-    end_date    DATE;
-    CURSOR reservation IS
-    SELECT
-        건물,
-        호실,
-        시작기간,
-        종료기간
-    FROM
-        대여내역;
-
-BEGIN
-    IF :new.시작기간 < sysdate THEN
-        raise_application_error(-20001, '과거 날짜에 대여할 수 없습니다.');
-    ELSIF
-        ( to_char(:new.시작기간, 'HH24') BETWEEN 0 AND 6 OR to_char(:new.종료기간, 'HH24') BETWEEN 0 AND 6 )
-        AND ( :new.건물 = 4 OR :new.건물 = 5 OR :new.건물 = 6 )
-    THEN
-        raise_application_error(-20002, '새벽 시간에는 해당 시설물을 대여할 수 없습니다.');
-    ELSE
-        OPEN reservation;
-        LOOP
-            FETCH reservation INTO
-                facility,
-                room,
-                start_date,
-                end_date;
-            EXIT WHEN reservation%notfound;
-            IF
-                :new.건물 = facility
-                AND :new.호실 = room
-                AND :new.시작기간 < end_date
-                AND :new.종료기간 > start_date
-            THEN
-                raise_application_error(-20003, '이미 예약된 날짜입니다.');
-            END IF;
-
-        END LOOP;
-
-    END IF;
-END;
---[타입정의] - 튜플+테이블순
--- 튜플타입정의
-
-CREATE OR REPLACE TYPE history_object AS OBJECT (
-    출력대여번호  NUMBER(10, 0),
-    출력시작기간  DATE,
-    출력종료기간  DATE,
-    출력인원    NUMBER,
-    출력사유    VARCHAR2(100),
-    출력동의인   NUMBER(10, 0),
-    출력건물    NUMBER(10, 0),
-    출력호실    NUMBER(10, 0),
-    출력허가자   NUMBER(10, 0)
-);
--- 테이블타입 정의
-
-CREATE OR REPLACE TYPE history_table AS
-    TABLE OF history_object;
-
-CREATE OR REPLACE PROCEDURE inquiry_facility (
-    facility  IN   NCHAR,
-    mycursor  OUT  SYS_REFCURSOR
-) AS
-BEGIN
-    OPEN mycursor FOR SELECT
-                          대여내역."대여번호"    "대여번호",
-                          대여내역."시작기간"    "시작기간",
-                          대여내역."종료기간"    "종료기간",
-                          대여내역."인원"      "인원",
-                          대여내역."사유"      "사유",
-                          대여내역."동의인"     "동의인",
-                          대여내역."건물"      "건물",
-                          대여내역."호실"      "호실",
-                          대여내역."허가자"     "허가자"
-                      FROM
-                          대여내역,
-                          시설물
-                      WHERE
-                              대여내역.건물 = 시설물."건물번호"
-                          AND 시설물."시설명" = facility;
-
-END;
-
-VARIABLE mycursor refcursor
-
-EXECUTE inquiry_facility('국제관', :mycursor);
