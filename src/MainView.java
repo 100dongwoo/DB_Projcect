@@ -174,6 +174,7 @@ public class MainView extends JFrame implements ActionListener {
         reasonInquiryButton = new JButton("\uC0AC\uC720 \uC870\uD68C");//사유조회버튼
         reasonInquiryButton.setBounds(559, 200, 251, 23);
         frame.add(reasonInquiryButton);
+        reasonInquiryButton.addActionListener((this));
 
         lblNewLabel_4 = new JLabel("\uC2DC\uC124\uBA85");
         lblNewLabel_4.setBounds(36, 159, 48, 15);
@@ -256,6 +257,22 @@ public class MainView extends JFrame implements ActionListener {
                 model.addRow(row);
             }
         }
+        else if (e.getSource() == reasonInquiryButton){
+            ArrayList<Rental> rentals = dbm.selectRentalresaon(reasonInquirytext.getText());
+            for(Rental rental : rentals){
+                row[0] = String.valueOf(rental.getRentalNumber());
+                row[1] = String.valueOf(rental.getStartPeriod());
+                row[2] = String.valueOf(rental.getEndPeriod());
+                row[3] = String.valueOf(rental.getPersonnel());
+                row[4] = String.valueOf(rental.getReason());
+                row[5] = String.valueOf(rental.getDEUPerson());
+                row[6] = String.valueOf(rental.getFacility());
+                row[7] = String.valueOf(rental.getRoom());
+                row[8] = String.valueOf(rental.getLicenser());
+                model.addRow(row);
+            }
+        }
+
 
         table = new JTable(model);
         table.setBounds(29, 255, 781, 261);
