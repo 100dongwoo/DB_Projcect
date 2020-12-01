@@ -2,142 +2,142 @@ CREATE USER deu_facility IDENTIFIED BY "1234";
 
 GRANT connect, resource, dba TO deu_facility;
 
-DROP TABLE ������ CASCADE CONSTRAINTS;
+DROP TABLE 동의인 CASCADE CONSTRAINTS;
 
-DROP TABLE �ü��� CASCADE CONSTRAINTS;
+DROP TABLE 시설물 CASCADE CONSTRAINTS;
 
-DROP TABLE �뿩���� CASCADE CONSTRAINTS;
+DROP TABLE 대여내역 CASCADE CONSTRAINTS;
 
-DROP SEQUENCE �뿩��ȣ;
+DROP SEQUENCE 대여번호;
 
-CREATE TABLE ������ (
-    �����ι�ȣ  NUMBER(10) NOT NULL,
-    ��й�ȣ   VARCHAR2(20) NOT NULL,
-    �̸�     VARCHAR2(10) NOT NULL,
-    ��ȭ��ȣ   VARCHAR2(20) NOT NULL,
-    ��å     VARCHAR2(10) NOT NULL,
-    �Ҽ�     VARCHAR(20) NOT NULL,
-    CONSTRAINT �����ι�ȣ_pk PRIMARY KEY ( �����ι�ȣ )
+CREATE TABLE 동의인 (
+    동의인번호  NUMBER(10) NOT NULL,
+    비밀번호   VARCHAR2(20) NOT NULL,
+    이름     VARCHAR2(10) NOT NULL,
+    전화번호   VARCHAR2(20) NOT NULL,
+    직책     VARCHAR2(10) NOT NULL,
+    소속     VARCHAR(20) NOT NULL,
+    CONSTRAINT 동의인번호_pk PRIMARY KEY ( 동의인번호 )
 );
 
-CREATE TABLE �ü��� (
-    �ǹ���ȣ  NUMBER(10) NOT NULL,
-    ȣ�ǹ�ȣ  NUMBER(10) NOT NULL,
-    �ü���   VARCHAR2(20) NOT NULL,
-    ������   NUMBER(10) NOT NULL,
-    CONSTRAINT �ǹ�_ȣ�ǹ�ȣ_pk PRIMARY KEY ( �ǹ���ȣ,
-                                        ȣ�ǹ�ȣ ),
-    CONSTRAINT ������_fk FOREIGN KEY ( ������ )
-        REFERENCES ������ ( �����ι�ȣ )
+CREATE TABLE 시설물 (
+    건물번호  NUMBER(10) NOT NULL,
+    호실번호  NUMBER(10) NOT NULL,
+    시설명   VARCHAR2(20) NOT NULL,
+    관리자   NUMBER(10) NOT NULL,
+    CONSTRAINT 건물_호실번호_pk PRIMARY KEY ( 건물번호,
+                                        호실번호 ),
+    CONSTRAINT 관리자_fk FOREIGN KEY ( 관리자 )
+        REFERENCES 동의인 ( 동의인번호 )
 );
 
-CREATE TABLE �뿩���� (
-    �뿩��ȣ  NUMBER(10) NOT NULL,
-    ���۱Ⱓ  DATE NOT NULL,
-    ����Ⱓ  DATE NOT NULL,
-    �ο�    NUMBER NOT NULL,
-    ����    VARCHAR2(100),
-    ������   NUMBER(10) NOT NULL,
-    �ǹ�    NUMBER(10) NOT NULL,
-    ȣ��    NUMBER(10),
-    �㰡��   NUMBER(10),
-    CONSTRAINT �뿩��ȣ_pk PRIMARY KEY ( �뿩��ȣ ),
-    CONSTRAINT ������_fk FOREIGN KEY ( ������ )
-        REFERENCES ������ ( �����ι�ȣ ),
-    CONSTRAINT �ü���_fk FOREIGN KEY ( �ǹ�,
-                                    ȣ�� )
-        REFERENCES �ü��� ( �ǹ���ȣ,
-                         ȣ�ǹ�ȣ ),
-    CONSTRAINT �㰡��_fk FOREIGN KEY ( �㰡�� )
-        REFERENCES ������ ( �����ι�ȣ )
+CREATE TABLE 대여내역 (
+    대여번호  NUMBER(10) NOT NULL,
+    시작기간  DATE NOT NULL,
+    종료기간  DATE NOT NULL,
+    인원    NUMBER NOT NULL,
+    사유    VARCHAR2(100),
+    동의인   NUMBER(10) NOT NULL,
+    건물    NUMBER(10) NOT NULL,
+    호실    NUMBER(10),
+    허가자   NUMBER(10),
+    CONSTRAINT 대여번호_pk PRIMARY KEY ( 대여번호 ),
+    CONSTRAINT 동의인_fk FOREIGN KEY ( 동의인 )
+        REFERENCES 동의인 ( 동의인번호 ),
+    CONSTRAINT 시설물_fk FOREIGN KEY ( 건물,
+                                    호실 )
+        REFERENCES 시설물 ( 건물번호,
+                         호실번호 ),
+    CONSTRAINT 허가자_fk FOREIGN KEY ( 허가자 )
+        REFERENCES 동의인 ( 동의인번호 )
 );
 
-CREATE SEQUENCE �뿩��ȣ MAXVALUE 1000 CYCLE;
+CREATE SEQUENCE 대여번호 MAXVALUE 1000 CYCLE;
 
-INSERT INTO ������ VALUES (
+INSERT INTO 동의인 VALUES (
     20153188,
     '1234',
-    '�鵿��',
+    '백동우',
     '010',
-    '�л�',
-    '��ǻ�Ͱ��а�'
+    '학생',
+    '컴퓨터공학과'
 );
 
-INSERT INTO ������ VALUES (
+INSERT INTO 동의인 VALUES (
     20163248,
     '1234',
-    '�̻��',
+    '이상균',
     '010',
-    '�л�',
-    '��ǻ�Ͱ��а�'
+    '학생',
+    '컴퓨터공학과'
 );
 
-INSERT INTO ������ VALUES (
+INSERT INTO 동의인 VALUES (
     20141234,
     '1234',
-    '��â��',
+    '조창현',
     '010',
-    '�л�',
-    '��ǻ�Ͱ��а�'
+    '학생',
+    '컴퓨터공학과'
 );
 
-INSERT INTO ������ VALUES (
+INSERT INTO 동의인 VALUES (
     1,
     '1234',
-    '������',
+    '김진덕',
     '010-7777-7777',
-    '����',
-    '���к���'
+    '총장',
+    '대학본부'
 );
 
-INSERT INTO �ü��� VALUES (
+INSERT INTO 시설물 VALUES (
     1,
     '815',
-    '������',
+    '국제관',
     20153188
 );
 
-INSERT INTO �ü��� VALUES (
+INSERT INTO 시설물 VALUES (
     2,
     '815',
-    '�������а�',
+    '정보공학관',
     20163248
 );
 
-INSERT INTO �ü��� VALUES (
+INSERT INTO 시설물 VALUES (
     3,
     '815',
-    '�ڿ���',
+    '자연대',
     20163248
 );
 
-INSERT INTO �ü��� VALUES (
+INSERT INTO 시설물 VALUES (
     4,
     0,
-    '�߿����Ǵ�',
+    '야외음악당',
     20163248
 );
 
-INSERT INTO �ü��� VALUES (
+INSERT INTO 시설물 VALUES (
     5,
     0,
-    '�߱���',
+    '야구장',
     20163248
 );
 
-INSERT INTO �ü��� VALUES (
+INSERT INTO 시설물 VALUES (
     6,
     0,
-    '�౸��',
+    '축구장',
     20163248
 );
 
-INSERT INTO �뿩���� VALUES (
-    �뿩��ȣ.NEXTVAL,
+INSERT INTO 대여내역 VALUES (
+    대여번호.NEXTVAL,
     sysdate + 1,
     sysdate + 2,
     10,
-    'Ư���� ����',
+    '특별한 강의',
     20163248,
     3,
     815,
@@ -147,19 +147,19 @@ INSERT INTO �뿩���� VALUES (
 COMMIT;
 
 CREATE OR REPLACE TRIGGER verify_position AFTER
-    INSERT ON �뿩����
+    INSERT ON 대여내역
     FOR EACH ROW
 BEGIN
     IF
-        :new.�ǹ� = 4
-        AND ( :new.�㰡�� IS NULL OR :new.�㰡�� != 1 )
+        :new.건물 = 4
+        AND ( :new.허가자 IS NULL OR :new.허가자 != 1 )
     THEN
-        raise_application_error(-20000, '������ �㰡�� �ʿ��մϴ�.');
+        raise_application_error(-20000, '총장의 허가가 필요합니다.');
     END IF;
 END;
 
 CREATE OR REPLACE TRIGGER verify_time BEFORE
-    INSERT ON �뿩����
+    INSERT ON 대여내역
     FOR EACH ROW
 DECLARE
     facility    NUMBER(10);
@@ -168,21 +168,21 @@ DECLARE
     end_date    DATE;
     CURSOR reservation IS
     SELECT
-        �ǹ�,
-        ȣ��,
-        ���۱Ⱓ,
-        ����Ⱓ
+        건물,
+        호실,
+        시작기간,
+        종료기간
     FROM
-        �뿩����;
+        대여내역;
 
 BEGIN
-    IF :new.���۱Ⱓ < sysdate THEN
-        raise_application_error(-20001, '���� ��¥�� �뿩�� �� �����ϴ�.');
+    IF :new.시작기간 < sysdate THEN
+        raise_application_error(-20001, '과거 날짜에 대여할 수 없습니다.');
     ELSIF
-        ( to_char(:new.���۱Ⱓ, 'HH24') BETWEEN 0 AND 6 OR to_char(:new.����Ⱓ, 'HH24') BETWEEN 0 AND 6 )
-        AND ( :new.�ǹ� = 4 OR :new.�ǹ� = 5 OR :new.�ǹ� = 6 )
+        ( to_char(:new.시작기간, 'HH24') BETWEEN 0 AND 6 OR to_char(:new.종료기간, 'HH24') BETWEEN 0 AND 6 )
+        AND ( :new.건물 = 4 OR :new.건물 = 5 OR :new.건물 = 6 )
     THEN
-        raise_application_error(-20002, '���� �ð����� �ش� �ü����� �뿩�� �� �����ϴ�.');
+        raise_application_error(-20002, '새벽 시간에는 해당 시설물을 대여할 수 없습니다.');
     ELSE
         OPEN reservation;
         LOOP
@@ -193,15 +193,59 @@ BEGIN
                 end_date;
             EXIT WHEN reservation%notfound;
             IF
-                :new.�ǹ� = facility
-                AND :new.ȣ�� = room
-                AND :new.���۱Ⱓ < end_date
-                AND :new.����Ⱓ > start_date
+                :new.건물 = facility
+                AND :new.호실 = room
+                AND :new.시작기간 < end_date
+                AND :new.종료기간 > start_date
             THEN
-                raise_application_error(-20003, '�̹� ����� ��¥�Դϴ�.');
+                raise_application_error(-20003, '이미 예약된 날짜입니다.');
             END IF;
 
         END LOOP;
 
     END IF;
 END;
+////////////////////////저장프로시저
+--[타입정의] - 튜플+테이블순
+-- 튜플타입정의
+
+CREATE OR REPLACE TYPE history_object AS OBJECT (
+    출력대여번호  NUMBER(10, 0),
+    출력시작기간  DATE,
+    출력종료기간  DATE,
+    출력인원    NUMBER,
+    출력사유    VARCHAR2(100),
+    출력동의인   NUMBER(10, 0),
+    출력건물    NUMBER(10, 0),
+    출력호실    NUMBER(10, 0),
+    출력허가자   NUMBER(10, 0)
+);
+-- 테이블타입 정의
+
+CREATE OR REPLACE TYPE history_table AS
+    TABLE OF history_object;
+
+CREATE OR REPLACE PROCEDURE inquiry_facility (
+    facility  IN   NCHAR,
+    mycursor  OUT  SYS_REFCURSOR
+) AS
+BEGIN
+    OPEN mycursor FOR SELECT
+                          대여내역."대여번호"    "대여번호",
+                          대여내역."시작기간"    "시작기간",
+                          대여내역."종료기간"    "종료기간",
+                          대여내역."인원"      "인원",
+                          대여내역."사유"      "사유",
+                          대여내역."동의인"     "동의인",
+                          대여내역."건물"      "건물",
+                          대여내역."호실"      "호실",
+                          대여내역."허가자"     "허가자"
+                      FROM
+                          대여내역,
+                          시설물
+                      WHERE
+                          대여내역.건물 = 시설물."건물번호" and 시설물."시설명" = facility;
+END;
+
+variable mycursor REFCURSOR
+execute inquiry_facility('국제관', :mycursor);
