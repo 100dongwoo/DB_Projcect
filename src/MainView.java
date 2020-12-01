@@ -1,15 +1,10 @@
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 public class MainView extends JFrame implements ActionListener {
     String userId;
@@ -215,6 +210,7 @@ public class MainView extends JFrame implements ActionListener {
         applyButton= new JButton("\uC2E0\uCCAD\uD558\uAE30"); //신청하기
         applyButton.setBounds(889, 592, 147, 33);
         frame.add(applyButton);
+        applyButton.addActionListener(this);
 
         deleteNumberText = new JTextField();
         deleteNumberText.setBounds(95, 530, 109, 52);
@@ -234,11 +230,27 @@ public class MainView extends JFrame implements ActionListener {
             rentals = dbm.selectRentalFacility(facilityInquirytext.getText());
         } else if (e.getSource() == reasonInquiryButton){
             rentals = dbm.selectRentalReason(reasonInquirytext.getText());
-        } else if (e.getSource() == applyButton) {
+        }
+        else if (e.getSource() == applyButton) {
+            Integer deuPerson = Integer.parseInt(userId);
+            Integer facility = Integer.parseInt(applyFacilityText.getText());
+            Integer room = Integer.parseInt(applyRoomText.getText());
+            Integer licenser = Integer.parseInt(applyLicenserText.getText());
+            Timestamp startPeriod = Timestamp.valueOf(applyStartDate.getText());
+            Timestamp endPeriod = Timestamp.valueOf(applyFinishDate.getText());
+            Integer personnel = Integer.parseInt(applyPersonnelText.getText());
+            String reason = applyReasonText.getText();
 
-        } else if (e.getSource() == cancleReservationButton) {
+            if (dbm.insertRental(startPeriod, endPeriod, personnel, reason, deuPerson, facility, room, licenser)) {
+                JOptionPane.showMessageDialog(null, "예약이 완료되었습니다.");
+            } else {
+                JOptionPane.showMessageDialog(null, "중복이거나 오류가 발생했습니다.\n다시 예약해주세요.");
+            }
+        }
+         else if (e.getSource() == cancleReservationButton) {
 
         }
+
 
         String[] colName = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
         model = new DefaultTableModel(colName, 0);
