@@ -101,15 +101,27 @@ public class DBManager {
 	public boolean selectFacility() {
 		String query = "SELECT * from ½Ã¼³¹°";
 		try {
+			ArrayList<Facility> facilities =  new ArrayList<>();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			System.out.println();
+
 			while (rs.next()) {
 				System.out.print(rs.getInt(1) + "\t");
 				System.out.print(rs.getInt(2) + "\t");
 				System.out.print(rs.getString(3) + "\t");
 				System.out.print(rs.getInt(4) + "\t");
 				System.out.println(rs.getInt(5));
+
+
+				Facility facility = new Facility();
+				facility.setFacilityNumber(rs.getInt(1));
+				facility.setRoom(rs.(2));
+				facility.setName(rs.getDate(3));
+				facility.setManager(rs.getInt(4));
+				facility.setReason(rs.getString(5));
+
+				rentals.add(rental);
+
 			}
 			System.out.println();
 			rs.close();
