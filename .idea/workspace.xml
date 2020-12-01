@@ -21,6 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="MainProcess에서 connect 검사 코드 추가.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DBManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606825098163</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="MainProcess에서 connect 검사 코드 추가.">
+      <created>1606825131862</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1606825131862</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -215,10 +223,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1606817407695" />
-    <state x="190" y="256" key="Vcs.Push.Dialog.v2" timestamp="1606824869440">
+    <state x="190" y="256" key="Vcs.Push.Dialog.v2" timestamp="1606825139231">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="190" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606824869440" />
+    <state x="190" y="256" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1606825139231" />
     <state x="668" y="118" width="584" height="804" key="find.popup" timestamp="1606799694258">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
