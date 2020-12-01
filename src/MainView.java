@@ -234,6 +234,10 @@ public class MainView extends JFrame implements ActionListener {
             rentals = dbm.selectRentalFacility(facilityInquirytext.getText());
         } else if (e.getSource() == reasonInquiryButton){
             rentals = dbm.selectRentalReason(reasonInquirytext.getText());
+        } else if (e.getSource() == applyButton) {
+
+        } else if (e.getSource() == cancleReservationButton) {
+
         }
 
         String[] colName = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};

@@ -107,7 +107,7 @@ public class DBManager {
         return rentals;
     }
 
-    public ArrayList<Rental> selectRentalReason(String reason) {//프리페어먼트
+    public ArrayList<Rental> selectRentalReason(String reason) {
         ArrayList<Rental> rentals = new ArrayList<>();
         String query = "SELECT * from 대여내역 where 사유 LIKE ?";
         try {
@@ -129,10 +129,10 @@ public class DBManager {
             }
             rs.close();
             pstmt.close();
-            System.out.println("Selected rental.");
+            System.out.println("Have successfully selected the reason for the rental history.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println("Not selected rental.");
+            System.out.println("Failed to select reason for rental history.");
         }
         return rentals;
     }
@@ -153,27 +153,28 @@ public class DBManager {
             pstmt.executeQuery();
             pstmt.close();
             result = true;
-            System.out.println("Insert rental was successful.");
+            System.out.println("Have successfully inserted the rental history.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println("Insert rental failed.");
+            System.out.println("Failed to insert rental history.");
         }
         return result;
     }
 
-    public boolean deleteRental(Integer rentalNumber) {
+    public boolean deleteRental(Integer rentalNumber, Integer deuPerson) {
         boolean result = false;
         try {
-            String query = "delete from where 대여번호=?";
+            String query = "delete from where 대여번호=? and 동의인=?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, rentalNumber);
+            pstmt.setInt(2, deuPerson);
             pstmt.executeQuery();
             pstmt.close();
             result = true;
-            System.out.println("Facility reservation was successful.");
+            System.out.println("Have successfully deleted the rental history.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println("Facility reservation failed.");
+            System.out.println("Failed to delete rental history.");
         }
         return result;
     }
