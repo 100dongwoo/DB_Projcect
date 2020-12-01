@@ -75,73 +75,7 @@ public class DBManager {
         return rentals;
     }
 
-    public ArrayList<Rental> selectRentalresaon(String why) {//프리페어먼트
-        ArrayList<Rental> rentals = new ArrayList<>();
-        String query = "SELECT * from 대여내역 where 사유 LIKE ?";
-        try {
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, "%" + why + "%");
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Rental rental = new Rental();
-                rental.setRentalNumber(rs.getInt(1));
-                rental.setStartPeriod(rs.getTimestamp(2));
-                rental.setEndPeriod(rs.getTimestamp(3));
-                rental.setPersonnel(rs.getInt(4));
-                rental.setReason(rs.getString(5));
-                rental.setDEUPerson(rs.getInt(6));
-                rental.setFacility(rs.getInt(7));
-                rental.setRoom(rs.getInt(8));
-                rental.setLicenser(rs.getInt(9));
-                rentals.add(rental);
-            }
-            rs.close();
-            pstmt.close();
-            System.out.println("Selected rental.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Not selected rental.");
-        }
-        return rentals;
-    }
-
-
-
-    //    public ArrayList<Rental> selectRental() {//프리페어먼트
-//        ArrayList<Rental> rentals = new ArrayList<>();
-//        String query = "SELECT * from 대여내역 where 사유 LIKE '%?%";
-//        try {
-//            PreparedStatement pstmt = con.prepareStatement(query);
-//            pstmt.setString(1, why);
-//            ResultSet rs = pstmt.executeQuery();
-//            while (rs.next()) {
-//                Rental rental = new Rental();
-//                rental.setRentalNumber(rs.getInt(1));
-//                rental.setStartPeriod(rs.getTimestamp(2));
-//                rental.setEndPeriod(rs.getTimestamp(3));
-//                rental.setPersonnel(rs.getInt(4));
-//                rental.setReason(rs.getString(5));
-//                rental.setDEUPerson(rs.getInt(6));
-//                rental.setFacility(rs.getInt(7));
-//                rental.setRoom(rs.getInt(8));
-//                rental.setLicenser(rs.getInt(9));
-//                rentals.add(rental);
-//            }
-//            rs.close();
-//            pstmt.close();
-//            System.out.println("Selected rental.");
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//            System.out.println("Not selected rental.");
-//        }
-//        return rentals;
-//    }
-
-
-
-
-
-    public ArrayList<Rental> selectRental(String facilityName) {
+    public ArrayList<Rental> selectRentalFacility(String facilityName) {
         ArrayList<Rental> rentals = new ArrayList<>();
         try {
             String sql = "{call inquiry_facility(?, ?)}";
@@ -173,7 +107,37 @@ public class DBManager {
         return rentals;
     }
 
-    public boolean addRental(Rental rental) {
+    public ArrayList<Rental> selectRentalresaon(String why) {//프리페어먼트
+        ArrayList<Rental> rentals = new ArrayList<>();
+        String query = "SELECT * from 대여내역 where 사유 LIKE ?";
+        try {
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, "%" + why + "%");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Rental rental = new Rental();
+                rental.setRentalNumber(rs.getInt(1));
+                rental.setStartPeriod(rs.getTimestamp(2));
+                rental.setEndPeriod(rs.getTimestamp(3));
+                rental.setPersonnel(rs.getInt(4));
+                rental.setReason(rs.getString(5));
+                rental.setDEUPerson(rs.getInt(6));
+                rental.setFacility(rs.getInt(7));
+                rental.setRoom(rs.getInt(8));
+                rental.setLicenser(rs.getInt(9));
+                rentals.add(rental);
+            }
+            rs.close();
+            pstmt.close();
+            System.out.println("Selected rental.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Not selected rental.");
+        }
+        return rentals;
+    }
+
+    public boolean insertRental(Rental rental) {
         boolean result = false;
         try {
             String query = "insert into 대여내역 values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -186,6 +150,23 @@ public class DBManager {
             pstmt.setInt(6, rental.getFacility());
             pstmt.setInt(7, rental.getRoom());
             pstmt.setInt(8, rental.getLicenser());
+            pstmt.executeQuery();
+            pstmt.close();
+            result = true;
+            System.out.println("Facility reservation was successful.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Facility reservation failed.");
+        }
+        return result;
+    }
+
+    public boolean deleteRental(Integer rentalNumber) {
+        boolean result = false;
+        try {
+            String query = "delete from where 대여번호=?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, rentalNumber);
             pstmt.executeQuery();
             pstmt.close();
             result = true;
