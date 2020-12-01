@@ -148,8 +148,7 @@ public class MainView extends JFrame implements ActionListener {
         startDateInquirytext.setColumns(10);
 
 
-
-         lblNewLabel_3 = new JLabel("~");
+        lblNewLabel_3 = new JLabel("~");
         lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 22));
         lblNewLabel_3.setBounds(312, 113, 41, 24);
         frame.add(lblNewLabel_3);
@@ -163,6 +162,7 @@ public class MainView extends JFrame implements ActionListener {
         inquiryPeriodButton = new JButton("\uAE30\uAC04 \uC870\uD68C"); //기간조회버튼
         inquiryPeriodButton.setBounds(559, 115, 251, 23);
         frame.add(inquiryPeriodButton);
+        inquiryPeriodButton.addActionListener(this);
 
 
         inquiryFacilityButton = new JButton("\uC2DC\uC124 \uC870\uD68C");  //시설조회버튼
@@ -207,7 +207,7 @@ public class MainView extends JFrame implements ActionListener {
         userName.setBounds(891, 20, 132, 34);
         frame.add(userName);
 
-        applyButton= new JButton("\uC2E0\uCCAD\uD558\uAE30"); //신청하기
+        applyButton = new JButton("\uC2E0\uCCAD\uD558\uAE30"); //신청하기
         applyButton.setBounds(889, 592, 147, 33);
         frame.add(applyButton);
         applyButton.addActionListener(this);
@@ -228,10 +228,9 @@ public class MainView extends JFrame implements ActionListener {
             rentals = dbm.selectRental();
         } else if (e.getSource() == inquiryFacilityButton) {
             rentals = dbm.selectRentalFacility(facilityInquirytext.getText());
-        } else if (e.getSource() == reasonInquiryButton){
+        } else if (e.getSource() == reasonInquiryButton) {
             rentals = dbm.selectRentalReason(reasonInquirytext.getText());
-        }
-        else if (e.getSource() == applyButton) {
+        } else if (e.getSource() == applyButton) {
             Integer deuPerson = Integer.parseInt(userId);
             Integer facility = Integer.parseInt(applyFacilityText.getText());
             Integer room = Integer.parseInt(applyRoomText.getText());
@@ -246,11 +245,17 @@ public class MainView extends JFrame implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(null, "중복이거나 오류가 발생했습니다.\n다시 예약해주세요.");
             }
-        }
-         else if (e.getSource() == cancleReservationButton) {
+        } else if (e.getSource() == cancleReservationButton) {
 
-        }
+        } else if (e.getSource() == inquiryPeriodButton) {
 
+            try {
+                rentals = dbm.selectPeriodInquiry(startDateInquirytext.getText(), endDateInquirytext.getText());
+            } catch (Exception ei) {
+                System.out.println("발생한 에러코드 " + ei);
+                JOptionPane.showMessageDialog(null, "yyyy-mm-dd hh:mm:ss 형식으로 입력해주세요");
+            }
+        }
 
         String[] colName = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
         model = new DefaultTableModel(colName, 0);

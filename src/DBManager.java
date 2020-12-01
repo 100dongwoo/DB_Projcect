@@ -161,6 +161,39 @@ public class DBManager {
         return result;
     }
 
+    //2020-11-11 10:10:10
+    public ArrayList<Rental> selectPeriodInquiry(String startDateInquiry, String endDateInquiry) {
+        ArrayList<Rental> rentals = new ArrayList<>();
+        String query = "select * from 대여내역 where 시작기간 between ? and ?";
+        try {
+            System.out.println(Timestamp.valueOf(startDateInquiry));
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setTimestamp(1, Timestamp.valueOf(startDateInquiry));
+            pstmt.setTimestamp(2, Timestamp.valueOf(endDateInquiry));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Rental rental = new Rental();
+                rental.setRentalNumber(rs.getInt(1));
+                rental.setStartPeriod(rs.getTimestamp(2));
+                rental.setEndPeriod(rs.getTimestamp(3));
+                rental.setPersonnel(rs.getInt(4));
+                rental.setReason(rs.getString(5));
+                rental.setDEUPerson(rs.getInt(6));
+                rental.setFacility(rs.getInt(7));
+                rental.setRoom(rs.getInt(8));
+                rental.setLicenser(rs.getInt(9));
+                rentals.add(rental);
+            }
+            rs.close();
+            pstmt.close();
+            System.out.println("selected PeriodInquiry");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Not selected PeriodInquiry.");
+        }
+        return rentals;
+    }
+
     public boolean deleteRental(Integer rentalNumber, Integer deuPerson) {
         boolean result = false;
         try {
