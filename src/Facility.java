@@ -4,13 +4,6 @@ public class Facility {
     private String name;
     private int manager;
 
-    public Facility(int facilityNumber, int room, String name, int manager) {
-        this.facilityNumber = facilityNumber;
-        this.room = room;
-        this.name = name;
-        this.manager = manager;
-    }
-
     public int getFacilityNumber() {
         return facilityNumber;
     }

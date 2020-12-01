@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DBManager {
 	private Connection con = null;
@@ -120,30 +121,32 @@ public class DBManager {
 		return true;
 	}
 
-	public boolean selectRental() {
+	public ArrayList<Rental> selectRental() {
 		String query = "SELECT * from 대여내역";
 		try {
+			ArrayList<Rental> rentals = new ArrayList<>();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			System.out.println();
 			while (rs.next()) {
-				System.out.print(rs.getInt(1) + "\t");
-				System.out.print(rs.getDate(2) + "\t");
-				System.out.print(rs.getDate(3) + "\t");
-				System.out.print(rs.getInt(4) + "\t");
-				System.out.print(rs.getString(5) + "\t");
-				System.out.print(rs.getInt(6) + "\t");
-				System.out.print(rs.getInt(7) + "\t");
-				System.out.println(rs.getInt(8));
+				Rental rental = new Rental();
+				rental.setRentalNumber(rs.getInt(1));
+				rental.setStartPeriod(rs.getDate(2));
+				rental.setEndPeriod(rs.getDate(3));
+				rental.setPersonnel(rs.getInt(4));
+				rental.setReason(rs.getString(5));
+				rental.setDEUPerson(rs.getInt(6));
+				rental.setFacility(rs.getInt(7));
+				rental.setRoom(rs.getInt(8));
+				rental.setLicenser(rs.getInt(9));
+				rentals.add(rental);
 			}
-			System.out.println();
 			rs.close();
 			stmt.close();
-			return true;
+			return rentals;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		return false;
+		return null;
 	}
 
 //	public static void main(String[] args) {

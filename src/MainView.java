@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.util.ArrayList;
 
 public class MainView extends JFrame implements ActionListener {
     String userId;
@@ -214,7 +215,10 @@ public class MainView extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == allSearch) {
-            dbm.selectRental();
+            ArrayList<Rental> rentals = dbm.selectRental();
+            for (Rental rental : rentals) {
+                System.out.println(rental.getRentalNumber());
+            }
         }
     }
 }

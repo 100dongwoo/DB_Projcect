@@ -6,15 +6,6 @@ public class DEUPerson {
     private String position;
     private String belong;
 
-    public DEUPerson(int deuPersonNumber, String password, String name, String phone, String position, String belong) {
-        this.deuPersonNumber = deuPersonNumber;
-        this.password = password;
-        this.name = name;
-        this.phone = phone;
-        this.position = position;
-        this.belong = belong;
-    }
-
     public int getDeuPersonNumber() {
         return deuPersonNumber;
     }

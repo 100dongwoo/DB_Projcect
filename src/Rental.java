@@ -6,23 +6,10 @@ public class Rental {
     private Date endPeriod;
     private int personnel;
     private String reason;
-    private int person;
+    private int deuPerson;
     private int facility;
     private int room;
-    private String licenser;
-
-    public Rental(int rentalNumber, Date startPeriod, Date endPeriod, int personnel, String reason, int person, int facility, int room, String licenser) {
-        this.rentalNumber = rentalNumber;
-        this.startPeriod = startPeriod;
-        this.endPeriod = endPeriod;
-        this.personnel = personnel;
-        this.reason = reason;
-        this.person = person;
-        this.facility = facility;
-        this.room = room;
-        this.licenser = licenser;
-    }
-
+    private int licenser;
 
     public int getRentalNumber() {
         return rentalNumber;
@@ -64,12 +51,12 @@ public class Rental {
         this.reason = reason;
     }
 
-    public int getPerson() {
-        return person;
+    public int getDEUPerson() {
+        return deuPerson;
     }
 
-    public void setPerson(int person) {
-        this.person = person;
+    public void setDEUPerson(int deuPerson) {
+        this.deuPerson = deuPerson;
     }
 
     public int getFacility() {
@@ -88,11 +75,11 @@ public class Rental {
         this.room = room;
     }
 
-    public String getLicenser() {
+    public int getLicenser() {
         return licenser;
     }
 
-    public void setLicenser(String licenser) {
+    public void setLicenser(int licenser) {
         this.licenser = licenser;
     }
 }
