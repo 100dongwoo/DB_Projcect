@@ -14,9 +14,9 @@ import javax.swing.JTextField;
 public class MainView extends JFrame implements ActionListener {
     String userId;
     DBManager dbm;
-    private String colName[];
     public DefaultTableModel model;
     private JPanel mainFrame;
+
     //button
     private JButton reasonInquiryButton;//사유조회
     private JButton allSearch; //전체조회
@@ -246,7 +246,7 @@ public class MainView extends JFrame implements ActionListener {
                 model.addRow(row);
             }
         } else if (e.getSource() == inquiryFacilityButton) {
-            ArrayList<Rental> rentals = dbm.selectRental(facilityInquirytext.getText());
+            ArrayList<Rental> rentals = dbm.selectRentalFacility(facilityInquirytext.getText());
             for (Rental rental : rentals) {
                 row[0] = String.valueOf(rental.getRentalNumber());
                 row[1] = String.valueOf(rental.getStartPeriod());
