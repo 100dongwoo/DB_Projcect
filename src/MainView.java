@@ -227,57 +227,31 @@ public class MainView extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        ArrayList<Rental> rentals = new ArrayList<>();
+        if (e.getSource() == allSearch) {
+            rentals = dbm.selectRental();
+        } else if (e.getSource() == inquiryFacilityButton) {
+            rentals = dbm.selectRentalFacility(facilityInquirytext.getText());
+        } else if (e.getSource() == reasonInquiryButton){
+            rentals = dbm.selectRentalReason(reasonInquirytext.getText());
+        }
+
         String[] colName = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
         model = new DefaultTableModel(colName, 0);
-        String[] row = new String[9];
         model.addRow(colName);
-
-        if (e.getSource() == allSearch) {
-            ArrayList<Rental> rentals = dbm.selectRental();
-            for (Rental rental : rentals) {
-                row[0] = String.valueOf(rental.getRentalNumber());
-                row[1] = String.valueOf(rental.getStartPeriod());
-                row[2] = String.valueOf(rental.getEndPeriod());
-                row[3] = String.valueOf(rental.getPersonnel());
-                row[4] = String.valueOf(rental.getReason());
-                row[5] = String.valueOf(rental.getDEUPerson());
-                row[6] = String.valueOf(rental.getFacility());
-                row[7] = String.valueOf(rental.getRoom());
-                row[8] = String.valueOf(rental.getLicenser());
-                model.addRow(row);
-            }
-        } else if (e.getSource() == inquiryFacilityButton) {
-            ArrayList<Rental> rentals = dbm.selectRentalFacility(facilityInquirytext.getText());
-            for (Rental rental : rentals) {
-                row[0] = String.valueOf(rental.getRentalNumber());
-                row[1] = String.valueOf(rental.getStartPeriod());
-                row[2] = String.valueOf(rental.getEndPeriod());
-                row[3] = String.valueOf(rental.getPersonnel());
-                row[4] = String.valueOf(rental.getReason());
-                row[5] = String.valueOf(rental.getDEUPerson());
-                row[6] = String.valueOf(rental.getFacility());
-                row[7] = String.valueOf(rental.getRoom());
-                row[8] = String.valueOf(rental.getLicenser());
-                model.addRow(row);
-            }
+        for (Rental rental : rentals) {
+            String[] row = new String[9];
+            row[0] = String.valueOf(rental.getRentalNumber());
+            row[1] = String.valueOf(rental.getStartPeriod());
+            row[2] = String.valueOf(rental.getEndPeriod());
+            row[3] = String.valueOf(rental.getPersonnel());
+            row[4] = String.valueOf(rental.getReason());
+            row[5] = String.valueOf(rental.getDEUPerson());
+            row[6] = String.valueOf(rental.getFacility());
+            row[7] = String.valueOf(rental.getRoom());
+            row[8] = String.valueOf(rental.getLicenser());
+            model.addRow(row);
         }
-        else if (e.getSource() == reasonInquiryButton){
-            ArrayList<Rental> rentals = dbm.selectRentalresaon(reasonInquirytext.getText());
-            for(Rental rental : rentals){
-                row[0] = String.valueOf(rental.getRentalNumber());
-                row[1] = String.valueOf(rental.getStartPeriod());
-                row[2] = String.valueOf(rental.getEndPeriod());
-                row[3] = String.valueOf(rental.getPersonnel());
-                row[4] = String.valueOf(rental.getReason());
-                row[5] = String.valueOf(rental.getDEUPerson());
-                row[6] = String.valueOf(rental.getFacility());
-                row[7] = String.valueOf(rental.getRoom());
-                row[8] = String.valueOf(rental.getLicenser());
-                model.addRow(row);
-            }
-        }
-
-
         table = new JTable(model);
         table.setBounds(29, 255, 781, 261);
         table.getColumnModel().getColumn(1).setPreferredWidth(170);

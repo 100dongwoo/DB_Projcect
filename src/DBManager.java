@@ -107,12 +107,12 @@ public class DBManager {
         return rentals;
     }
 
-    public ArrayList<Rental> selectRentalresaon(String why) {//프리페어먼트
+    public ArrayList<Rental> selectRentalReason(String reason) {//프리페어먼트
         ArrayList<Rental> rentals = new ArrayList<>();
         String query = "SELECT * from 대여내역 where 사유 LIKE ?";
         try {
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, "%" + why + "%");
+            pstmt.setString(1, "%" + reason + "%");
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Rental rental = new Rental();
@@ -153,10 +153,10 @@ public class DBManager {
             pstmt.executeQuery();
             pstmt.close();
             result = true;
-            System.out.println("Facility reservation was successful.");
+            System.out.println("Insert rental was successful.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            System.out.println("Facility reservation failed.");
+            System.out.println("Insert rental failed.");
         }
         return result;
     }
