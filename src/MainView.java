@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class MainView extends JFrame implements ActionListener {
     String userId;
     DBManager dbm;
+    facilityView facilityView;
     public DefaultTableModel model;
     private JPanel mainFrame;
 
@@ -51,7 +52,7 @@ public class MainView extends JFrame implements ActionListener {
         this.userId = userId;
 
         setTitle("MainPage");
-        setSize(1082, 681);
+        setSize(1082, 701);
         setResizable(false);
         setLocation(100, 100);
 
@@ -220,6 +221,22 @@ public class MainView extends JFrame implements ActionListener {
         JLabel lblNewLabel_6_1 = new JLabel("\uB300\uC5EC\uBC88\uD638");
         lblNewLabel_6_1.setBounds(29, 537, 59, 35);
         frame.add(lblNewLabel_6_1);
+
+
+        JMenuBar mb = new JMenuBar();
+
+        //메뉴 생성
+        JMenu jm = new JMenu("메뉴");
+
+        //메뉴 아이템 생성
+        JMenuItem mi1 = new JMenuItem("시설물 조회");
+        jm.add(mi1);
+        mb.add(jm);
+        setJMenuBar(mb);
+
+        mi1.addActionListener(e -> {
+            facilityView = new facilityView(dbm);
+        });
     }
 
     public void actionPerformed(ActionEvent e) {

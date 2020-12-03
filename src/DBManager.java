@@ -211,4 +211,27 @@ public class DBManager {
         }
         return result;
     }
+    public ArrayList<Facility> selectFacility() {
+        ArrayList<Facility> Facilitys = new ArrayList<>();
+        try {
+            String query = "SELECT * from 시설물";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Facility facility = new Facility();
+                facility.setFacilityNumber(rs.getInt(1));
+                facility.setRoom(rs.getInt(2));
+                facility.setName(rs.getString(3));
+                facility.setManager(rs.getInt(4));
+                Facilitys.add(facility);
+            }
+            rs.close();
+            stmt.close();
+            System.out.println("Have successfully searched the entire facility list");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Full facility list inquiry failed.");
+        }
+        return Facilitys;
+    }
 }
