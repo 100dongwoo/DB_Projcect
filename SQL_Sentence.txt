@@ -197,42 +197,42 @@ INSERT INTO 동의인 VALUES (
 );
 
 INSERT INTO 시설물 VALUES (
-    1,
+    5,
     '815',
     '국제관',
     20153188
 );
 
 INSERT INTO 시설물 VALUES (
-    2,
+    23,
     '815',
     '정보공학관',
     20163248
 );
 
 INSERT INTO 시설물 VALUES (
-    3,
+    11,
     '815',
     '자연대',
     20163248
 );
 
 INSERT INTO 시설물 VALUES (
-    4,
+    19,
     0,
     '야외음악당',
     20163248
 );
 
 INSERT INTO 시설물 VALUES (
-    5,
+    28,
     0,
     '야구장',
     20163248
 );
 
 INSERT INTO 시설물 VALUES (
-    6,
+    27,
     0,
     '축구장',
     20163248
@@ -245,7 +245,7 @@ INSERT INTO 대여내역 VALUES (
     10,
     '특별한 강의',
     20163248,
-    3,
+    23,
     815,
     NULL
 );
