@@ -204,7 +204,7 @@ public class DBManager {
     public int deleteRental(Integer rentalNumber, Integer deuPerson) {
         int result = 0;
         try {
-            String query = "delete from where 대여번호=? and 동의인=?";
+            String query = "delete from 대여내역 where 대여번호=? and 동의인=?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, rentalNumber);
             pstmt.setInt(2, deuPerson);
