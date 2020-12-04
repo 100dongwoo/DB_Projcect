@@ -65,7 +65,7 @@ CREATE OR REPLACE TRIGGER verify_position AFTER
     FOR EACH ROW
 BEGIN
     IF
-        :new.건물 = 4
+        :new.건물 = 29
         AND ( :new.허가자 IS NULL OR :new.허가자 != 1 )
     THEN
         raise_application_error(-20000, '총장의 허가가 필요합니다.');
@@ -94,7 +94,7 @@ BEGIN
         raise_application_error(-20001, '과거 날짜에 대여할 수 없습니다.');
     ELSIF
         ( to_char(:new.시작기간, 'HH24') BETWEEN 0 AND 6 OR to_char(:new.종료기간, 'HH24') BETWEEN 0 AND 6 )
-        AND ( :new.건물 = 4 OR :new.건물 = 5 OR :new.건물 = 6 )
+        AND ( :new.건물 = 27 OR :new.건물 = 28 OR :new.건물 = 29 )
     THEN
         raise_application_error(-20002, '새벽 시간에는 해당 시설물을 대여할 수 없습니다.');
     ELSE
