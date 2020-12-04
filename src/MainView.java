@@ -249,27 +249,85 @@ public class MainView extends JFrame implements ActionListener {
             rentals = dbm.selectRentalReason(reasonInquirytext.getText());
         } else if (e.getSource() == applyButton) {
             Integer deuPerson = Integer.parseInt(userId);
-            Integer facility = Integer.parseInt(applyFacilityText.getText());
-            int room = 0;
-            if (!applyLicenserText.getText().equals("")) {
-                room = Integer.parseInt(applyRoomText.getText());
+
+            int facility;
+            if (applyFacilityText.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "시설을 숫자로 입력해주세요.");
+                return;
+            } else {
+                try {
+                    facility = Integer.parseInt(applyFacilityText.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "시설을 숫자로 입력해주세요.");
+                    return;
+                }
             }
+
+            int room = 0;
+            if (!applyRoomText.getText().equals("")) {
+                try {
+                    room = Integer.parseInt(applyRoomText.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "호실을 숫자로 입력해주세요.");
+                    return;
+                }
+            }
+
             Integer licenser = null;
             if (!applyLicenserText.getText().equals("")) {
-                licenser = Integer.parseInt(applyLicenserText.getText());
+                try {
+                    licenser = Integer.parseInt(applyLicenserText.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "허가자를 숫자로 입력해주세요.");
+                    return;
+                }
             }
-            Timestamp startPeriod = Timestamp.valueOf(applyStartDate.getText());
-            Timestamp endPeriod = Timestamp.valueOf(applyFinishDate.getText());
-            Integer personnel = Integer.parseInt(applyPersonnelText.getText());
-            String reason = null;
-            if (!applyReasonText.getText().equals("")) {
-                reason = applyReasonText.getText();
+
+            Timestamp startPeriod;
+            if (applyStartDate.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "시작기간을 \"yyyy-mm-dd hh:mm:ss\" 양식으로 입력해주세요.");
+                return;
+            } else {
+                try {
+                    startPeriod = Timestamp.valueOf(applyStartDate.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "시작기간을 \"yyyy-mm-dd hh:mm:ss\" 양식으로 입력해주세요.");
+                    return;
+                }
             }
+
+            Timestamp endPeriod;
+            if (applyFinishDate.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "종료기간을 \"yyyy-mm-dd hh:mm:ss\" 양식으로 입력해주세요.");
+                return;
+            } else {
+                try {
+                    endPeriod = Timestamp.valueOf(applyFinishDate.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "종료기간을 \"yyyy-mm-dd hh:mm:ss\" 양식으로 입력해주세요.");
+                    return;
+                }
+            }
+
+            int personnel = 1;
+            if (!applyPersonnelText.getText().equals("")) {
+                try {
+                    personnel = Integer.parseInt(applyPersonnelText.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null, "인원을 숫자로 입력해야 합니다.");
+                    return;
+                }
+            }
+
+            String reason = applyReasonText.getText();
 
             if (dbm.insertRental(startPeriod, endPeriod, personnel, reason, deuPerson, facility, room, licenser)) {
                 JOptionPane.showMessageDialog(null, "예약이 완료되었습니다.");
+                rentals = dbm.selectRental();
+            } else if (room == 0) {
+                JOptionPane.showMessageDialog(null, "존재하지 않는 시설입니다.\n호실을 확인해주세요.");
             } else {
-                JOptionPane.showMessageDialog(null, "중복이거나 오류가 발생했습니다.\n다시 예약해주세요.");
+                JOptionPane.showMessageDialog(null, "중복이거나 존재하지 않는 시설입니다.가 발생했습니다.\n다시 예약해주세요.");
             }
         } else if (e.getSource() == cancleReservationButton) {
             try {
