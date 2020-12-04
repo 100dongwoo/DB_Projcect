@@ -181,4 +181,16 @@ INSERT INTO 시설물 VALUES (  27,   0, '축구장', 27);
 INSERT INTO 시설물 VALUES ( 28, 0, '야구장',  28);
 INSERT INTO 시설물 VALUES (29, 0, '야외음악당',29);
 
+INSERT INTO 대여내역 VALUES (
+    대여번호.NEXTVAL,
+    sysdate + 1,
+    sysdate + 2,
+    10,
+    '특별한 강의',
+    20163248,
+    23,
+    815,
+    NULL
+);
+
 COMMIT;

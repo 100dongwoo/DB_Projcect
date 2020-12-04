@@ -159,6 +159,14 @@ public class DBManager {
                 pstmt.setInt(8, licenser);
             }
             result = pstmt.executeUpdate();
+            System.out.println("요류 코드: " + result);
+            if (result > 0)
+            {
+                con.commit();
+            }
+            else{
+                con.rollback();
+            }
             pstmt.close();
             System.out.println("Have successfully inserted the rental history.");
         } catch (SQLException e) {
