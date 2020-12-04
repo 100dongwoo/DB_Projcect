@@ -1,22 +1,22 @@
 public class Facility {
-    private Integer facilityNumber;
-    private Integer room;
+    private Number facilityNumber;
+    private Number room;
     private String name;
-    private Integer manager;
+    private Number manager;
 
-    public Integer getFacilityNumber() {
+    public Number getFacilityNumber() {
         return facilityNumber;
     }
 
-    public void setFacilityNumber(Integer facilityNumber) {
+    public void setFacilityNumber(Number facilityNumber) {
         this.facilityNumber = facilityNumber;
     }
 
-    public Integer getRoom() {
+    public Number getRoom() {
         return room;
     }
 
-    public void setRoom(Integer room) {
+    public void setRoom(Number room) {
         this.room = room;
     }
 
@@ -28,11 +28,11 @@ public class Facility {
         this.name = name;
     }
 
-    public Integer getManager() {
+    public Number getManager() {
         return manager;
     }
 
-    public void setManager(Integer manager) {
+    public void setManager(Number manager) {
         this.manager = manager;
     }
 }

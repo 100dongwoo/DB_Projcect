@@ -1,12 +1,12 @@
 public class DEUPerson {
-    private Integer deuPersonNumber;
+    private Number deuPersonNumber;
     private String password;
     private String name;
     private String phone;
     private String position;
     private String belong;
 
-    public Integer getDEUPersonNumber() {
+    public Number getDEUPersonNumber() {
         return deuPersonNumber;
     }
 

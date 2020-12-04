@@ -1,21 +1,21 @@
 import java.sql.Timestamp;
 
 public class Rental {
-    private Integer rentalNumber;
+    private Number rentalNumber;
     private Timestamp startPeriod;
     private Timestamp endPeriod;
-    private Integer personnel;
+    private Number personnel;
     private String reason;
-    private Integer deuPerson;
-    private Integer facility;
-    private Integer room;
-    private Integer licenser;
+    private Number deuPerson;
+    private Number facility;
+    private Number room;
+    private Number licenser;
 
-    public Integer getRentalNumber() {
+    public Number getRentalNumber() {
         return rentalNumber;
     }
 
-    public void setRentalNumber(Integer rentalNumber) {
+    public void setRentalNumber(Number rentalNumber) {
         this.rentalNumber = rentalNumber;
     }
 
@@ -35,11 +35,11 @@ public class Rental {
         this.endPeriod = endPeriod;
     }
 
-    public Integer getPersonnel() {
+    public Number getPersonnel() {
         return personnel;
     }
 
-    public void setPersonnel(Integer personnel) {
+    public void setPersonnel(Number personnel) {
         this.personnel = personnel;
     }
 
@@ -51,35 +51,35 @@ public class Rental {
         this.reason = reason;
     }
 
-    public Integer getDEUPerson() {
+    public Number getDEUPerson() {
         return deuPerson;
     }
 
-    public void setDEUPerson(Integer deuPerson) {
+    public void setDEUPerson(Number deuPerson) {
         this.deuPerson = deuPerson;
     }
 
-    public Integer getFacility() {
+    public Number getFacility() {
         return facility;
     }
 
-    public void setFacility(Integer facility) {
+    public void setFacility(Number facility) {
         this.facility = facility;
     }
 
-    public Integer getRoom() {
+    public Number getRoom() {
         return room;
     }
 
-    public void setRoom(Integer room) {
+    public void setRoom(Number room) {
         this.room = room;
     }
 
-    public Integer getLicenser() {
+    public Number getLicenser() {
         return licenser;
     }
 
-    public void setLicenser(Integer licenser) {
+    public void setLicenser(Number licenser) {
         this.licenser = licenser;
     }
 }

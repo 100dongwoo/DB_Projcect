@@ -321,11 +321,12 @@ public class MainView extends JFrame implements ActionListener {
 
             String reason = applyReasonText.getText();
 
-            if (dbm.insertRental(startPeriod, endPeriod, personnel, reason, deuPerson, facility, room, licenser) >= 1) {
+            int insertResult = dbm.insertRental(startPeriod, endPeriod, personnel, reason, deuPerson, facility, room, licenser);
+            if (insertResult == 1) {
                 JOptionPane.showMessageDialog(null, "예약이 완료되었습니다.");
                 rentals = dbm.selectRental();
-            } else if (room == 0) {
-                JOptionPane.showMessageDialog(null, "존재하지 않는 시설입니다.\n호실을 확인해주세요.");
+            } else if (insertResult == 20000){
+                JOptionPane.showMessageDialog(null, "해당 시설은 총장의 허가가 필요합니다.");
             } else {
                 JOptionPane.showMessageDialog(null, "중복된 예약이거나 오류가 발생했습니다.\n다시 예약해주세요.");
             }
@@ -333,11 +334,14 @@ public class MainView extends JFrame implements ActionListener {
             try {
                 Integer rentalNumber = Integer.parseInt(deleteNumberText.getText());
                 Integer userId = Integer.parseInt(this.userId);
-                if (dbm.deleteRental(rentalNumber, userId) >= 1) {
+                int deleteResult = dbm.deleteRental(rentalNumber, userId);
+                if (deleteResult == 1) {
                     JOptionPane.showMessageDialog(null, "예약이 취소되었습니다.");
                     rentals = dbm.selectRental();
-                } else {
+                } else if (deleteResult == -1) {
                     JOptionPane.showMessageDialog(null, "존재하지 않는 대여번호입니다.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "본인의 예약만 취소할 수 있습니다.");
                 }
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null, "대여번호는 숫자만 입력이 가능합니다.");
@@ -345,8 +349,8 @@ public class MainView extends JFrame implements ActionListener {
         } else if (e.getSource() == inquiryPeriodButton) {
             try {
                 rentals = dbm.selectPeriodInquiry(startDateInquirytext.getText(), endDateInquirytext.getText());
-            } catch (Exception ei) {
-                System.out.println("발생한 에러코드 " + ei);
+            } catch (Exception exception) {
+                System.out.println("발생한 에러코드 " + exception);
                 JOptionPane.showMessageDialog(null, "yyyy-mm-dd hh:mm:ss 형식으로 입력해주세요");
             }
         }

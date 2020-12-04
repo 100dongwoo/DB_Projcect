@@ -2,6 +2,7 @@ import oracle.jdbc.OracleTypes;
 import oracle.jdbc.oracore.OracleType;
 
 import java.awt.*;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -62,7 +63,7 @@ public class DBManager {
                 rental.setDEUPerson(rs.getInt(6));
                 rental.setFacility(rs.getInt(7));
                 rental.setRoom(rs.getInt(8));
-                rental.setLicenser((Integer) rs.getObject(9));
+                rental.setLicenser((Number) rs.getObject(9));
                 rentals.add(rental);
             }
             rs.close();
@@ -94,7 +95,7 @@ public class DBManager {
                 rental.setDEUPerson(rs.getInt(6));
                 rental.setFacility(rs.getInt(7));
                 rental.setRoom(rs.getInt(8));
-                rental.setLicenser((Integer) rs.getObject(9));
+                rental.setLicenser((Number) rs.getObject(9));
                 rentals.add(rental);
             }
             rs.close();
@@ -124,7 +125,7 @@ public class DBManager {
                 rental.setDEUPerson(rs.getInt(6));
                 rental.setFacility(rs.getInt(7));
                 rental.setRoom(rs.getInt(8));
-                rental.setLicenser((Integer) rs.getObject(9));
+                rental.setLicenser((Number) rs.getObject(9));
                 rentals.add(rental);
             }
             rs.close();
@@ -138,8 +139,9 @@ public class DBManager {
     }
 
     public int insertRental(Timestamp startPeriod, Timestamp endPeriod, Integer personnel, String reason, Integer deuPerson, Integer facility, Integer room, Integer licenser) {
-        int result = 0;
+        int result;
         try {
+            con.setAutoCommit(false);
             String query = "insert into 대여내역 values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setTimestamp(1, startPeriod);
@@ -159,17 +161,15 @@ public class DBManager {
                 pstmt.setInt(8, licenser);
             }
             result = pstmt.executeUpdate();
-            System.out.println("요류 코드: " + result);
-            if (result > 0)
-            {
+            if (result == 1) {
                 con.commit();
-            }
-            else{
+            } else {
                 con.rollback();
             }
             pstmt.close();
             System.out.println("Have successfully inserted the rental history.");
         } catch (SQLException e) {
+            result = e.getErrorCode();
             System.out.println(e.getMessage());
             System.out.println("Failed to insert rental history.");
         }
@@ -196,7 +196,7 @@ public class DBManager {
                 rental.setDEUPerson(rs.getInt(6));
                 rental.setFacility(rs.getInt(7));
                 rental.setRoom(rs.getInt(8));
-                rental.setLicenser((Integer) rs.getObject(9));
+                rental.setLicenser((Number) rs.getObject(9));
                 rentals.add(rental);
             }
             rs.close();
@@ -210,16 +210,35 @@ public class DBManager {
     }
 
     public int deleteRental(Integer rentalNumber, Integer deuPerson) {
-        int result = 0;
+        int result;
         try {
-            String query = "delete from 대여내역 where 대여번호=? and 동의인=?";
+            con.setAutoCommit(false);
+            String query = "select * from 대여내역 where 대여번호=?";
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, rentalNumber);
-            pstmt.setInt(2, deuPerson);
-            result = pstmt.executeUpdate();
-            pstmt.close();
-            System.out.println("Have successfully deleted the rental history.");
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                rs.close();
+                pstmt.close();
+                query = "delete from 대여내역 where 대여번호=? and 동의인=?";
+                pstmt = con.prepareStatement(query);
+                pstmt.setInt(1, rentalNumber);
+                pstmt.setInt(2, deuPerson);
+                result = pstmt.executeUpdate();
+                if (result == 1) {
+                    con.commit();
+                } else {
+                    con.rollback();
+                }
+                pstmt.close();
+                System.out.println("Have successfully deleted the rental history.");
+            } else {
+                rs.close();
+                pstmt.close();
+                result = -1;
+            }
         } catch (SQLException e) {
+            result = e.getErrorCode();
             System.out.println(e.getMessage());
             System.out.println("Failed to delete rental history.");
         }
