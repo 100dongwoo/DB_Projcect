@@ -327,7 +327,7 @@ public class MainView extends JFrame implements ActionListener {
             } else if (room == 0) {
                 JOptionPane.showMessageDialog(null, "존재하지 않는 시설입니다.\n호실을 확인해주세요.");
             } else {
-                JOptionPane.showMessageDialog(null, "중복이거나 존재하지 않는 시설입니다.가 발생했습니다.\n다시 예약해주세요.");
+                JOptionPane.showMessageDialog(null, "중복된 예약이거나 오류가 발생했습니다.\n다시 예약해주세요.");
             }
         } else if (e.getSource() == cancleReservationButton) {
             try {
