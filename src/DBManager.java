@@ -137,8 +137,8 @@ public class DBManager {
         return rentals;
     }
 
-    public boolean insertRental(Timestamp startPeriod, Timestamp endPeriod, Integer personnel, String reason, Integer deuPerson, Integer facility, Integer room, Integer licenser) {
-        boolean result = false;
+    public int insertRental(Timestamp startPeriod, Timestamp endPeriod, Integer personnel, String reason, Integer deuPerson, Integer facility, Integer room, Integer licenser) {
+        int result = 0;
         try {
             String query = "insert into 대여내역 values(대여번호.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -158,9 +158,8 @@ public class DBManager {
             } else {
                 pstmt.setInt(8, licenser);
             }
-            pstmt.executeQuery();
+            result = pstmt.executeUpdate();
             pstmt.close();
-            result = true;
             System.out.println("Have successfully inserted the rental history.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());

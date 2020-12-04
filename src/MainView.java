@@ -321,7 +321,7 @@ public class MainView extends JFrame implements ActionListener {
 
             String reason = applyReasonText.getText();
 
-            if (dbm.insertRental(startPeriod, endPeriod, personnel, reason, deuPerson, facility, room, licenser)) {
+            if (dbm.insertRental(startPeriod, endPeriod, personnel, reason, deuPerson, facility, room, licenser) >= 1) {
                 JOptionPane.showMessageDialog(null, "예약이 완료되었습니다.");
                 rentals = dbm.selectRental();
             } else if (room == 0) {
@@ -333,8 +333,9 @@ public class MainView extends JFrame implements ActionListener {
             try {
                 Integer rentalNumber = Integer.parseInt(deleteNumberText.getText());
                 Integer userId = Integer.parseInt(this.userId);
-                if (dbm.deleteRental(rentalNumber, userId) == 0) {
+                if (dbm.deleteRental(rentalNumber, userId) >= 1) {
                     JOptionPane.showMessageDialog(null, "예약이 취소되었습니다.");
+                    rentals = dbm.selectRental();
                 } else {
                     JOptionPane.showMessageDialog(null, "존재하지 않는 대여번호입니다.");
                 }
