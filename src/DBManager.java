@@ -58,11 +58,11 @@ public class DBManager {
                 rental.setStartPeriod(rs.getTimestamp(2));
                 rental.setEndPeriod(rs.getTimestamp(3));
                 rental.setPersonnel(rs.getInt(4));
-                rental.setReason(rs.getString(5));
+                rental.setReason((String) rs.getObject(5));
                 rental.setDEUPerson(rs.getInt(6));
                 rental.setFacility(rs.getInt(7));
                 rental.setRoom(rs.getInt(8));
-                rental.setLicenser(rs.getInt(9));
+                rental.setLicenser((Integer) rs.getObject(9));
                 rentals.add(rental);
             }
             rs.close();
@@ -90,11 +90,11 @@ public class DBManager {
                 rental.setStartPeriod(rs.getTimestamp(2));
                 rental.setEndPeriod(rs.getTimestamp(3));
                 rental.setPersonnel(rs.getInt(4));
-                rental.setReason(rs.getString(5));
+                rental.setReason((String) rs.getObject(5));
                 rental.setDEUPerson(rs.getInt(6));
                 rental.setFacility(rs.getInt(7));
                 rental.setRoom(rs.getInt(8));
-                rental.setLicenser(rs.getInt(9));
+                rental.setLicenser((Integer) rs.getObject(9));
                 rentals.add(rental);
             }
             rs.close();
@@ -120,11 +120,11 @@ public class DBManager {
                 rental.setStartPeriod(rs.getTimestamp(2));
                 rental.setEndPeriod(rs.getTimestamp(3));
                 rental.setPersonnel(rs.getInt(4));
-                rental.setReason(rs.getString(5));
+                rental.setReason((String) rs.getObject(5));
                 rental.setDEUPerson(rs.getInt(6));
                 rental.setFacility(rs.getInt(7));
                 rental.setRoom(rs.getInt(8));
-                rental.setLicenser(rs.getInt(9));
+                rental.setLicenser((Integer) rs.getObject(9));
                 rentals.add(rental);
             }
             rs.close();
@@ -185,11 +185,11 @@ public class DBManager {
                 rental.setStartPeriod(rs.getTimestamp(2));
                 rental.setEndPeriod(rs.getTimestamp(3));
                 rental.setPersonnel(rs.getInt(4));
-                rental.setReason(rs.getString(5));
+                rental.setReason((String) rs.getObject(5));
                 rental.setDEUPerson(rs.getInt(6));
                 rental.setFacility(rs.getInt(7));
                 rental.setRoom(rs.getInt(8));
-                rental.setLicenser(rs.getInt(9));
+                rental.setLicenser((Integer) rs.getObject(9));
                 rentals.add(rental);
             }
             rs.close();

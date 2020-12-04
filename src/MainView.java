@@ -261,7 +261,10 @@ public class MainView extends JFrame implements ActionListener {
             Timestamp startPeriod = Timestamp.valueOf(applyStartDate.getText());
             Timestamp endPeriod = Timestamp.valueOf(applyFinishDate.getText());
             Integer personnel = Integer.parseInt(applyPersonnelText.getText());
-            String reason = applyReasonText.getText();
+            String reason = null;
+            if (!applyReasonText.getText().equals("")) {
+                reason = applyReasonText.getText();
+            }
 
             if (dbm.insertRental(startPeriod, endPeriod, personnel, reason, deuPerson, facility, room, licenser)) {
                 JOptionPane.showMessageDialog(null, "예약이 완료되었습니다.");
