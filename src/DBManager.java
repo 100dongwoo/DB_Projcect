@@ -145,7 +145,11 @@ public class DBManager {
             pstmt.setTimestamp(1, startPeriod);
             pstmt.setTimestamp(2, endPeriod);
             pstmt.setInt(3, personnel);
-            pstmt.setString(4, reason);
+            if (reason == null) {
+                pstmt.setNull(4, Types.VARCHAR);
+            } else {
+                pstmt.setString(4, reason);
+            }
             pstmt.setInt(5, deuPerson);
             pstmt.setInt(6, facility);
             pstmt.setInt(7, room);

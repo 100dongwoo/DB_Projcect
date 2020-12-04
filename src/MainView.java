@@ -7,11 +7,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MainView extends JFrame implements ActionListener {
-    String userId;
-    DBManager dbm;
-    facilityView facilityView;
+    private String userId;
+    private DBManager dbm;
+    private facilityView facilityView;
     public DefaultTableModel model;
     private JPanel mainFrame;
+    private ArrayList<Rental> rentals;
 
     //button
     private JButton reasonInquiryButton;//사유조회
@@ -68,6 +69,8 @@ public class MainView extends JFrame implements ActionListener {
 
     private void initialize(JPanel frame) {
         mainFrame = frame;
+        rentals = dbm.selectRental();
+        showTable();
 
         frame.setLayout(null);
         applyFacilityText = new JTextField();
@@ -238,7 +241,6 @@ public class MainView extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        ArrayList<Rental> rentals = new ArrayList<>();
         if (e.getSource() == allSearch) {
             rentals = dbm.selectRental();
         } else if (e.getSource() == inquiryFacilityButton) {
@@ -248,11 +250,12 @@ public class MainView extends JFrame implements ActionListener {
         } else if (e.getSource() == applyButton) {
             Integer deuPerson = Integer.parseInt(userId);
             Integer facility = Integer.parseInt(applyFacilityText.getText());
-            Integer room = Integer.parseInt(applyRoomText.getText());
-            Integer licenser;
-            if (applyLicenserText.getText().equals("")) {
-                licenser = null;
-            } else {
+            int room = 0;
+            if (!applyLicenserText.getText().equals("")) {
+                room = Integer.parseInt(applyRoomText.getText());
+            }
+            Integer licenser = null;
+            if (!applyLicenserText.getText().equals("")) {
                 licenser = Integer.parseInt(applyLicenserText.getText());
             }
             Timestamp startPeriod = Timestamp.valueOf(applyStartDate.getText());
@@ -278,7 +281,6 @@ public class MainView extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "대여번호는 숫자만 입력이 가능합니다.");
             }
         } else if (e.getSource() == inquiryPeriodButton) {
-
             try {
                 rentals = dbm.selectPeriodInquiry(startDateInquirytext.getText(), endDateInquirytext.getText());
             } catch (Exception ei) {
@@ -286,7 +288,10 @@ public class MainView extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "yyyy-mm-dd hh:mm:ss 형식으로 입력해주세요");
             }
         }
+        showTable();
+    }
 
+    public void showTable() {
         String[] colName = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
         model = new DefaultTableModel(colName, 0);
         model.addRow(colName);
