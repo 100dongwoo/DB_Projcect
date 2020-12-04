@@ -244,9 +244,19 @@ public class MainView extends JFrame implements ActionListener {
         if (e.getSource() == allSearch) {
             rentals = dbm.selectRental();
         } else if (e.getSource() == inquiryFacilityButton) {
-            rentals = dbm.selectRentalFacility(facilityInquirytext.getText());
+            if (facilityInquirytext.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "시설명을 입력해주세요.");
+                return;
+            } else {
+                rentals = dbm.selectRentalFacility(facilityInquirytext.getText());
+            }
         } else if (e.getSource() == reasonInquiryButton) {
-            rentals = dbm.selectRentalReason(reasonInquirytext.getText());
+            if (reasonInquirytext.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "사유를 입력해주세요.");
+                return;
+            } else {
+                rentals = dbm.selectRentalReason(reasonInquirytext.getText());
+            }
         } else if (e.getSource() == applyButton) {
             Integer deuPerson = Integer.parseInt(userId);
 
@@ -347,11 +357,19 @@ public class MainView extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "대여번호는 숫자만 입력이 가능합니다.");
             }
         } else if (e.getSource() == inquiryPeriodButton) {
-            try {
-                rentals = dbm.selectPeriodInquiry(startDateInquirytext.getText(), endDateInquirytext.getText());
-            } catch (Exception exception) {
-                System.out.println("발생한 에러코드 " + exception);
-                JOptionPane.showMessageDialog(null, "yyyy-mm-dd hh:mm:ss 형식으로 입력해주세요");
+            if (startDateInquirytext.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "시작기간을 입력해주세요.");
+                return;
+            } else if (endDateInquirytext.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "종료기간을 입력해주세요.");
+                return;
+            } else {
+                try {
+                    rentals = dbm.selectPeriodInquiry(startDateInquirytext.getText(), endDateInquirytext.getText());
+                } catch (Exception exception) {
+                    System.out.println("발생한 에러코드 " + exception);
+                    JOptionPane.showMessageDialog(null, "yyyy-mm-dd hh:mm:ss 형식으로 입력해주세요");
+                }
             }
         }
         showTable();
