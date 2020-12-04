@@ -198,10 +198,10 @@ public class MainView extends JFrame implements ActionListener {
         table.setBounds(51, 255, 759, 261);
         frame.add(table);
 
-
         cancleReservationButton = new JButton("\uC608\uC57D \uCDE8\uC18C");//예약취소버튼
         cancleReservationButton.setBounds(243, 526, 567, 56);
         frame.add(cancleReservationButton);
+        cancleReservationButton.addActionListener(this);
 
         JLabel userName = new JLabel(userId);
         userName.setFont(new Font("굴림", Font.BOLD, 25));
@@ -234,9 +234,7 @@ public class MainView extends JFrame implements ActionListener {
         mb.add(jm);
         setJMenuBar(mb);
 
-        mi1.addActionListener(e -> {
-            facilityView = new facilityView(dbm);
-        });
+        mi1.addActionListener(e -> facilityView = new facilityView(dbm));
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -251,7 +249,12 @@ public class MainView extends JFrame implements ActionListener {
             Integer deuPerson = Integer.parseInt(userId);
             Integer facility = Integer.parseInt(applyFacilityText.getText());
             Integer room = Integer.parseInt(applyRoomText.getText());
-            Integer licenser = Integer.parseInt(applyLicenserText.getText());
+            Integer licenser;
+            if (applyLicenserText.getText().equals("")) {
+                licenser = null;
+            } else {
+                licenser = Integer.parseInt(applyLicenserText.getText());
+            }
             Timestamp startPeriod = Timestamp.valueOf(applyStartDate.getText());
             Timestamp endPeriod = Timestamp.valueOf(applyFinishDate.getText());
             Integer personnel = Integer.parseInt(applyPersonnelText.getText());
@@ -263,7 +266,17 @@ public class MainView extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "중복이거나 오류가 발생했습니다.\n다시 예약해주세요.");
             }
         } else if (e.getSource() == cancleReservationButton) {
-
+            try {
+                Integer rentalNumber = Integer.parseInt(deleteNumberText.getText());
+                Integer userId = Integer.parseInt(this.userId);
+                if (dbm.deleteRental(rentalNumber, userId) == 0) {
+                    JOptionPane.showMessageDialog(null, "예약이 취소되었습니다.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "존재하지 않는 대여번호입니다.");
+                }
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(null, "대여번호는 숫자만 입력이 가능합니다.");
+            }
         } else if (e.getSource() == inquiryPeriodButton) {
 
             try {
