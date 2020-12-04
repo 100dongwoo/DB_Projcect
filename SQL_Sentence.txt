@@ -10,11 +10,11 @@ DROP TABLE 대여내역 CASCADE CONSTRAINTS;
 
 DROP SEQUENCE 대여번호;
 
-DROP TYPE history_object;
+DROP TRIGGER verify_position;
 
-DROP TYPE history_table;
+DROP TRIGGER verify_time;
 
-DROP TYPE inquiry_facility;
+DROP PROCEDURE inquiry_facility;
 
 CREATE TABLE 동의인 (
     동의인번호  NUMBER(10) NOT NULL,
@@ -119,21 +119,6 @@ BEGIN
 
     END IF;
 END;
-
-CREATE OR REPLACE TYPE history_object AS OBJECT (
-    출력대여번호  NUMBER(10),
-    출력시작기간  TIMESTAMP,
-    출력종료기간  TIMESTAMP,
-    출력인원    NUMBER,
-    출력사유    VARCHAR2(100),
-    출력동의인   NUMBER(10),
-    출력건물    NUMBER(10),
-    출력호실    NUMBER(10),
-    출력허가자   NUMBER(10)
-);
-
-CREATE OR REPLACE TYPE history_table AS
-    TABLE OF history_object;
 
 CREATE OR REPLACE PROCEDURE inquiry_facility (
     facility  IN   NCHAR,
