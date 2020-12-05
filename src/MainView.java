@@ -13,6 +13,7 @@ public class MainView extends JFrame implements ActionListener {
     public DefaultTableModel model;
     private JPanel mainFrame;
     private ArrayList<Rental> rentals;
+    private JScrollPane scrollPane;
 
     //button
     private JButton reasonInquiryButton;//사유조회
@@ -51,6 +52,7 @@ public class MainView extends JFrame implements ActionListener {
         // setting
         this.dbm = dbm;
         this.userId = userId;
+        
 
         setTitle("MainPage");
         setSize(1082, 701);
@@ -68,9 +70,8 @@ public class MainView extends JFrame implements ActionListener {
 
 
     private void initialize(JPanel frame) {
+
         mainFrame = frame;
-        rentals = dbm.selectRental();
-        showTable();
 
         frame.setLayout(null);
         applyFacilityText = new JTextField();
@@ -198,7 +199,7 @@ public class MainView extends JFrame implements ActionListener {
         frame.add(reasonInquirytext);
 
         table = new JTable();
-        table.setBounds(51, 255, 759, 261);
+        table.setBounds(51, 255, 600, 261);
         frame.add(table);
 
         cancleReservationButton = new JButton("\uC608\uC57D \uCDE8\uC18C");//예약취소버튼
@@ -376,9 +377,10 @@ public class MainView extends JFrame implements ActionListener {
     }
 
     public void showTable() {
+
         String[] colName = {"대여번호", "시작기간", "종료기간", "인원", "사유", "동의인", "건물", "호실", "허가자"};
         model = new DefaultTableModel(colName, 0);
-        model.addRow(colName);
+        //model.addRow(colName);
         for (Rental rental : rentals) {
             String[] row = new String[9];
             row[0] = String.valueOf(rental.getRentalNumber());
@@ -393,11 +395,22 @@ public class MainView extends JFrame implements ActionListener {
             model.addRow(row);
         }
         table = new JTable(model);
-        table.setBounds(29, 255, 781, 261);
+
         table.getColumnModel().getColumn(1).setPreferredWidth(170);
         table.getColumnModel().getColumn(2).setPreferredWidth(170);
         table.getColumnModel().getColumn(4).setPreferredWidth(200);
-        mainFrame.add(table);
+
+        //table.repaint();
+
+        if(scrollPane!=null){
+            mainFrame.remove(scrollPane);
+        }
+        scrollPane=new JScrollPane(table);
+        scrollPane.setBounds(29, 255, 785, 261);
+
+        mainFrame.add(scrollPane);
         setVisible(true);
+
     }
+
 }

@@ -50,7 +50,7 @@ public class DBManager {
     public ArrayList<Rental> selectRental() {
         ArrayList<Rental> rentals = new ArrayList<>();
         try {
-            String query = "SELECT * from 대여내역";
+            String query = "SELECT * from 대여내역 order by 대여번호";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
@@ -138,7 +138,7 @@ public class DBManager {
         return rentals;
     }
 
-    public int insertRental(Timestamp startPeriod, Timestamp endPeriod, Integer personnel, String reason, Integer deuPerson, Integer facility, Integer room, Integer licenser) {
+    public int insertRental(Timestamp startPeriod, Timestamp endPeriod, Integer personnel, String reason, Integer deuPerson, Integer facility, Integer room, Integer licenser) throws SQLException {
         int result;
         try {
             con.setAutoCommit(false);
@@ -169,6 +169,8 @@ public class DBManager {
             pstmt.close();
             System.out.println("Have successfully inserted the rental history.");
         } catch (SQLException e) {
+            con.rollback();
+
             result = e.getErrorCode();
             System.out.println(e.getMessage());
             System.out.println("Failed to insert rental history.");
@@ -209,7 +211,7 @@ public class DBManager {
         return rentals;
     }
 
-    public int deleteRental(Integer rentalNumber, Integer deuPerson) {
+    public int deleteRental(Integer rentalNumber, Integer deuPerson) throws SQLException {
         int result;
         try {
             con.setAutoCommit(false);
@@ -238,6 +240,7 @@ public class DBManager {
                 result = -1;
             }
         } catch (SQLException e) {
+            con.rollback();
             result = e.getErrorCode();
             System.out.println(e.getMessage());
             System.out.println("Failed to delete rental history.");
