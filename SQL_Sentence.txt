@@ -93,6 +93,10 @@ BEGIN
     IF :new.시작기간 < sysdate THEN
         raise_application_error(-20001, '과거 날짜에 대여할 수 없습니다.');
     ELSIF
+        (:new.종료기간 - :new.시작기간) >= 1
+    THEN
+        raise_application_error(-20004, '1일 단위로 대여할 수 있습니다.');
+    ELSIF
         ( to_char(:new.시작기간, 'HH24') BETWEEN 0 AND 6 OR to_char(:new.종료기간, 'HH24') BETWEEN 0 AND 6 )
         AND ( :new.건물 = 27 OR :new.건물 = 28 OR :new.건물 = 29 )
     THEN
