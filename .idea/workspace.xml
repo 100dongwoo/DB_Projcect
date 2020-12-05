@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="여러가지 수정." />
+    <list default="true" id="47ece5ac-2955-47c7-996f-b0910757e471" name="Default Changelist" comment="여러가지 수정.">
+      <change beforePath="$PROJECT_DIR$/SQL_Sentence.txt" beforeDir="false" afterPath="$PROJECT_DIR$/SQL_Sentence.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
